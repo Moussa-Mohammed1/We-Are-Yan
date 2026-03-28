@@ -42,6 +42,13 @@
                     <p class="text-gray-500 mt-1">Your personal donor information</p>
                 </div>
 
+                <a href="{{ route('profile.edit') }}" class="inline-flex items-center gap-2 bg-teal-700 text-white px-5 py-3 rounded-xl font-semibold hover:bg-teal-800 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 3.487a2.25 2.25 0 1 1 3.182 3.182L7.5 19.213 3 21l1.787-4.5L16.862 3.487Z" />
+                    </svg>
+                    Edit Profile
+                </a>
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full md:w-auto">
                     <div class="bg-gray-50 rounded-xl px-5 py-4 min-w-[200px]">
                         <p class="text-xs uppercase text-gray-400 font-semibold">Email</p>
