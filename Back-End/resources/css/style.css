@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'MyFont';
+  src: url('../fonts/RoclinePersonalUseOnly-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyFont2';
+    src: url('../fonts/BricolageGrotesque-VariableFont_opsz\,wdth\,wght.ttf');
+}
+
+.font-princ {
+  font-family: 'MyFont', sans-serif;
+}
+
+.font-sec {
+    font-family: 'MyFont2';
+}
+
+*{
+    scrollbar-width: none;
+}
