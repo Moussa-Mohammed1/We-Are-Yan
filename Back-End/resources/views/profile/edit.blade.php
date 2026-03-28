@@ -23,14 +23,14 @@
             </a>
         </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr] gap-8 items-start max-w-[1500px] mx-auto">
+        <div class="grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-8 items-start max-w-[1500px] mx-auto">
             <div class="space-y-6">
                 <div class="bg-white border border-[#dfdfdf] rounded-[40px] p-6 md:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
                     <p class="text-[#007b67] font-semibold text-sm uppercase tracking-[0.18em]">Profile Settings</p>
-                    <h1 class="font-princ mt-3 text-4xl md:text-5xl font-extrabold leading-tight">Manage Your Account</h1>
+                    <h1 class="mt-3 text-4xl md:text-5xl font-extrabold leading-tight">Manage Your Account</h1>
                     <p class="mt-4 text-[#6d6d6d] text-[16px] leading-7 max-w-[700px]">
                         Update your personal details, secure your password, and manage your account
-                        using the same simple style as the rest of We Are Yan.
+                        with the same visual style used across We Are Yan.
                     </p>
                 </div>
 
@@ -47,17 +47,18 @@
                 </div>
             </div>
 
-            <div class="relative overflow-hidden rounded-[40px] bg-[#00563f] text-white p-8 md:p-12 min-h-[720px] flex flex-col justify-between">
-                <div class="absolute -top-12 -left-12 w-56 h-56 bg-white/10 rounded-full"></div>
-                <div class="absolute bottom-8 right-8 w-40 h-40 bg-white/10 rounded-full"></div>
+            <div class="relative overflow-hidden rounded-[40px] bg-[#00563f] text-white p-8 md:p-12 min-h-[780px] flex flex-col justify-between">
+                <div class="absolute -top-10 -left-10 w-52 h-52 bg-white/10 rounded-full"></div>
+                <div class="absolute top-24 right-8 w-28 h-28 bg-white/10 rounded-full"></div>
+                <div class="absolute bottom-10 right-10 w-40 h-40 bg-white/10 rounded-full"></div>
 
                 <div class="relative z-10">
-                    <span class="inline-block px-4 py-2 rounded-full bg-white/10 text-sm font-semibold">
+                    <span class="inline-flex px-4 py-2 rounded-full bg-white/10 text-sm font-semibold">
                         Account Overview
                     </span>
 
-                    <h2 class="font-princ mt-8 text-4xl md:text-6xl font-extrabold leading-[1.05] max-w-[520px]">
-                        Keep your donor identity up to date.
+                    <h2 class="mt-8 text-4xl md:text-6xl font-extrabold leading-[1.02] max-w-[540px]">
+                        Keep your profile ready for every action.
                     </h2>
 
                     <p class="mt-6 text-white/80 text-[15px] leading-7 max-w-[520px]">
@@ -67,25 +68,33 @@
                 </div>
 
                 <div class="relative z-10 space-y-4">
-                    <div class="bg-white/10 backdrop-blur-sm rounded-[24px] p-5 border border-white/10">
-                        <p class="text-white/70 text-sm">Full name</p>
-                        <h3 class="mt-2 text-2xl font-extrabold">{{ $user->name }}</h3>
-                    </div>
+                    <div class="bg-white text-[#111111] rounded-[28px] p-6 shadow-[0_10px_30px_rgba(0,0,0,0.12)]">
+                        <p class="text-[#6d6d6d] text-sm font-semibold uppercase tracking-[0.16em]">Profile Card</p>
+                        <h3 class="mt-3 text-3xl font-extrabold">{{ $user->name }}</h3>
+                        <p class="mt-2 text-[#666] break-all">{{ $user->email }}</p>
 
-                    <div class="bg-white/10 backdrop-blur-sm rounded-[24px] p-5 border border-white/10">
-                        <p class="text-white/70 text-sm">Email address</p>
-                        <h3 class="mt-2 text-xl font-extrabold break-all">{{ $user->email }}</h3>
+                        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="rounded-[20px] bg-[#f6f5f2] p-4 border border-[#ece8de]">
+                                <p class="text-xs uppercase tracking-[0.14em] text-[#888] font-semibold">Role</p>
+                                <p class="mt-2 text-lg font-bold text-[#111]">{{ ucfirst($user->role) }}</p>
+                            </div>
+
+                            <div class="rounded-[20px] bg-[#f6f5f2] p-4 border border-[#ece8de]">
+                                <p class="text-xs uppercase tracking-[0.14em] text-[#888] font-semibold">City</p>
+                                <p class="mt-2 text-lg font-bold text-[#111]">{{ $user->city ?: 'Not set' }}</p>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="bg-white/10 backdrop-blur-sm rounded-[24px] p-5 border border-white/10">
-                            <p class="text-white/70 text-sm">Role</p>
-                            <h3 class="mt-2 text-xl font-extrabold">{{ ucfirst($user->role) }}</h3>
+                            <p class="text-white/70 text-sm">Profile status</p>
+                            <h3 class="mt-2 text-2xl font-extrabold">Active</h3>
                         </div>
 
                         <div class="bg-white/10 backdrop-blur-sm rounded-[24px] p-5 border border-white/10">
-                            <p class="text-white/70 text-sm">City</p>
-                            <h3 class="mt-2 text-xl font-extrabold">{{ $user->city ?: 'Not set' }}</h3>
+                            <p class="text-white/70 text-sm">Security</p>
+                            <h3 class="mt-2 text-2xl font-extrabold">Protected</h3>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 <section>
     <header>
         <p class="text-[#007b67] font-semibold text-sm uppercase tracking-[0.18em]">Personal Info</p>
-        <h2 class="font-princ mt-3 text-3xl font-extrabold leading-tight text-[#111111]">
+        <h2 class="font-sec mt-3 text-3xl font-extrabold leading-tight text-[#111111]">
             Profile Information
         </h2>
         <p class="mt-3 text-[#6d6d6d] text-[15px] leading-7 max-w-[640px]">

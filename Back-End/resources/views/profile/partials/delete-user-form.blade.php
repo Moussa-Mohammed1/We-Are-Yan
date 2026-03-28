@@ -1,7 +1,7 @@
 <section class="space-y-6">
     <header>
         <p class="text-red-500 font-semibold text-sm uppercase tracking-[0.18em]">Danger Zone</p>
-        <h2 class="font-princ mt-3 text-3xl font-extrabold leading-tight text-[#111111]">
+        <h2 class="font-sec mt-3 text-3xl font-extrabold leading-tight text-[#111111]">
             Delete Account
         </h2>
         <p class="mt-3 text-[#6d6d6d] text-[15px] leading-7 max-w-[700px]">
@@ -23,7 +23,7 @@
             @csrf
             @method('delete')
 
-            <h2 class="font-princ text-3xl font-extrabold text-[#111111]">
+            <h2 class="font-sec text-3xl font-extrabold text-[#111111]">
                 Are you sure you want to delete your account?
             </h2>
 
