@@ -18,6 +18,16 @@ Route::get('/dashboard', function (Request $request) {
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/donor/form', function (Request $request) {
+    $user = $request->user();
+
+    abort_unless($user && $user->role === 'donateur', 403);
+
+    return view('donor.formdonor', [
+        'user' => $user,
+    ]);
+})->middleware(['auth', 'verified'])->name('donor.form');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

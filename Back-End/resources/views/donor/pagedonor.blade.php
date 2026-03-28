@@ -26,9 +26,9 @@
     <div class="max-w-7xl mx-auto px-8 py-6 flex justify-between">
         <div class="flex space-x-3">
             <button class="border border-teal-600 text-teal-600 px-6 py-2 rounded-md font-medium">Dashboard</button>
-            <button class="bg-teal-700 text-white px-6 py-2 rounded-md font-medium flex items-center">
+            <a href="{{ route('donor.form') }}" class="bg-teal-700 text-white px-6 py-2 rounded-md font-medium flex items-center">
                 <span class="mr-2">+</span> Add New Post
-            </button>
+            </a>
         </div>
         <button class="bg-teal-700 text-white px-6 py-2 rounded-md font-medium">← Back To Home</button>
     </div>
