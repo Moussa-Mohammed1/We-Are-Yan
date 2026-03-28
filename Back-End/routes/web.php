@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,10 @@ Route::get('/donor/form', function (Request $request) {
         'user' => $user,
     ]);
 })->middleware(['auth', 'verified'])->name('donor.form');
+
+Route::post('/donor/form', [AnnonceController::class, 'store'])
+    ->middleware(['auth', 'verified'])
+    ->name('donor.form.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
