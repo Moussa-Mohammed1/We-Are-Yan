@@ -52,6 +52,18 @@
             posts are manually reviewed by our moderation team.
           </p>
 
+          <div class="mt-8 bg-[#00563f] text-white rounded-[28px] px-6 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
+            <div>
+              <p class="text-white/70 text-[13px] uppercase tracking-[0.18em] font-semibold">Posting As</p>
+              <h2 class="font-princ text-3xl mt-2">{{ $user->name }}</h2>
+            </div>
+
+            <div class="flex flex-wrap gap-3 text-sm">
+              <span class="px-4 py-2 rounded-full bg-white/10">Role: {{ ucfirst($user->role) }}</span>
+              <span class="px-4 py-2 rounded-full bg-white/10">City: {{ $user->city ?: 'Not set' }}</span>
+            </div>
+          </div>
+
           <div class="mt-10 bg-white border border-[#dfdfdf] rounded-[28px] px-8 py-7 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
             <div class="flex items-center justify-between">
               <h3 class="text-[18px] font-bold text-[#111111]">Step 1: Request Basics</h3>
@@ -76,13 +88,19 @@
             <div class="space-y-7">
               <div>
                 <label class="block text-[16px] font-bold mb-3">Request Title</label>
-                <input type="text" placeholder="ex : Need warm blankets for local shelter"
+                <input
+                  id="requestTitle"
+                  type="text"
+                  placeholder="ex : Need warm blankets for local shelter"
                   class="w-full h-[62px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-5 text-[16px] placeholder:text-[#b0b0b0] outline-none focus:border-[#007b67]" />
               </div>
 
               <div>
                 <label class="block text-[16px] font-bold mb-3">Category</label>
-                <input type="text" placeholder="ex : Clothing & Textiles"
+                <input
+                  id="requestCategory"
+                  type="text"
+                  placeholder="ex : Clothing & Textiles"
                   class="w-full h-[62px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-5 text-[16px] placeholder:text-[#b0b0b0] outline-none focus:border-[#007b67]" />
               </div>
             </div>
@@ -97,23 +115,33 @@
             <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-10">
               <div>
                 <label class="block text-[16px] font-bold mb-3">Quantity Needed</label>
-                <input type="number" placeholder="0"
+                <input
+                  id="requestQuantity"
+                  type="number"
+                  placeholder="0"
                   class="w-full h-[60px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-4 text-[16px] placeholder:text-[#b0b0b0] outline-none focus:border-[#007b67]" />
               </div>
 
               <div>
                 <label class="block text-[16px] font-bold mb-3">Urgency Level</label>
+                <input id="urgencyLevel" type="hidden" value="urgent" />
                 <div class="flex flex-wrap gap-4">
-                  <button type="button"
-                    class="px-8 h-[42px] rounded-[12px] border-2 border-red-500 text-red-500 text-[16px] font-semibold bg-white">
+                  <button
+                    type="button"
+                    data-urgency="urgent"
+                    class="urgency-button px-8 h-[42px] rounded-[12px] border-2 border-red-500 text-red-500 text-[16px] font-semibold bg-white transition">
                     Urgent
                   </button>
-                  <button type="button"
-                    class="px-8 h-[42px] rounded-[12px] border-2 border-amber-500 text-amber-500 text-[16px] font-semibold bg-white">
+                  <button
+                    type="button"
+                    data-urgency="critical"
+                    class="urgency-button px-8 h-[42px] rounded-[12px] border-2 border-amber-500 text-amber-500 text-[16px] font-semibold bg-white transition">
                     Critical
                   </button>
-                  <button type="button"
-                    class="px-8 h-[42px] rounded-[12px] border-2 border-lime-600 text-lime-600 text-[16px] font-semibold bg-white">
+                  <button
+                    type="button"
+                    data-urgency="normal"
+                    class="urgency-button px-8 h-[42px] rounded-[12px] border-2 border-lime-600 text-lime-600 text-[16px] font-semibold bg-white transition">
                     Normal
                   </button>
                 </div>
@@ -122,7 +150,9 @@
 
             <div class="mt-8">
               <label class="block text-[16px] font-bold mb-3">Detailed Description</label>
-              <textarea placeholder="Describe your situation ..."
+              <textarea
+                id="requestDescription"
+                placeholder="Describe your situation ..."
                 class="w-full h-[180px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-4 py-4 text-[16px] placeholder:text-[#b0b0b0] outline-none resize-none focus:border-[#007b67]"></textarea>
             </div>
           </section>
@@ -136,13 +166,24 @@
             <div class="grid grid-cols-1 md:grid-cols-[270px_1fr] gap-10 items-start">
               <div>
                 <label class="block text-[16px] font-bold mb-3">City / Region</label>
-                <input type="text" placeholder="ex : Casablanca"
+                <input
+                  id="requestCity"
+                  type="text"
+                  value="{{ $user->city }}"
+                  placeholder="ex : Casablanca"
                   class="w-full h-[62px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-4 text-[16px] placeholder:text-[#b0b0b0] outline-none focus:border-[#007b67]" />
               </div>
 
               <div>
                 <div class="w-full max-w-[420px] h-[260px] rounded-[18px] overflow-hidden border border-[#d6d6d6]">
-                  <img src="{{ Vite::asset('resources/images/téléchargement (21).jpeg') }}" alt="Map" class="w-full h-full object-cover">
+                  <iframe
+                    id="cityMap"
+                    title="City map"
+                    class="w-full h-full"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q={{ urlencode(($user->city ?: 'Casablanca') . ', Morocco') }}&output=embed">
+                  </iframe>
                 </div>
               </div>
             </div>
@@ -158,7 +199,8 @@
               <div>
                 <label class="block text-[16px] font-bold mb-3">Upload Image</label>
 
-                <label for="requestImage"
+                <label
+                  for="requestImage"
                   class="w-full min-h-[180px] rounded-[18px] border-2 border-dashed border-[#bfbfbf] bg-white/60 flex flex-col items-center justify-center text-center px-6 cursor-pointer hover:border-[#007b67] transition">
                   <svg class="w-12 h-12 text-[#007b67] mb-4" fill="none" stroke="currentColor" stroke-width="1.8"
                     viewBox="0 0 24 24">
@@ -209,11 +251,14 @@
           <h2 class="text-[43px] leading-none font-princ font-bold mb-8 text-[#007b67]">Live Preview</h2>
 
           <div class="bg-white border border-[#dfdfdf] rounded-[24px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] max-w-[420px]">
-            <div id="previewImageContainer"
+            <div
+              id="previewImageContainer"
               class="bg-[#e6e6e6] h-[250px] relative flex items-center justify-center overflow-hidden">
               <div class="absolute top-5 right-5 z-10">
-                <span class="bg-[#007b67] text-white text-[14px] font-semibold px-5 py-2 rounded-full">
-                  Pending Review
+                <span
+                  id="previewUrgencyBadge"
+                  class="bg-red-500 text-white text-[14px] font-semibold px-5 py-2 rounded-full">
+                  Urgent
                 </span>
               </div>
 
@@ -232,17 +277,18 @@
             <div class="p-6">
               <div class="flex items-center gap-3 mb-5">
                 <span
+                  id="previewCategoryBadge"
                   class="bg-[#69b6a4] text-white text-[13px] font-semibold px-4 py-1.5 rounded-[6px] uppercase tracking-wide">
                   Clothing
                 </span>
                 <span class="text-[14px] text-[#777777]">- Just Now</span>
               </div>
 
-              <h3 class="text-[22px] leading-[1.2] font-bold mb-4">
+              <h3 id="previewTitle" class="text-[22px] leading-[1.2] font-bold mb-4">
                 Request Title Preview ...
               </h3>
 
-              <p class="text-[15px] text-[#787878] leading-6">
+              <p id="previewDescription" class="text-[15px] text-[#787878] leading-6">
                 Your detailed description will appear here.
                 Provide as much context as possible to help
                 donors understand your situation.
@@ -254,14 +300,14 @@
                     d="M5.05 8.05A7 7 0 1115 8c0 3.9-5 9-5 9s-4.95-5.1-4.95-8.95zM10 9.5A1.5 1.5 0 1010 6a1.5 1.5 0 000 3.5z"
                     clip-rule="evenodd" />
                 </svg>
-                <span>Casablanca</span>
+                <span id="previewCity">{{ $user->city ?: 'Casablanca' }}</span>
               </div>
 
               <div class="mt-10 flex items-center gap-4">
                 <div class="w-14 h-14 rounded-full bg-[#f79a7a]"></div>
                 <div>
-                  <p class="text-[18px] font-bold leading-none">Full User Name</p>
-                  <p class="text-[14px] text-[#8a8a8a] mt-1">Verified Beneficiary</p>
+                  <p class="text-[18px] font-bold leading-none">{{ $user->name }}</p>
+                  <p class="text-[14px] text-[#8a8a8a] mt-1">Verified Donor</p>
                 </div>
               </div>
             </div>
@@ -278,36 +324,104 @@
 
   </div>
 
-</body>
+  <script>
+    const requestImageInput = document.getElementById('requestImage');
+    const previewImage = document.getElementById('previewImage');
+    const previewPlaceholder = document.getElementById('previewPlaceholder');
+    const fileName = document.getElementById('fileName');
+    const requestTitle = document.getElementById('requestTitle');
+    const requestCategory = document.getElementById('requestCategory');
+    const requestDescription = document.getElementById('requestDescription');
+    const requestCity = document.getElementById('requestCity');
+    const previewTitle = document.getElementById('previewTitle');
+    const previewCategoryBadge = document.getElementById('previewCategoryBadge');
+    const previewDescription = document.getElementById('previewDescription');
+    const previewCity = document.getElementById('previewCity');
+    const cityMap = document.getElementById('cityMap');
+    const urgencyButtons = document.querySelectorAll('.urgency-button');
+    const urgencyLevelInput = document.getElementById('urgencyLevel');
+    const previewUrgencyBadge = document.getElementById('previewUrgencyBadge');
+    const defaultCity = @json($user->city ?: 'Casablanca');
 
-<script>
-  const requestImageInput = document.getElementById('requestImage');
-  const previewImage = document.getElementById('previewImage');
-  const previewPlaceholder = document.getElementById('previewPlaceholder');
-  const fileName = document.getElementById('fileName');
-
-  requestImageInput.addEventListener('change', function () {
-    const file = this.files[0];
-
-    if (file) {
-      fileName.textContent = file.name;
-
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        previewImage.src = e.target.result;
-        previewImage.classList.remove('hidden');
-        previewPlaceholder.classList.add('hidden');
-      };
-
-      reader.readAsDataURL(file);
-    } else {
-      fileName.textContent = 'No image selected';
-      previewImage.src = '';
-      previewImage.classList.add('hidden');
-      previewPlaceholder.classList.remove('hidden');
+    function updatePreview() {
+      previewTitle.textContent = requestTitle.value.trim() || 'Request Title Preview ...';
+      previewCategoryBadge.textContent = requestCategory.value.trim() || 'Clothing';
+      previewDescription.textContent = requestDescription.value.trim() || 'Your detailed description will appear here. Provide as much context as possible to help donors understand your situation.';
+      previewCity.textContent = requestCity.value.trim() || defaultCity;
     }
-  });
-</script>
+
+    function updateMap() {
+      const cityValue = requestCity.value.trim() || defaultCity;
+      cityMap.src = `https://www.google.com/maps?q=${encodeURIComponent(cityValue + ', Morocco')}&output=embed`;
+    }
+
+    function updateUrgencyButtons(selectedValue) {
+      urgencyButtons.forEach((button) => {
+        button.classList.remove('bg-red-500', 'bg-amber-500', 'bg-lime-600', 'text-white');
+        button.classList.add('bg-white');
+
+        if (button.dataset.urgency === selectedValue) {
+          button.classList.remove('bg-white');
+
+          if (selectedValue === 'urgent') {
+            button.classList.add('bg-red-500', 'text-white');
+            previewUrgencyBadge.textContent = 'Urgent';
+            previewUrgencyBadge.className = 'bg-red-500 text-white text-[14px] font-semibold px-5 py-2 rounded-full';
+          } else if (selectedValue === 'critical') {
+            button.classList.add('bg-amber-500', 'text-white');
+            previewUrgencyBadge.textContent = 'Critical';
+            previewUrgencyBadge.className = 'bg-amber-500 text-white text-[14px] font-semibold px-5 py-2 rounded-full';
+          } else {
+            button.classList.add('bg-lime-600', 'text-white');
+            previewUrgencyBadge.textContent = 'Normal';
+            previewUrgencyBadge.className = 'bg-lime-600 text-white text-[14px] font-semibold px-5 py-2 rounded-full';
+          }
+        }
+      });
+    }
+
+    requestTitle.addEventListener('input', updatePreview);
+    requestCategory.addEventListener('input', updatePreview);
+    requestDescription.addEventListener('input', updatePreview);
+    requestCity.addEventListener('input', updatePreview);
+    requestCity.addEventListener('input', updateMap);
+
+    urgencyButtons.forEach((button) => {
+      button.addEventListener('click', function () {
+        const selectedValue = this.dataset.urgency;
+        urgencyLevelInput.value = selectedValue;
+        updateUrgencyButtons(selectedValue);
+      });
+    });
+
+    updatePreview();
+    updateMap();
+    updateUrgencyButtons(urgencyLevelInput.value);
+
+    requestImageInput.addEventListener('change', function () {
+      const file = this.files[0];
+
+      if (file) {
+        fileName.textContent = file.name;
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          previewImage.src = e.target.result;
+          previewImage.classList.remove('hidden');
+          previewPlaceholder.classList.add('hidden');
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        fileName.textContent = 'No image selected';
+        previewImage.src = '';
+        previewImage.classList.add('hidden');
+        previewPlaceholder.classList.remove('hidden');
+      }
+    });
+  </script>
+
+</body>
 
 </html>
