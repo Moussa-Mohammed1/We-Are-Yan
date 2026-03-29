@@ -341,7 +341,6 @@
                 <div class="w-14 h-14 rounded-full bg-[#f79a7a]"></div>
                 <div>
                   <p class="text-[18px] font-bold leading-none">{{ $user->name }}</p>
-                  <p class="text-[14px] text-[#8a8a8a] mt-1">Beneficiary ID {{ $user->id }}</p>
                 </div>
               </div>
             </div>
