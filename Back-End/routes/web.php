@@ -13,34 +13,41 @@ Route::get('/', function () {
 Route::get('/dashboard', function (Request $request) {
     $user = $request->user();
 
-    abort_unless($user && $user->role === 'donateur', 403);
-
     $annonces = Annonce::with('beneficiary')->latest()->get();
 
     return view('donor.pagedonor', [
         'user' => $user,
         'annonces' => $annonces,
     ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:donateur'])->name('dashboard');
+
+Route::get('/beneficiary/dashboard', function (Request $request) {
+    $user = $request->user();
+
+    $annonces = Annonce::where('beneficiary_id', $user->id)
+        ->latest()
+        ->get();
+
+    return view('beneficiary.dashboard', [
+        'user' => $user,
+        'annonces' => $annonces,
+    ]);
+})->middleware(['auth', 'verified', 'role:beneficiaire'])->name('beneficiary.dashboard');
 
 Route::get('/donor/form', function (Request $request) {
     $user = $request->user();
 
-    abort_unless($user && $user->role === 'donateur', 403);
-
     return view('donor.formdonor', [
         'user' => $user,
     ]);
-})->middleware(['auth', 'verified'])->name('donor.form');
+})->middleware(['auth', 'verified', 'role:beneficiaire'])->name('donor.form');
 
 Route::post('/donor/form', [AnnonceController::class, 'store'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'role:beneficiaire'])
     ->name('donor.form.store');
 
 Route::get('/annonces/{annonce}', function (Request $request, Annonce $annonce) {
     $user = $request->user();
-
-    abort_unless($user && $user->role === 'donateur', 403);
 
     $annonce->load('beneficiary');
 
@@ -48,7 +55,7 @@ Route::get('/annonces/{annonce}', function (Request $request, Annonce $annonce) 
         'user' => $user,
         'annonce' => $annonce,
     ]);
-})->middleware(['auth', 'verified'])->name('annonces.show');
+})->middleware(['auth', 'verified', 'role:donateur'])->name('annonces.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -16,7 +16,7 @@
                 </div>
             </a>
 
-            <a href="{{ route('dashboard') }}"
+            <a href="{{ route($user->homeRouteName()) }}"
                class="hidden md:inline-flex items-center gap-2 bg-[#007b67] text-white px-7 py-3 rounded-full font-semibold hover:bg-[#006554] transition">
                 Back Dashboard
                 <span>&rarr;</span>

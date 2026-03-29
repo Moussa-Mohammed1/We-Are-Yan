@@ -19,7 +19,7 @@
           <img src="{{ Vite::asset('resources/images/logowry.png') }}" alt="Logo" class="h-14 object-contain">
         </a>
 
-        <a href="{{ route('dashboard') }}"
+        <a href="{{ route($user->homeRouteName()) }}"
           class="bg-[#007b67] text-white px-8 py-4 rounded-full text-[15px] font-semibold flex items-center gap-2 hover:bg-[#006554] transition">
           Back Dashboard
           <span>&rarr;</span>

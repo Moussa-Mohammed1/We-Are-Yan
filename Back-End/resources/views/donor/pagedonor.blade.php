@@ -26,11 +26,11 @@
     <div class="max-w-7xl mx-auto px-8 py-6 flex justify-between">
         <div class="flex space-x-3">
             <button class="border border-teal-600 text-teal-600 px-6 py-2 rounded-md font-medium">Dashboard</button>
-            <a href="{{ route('donor.form') }}" class="bg-teal-700 text-white px-6 py-2 rounded-md font-medium flex items-center">
-                <span class="mr-2">+</span> Add New Post
+            <a href="{{ route('profile.edit') }}" class="bg-teal-700 text-white px-6 py-2 rounded-md font-medium flex items-center">
+                <span class="mr-2">+</span> Edit Profile
             </a>
         </div>
-        <button class="bg-teal-700 text-white px-6 py-2 rounded-md font-medium">← Back To Home</button>
+        <a href="{{ url('/') }}" class="bg-teal-700 text-white px-6 py-2 rounded-md font-medium">Back To Home</a>
     </div>
 
     <main class="max-w-7xl mx-auto px-8">
@@ -71,16 +71,16 @@
         <div class="relative bg-teal-600 rounded-2xl p-10 overflow-hidden mb-12 text-white">
             <div class="relative z-10 max-w-lg">
                 <p class="uppercase tracking-widest text-sm mb-2 opacity-90 font-semibold">Community Support</p>
-                <h1 class="text-4xl font-bold leading-tight mb-6">Help Connect Donors With Families And Communities Who Need Support</h1>
-                <a href="{{ route('donor.form') }}" class="inline-flex bg-gray-900 text-white px-8 py-3 rounded-full items-center space-x-3 hover:bg-black">
-                    <span>Create a Request</span>
+                <h1 class="text-4xl font-bold leading-tight mb-6">Explore active requests and support families and communities in need.</h1>
+                <a href="#requests" class="inline-flex bg-gray-900 text-white px-8 py-3 rounded-full items-center space-x-3 hover:bg-black">
+                    <span>Browse Requests</span>
                     <span class="bg-white text-black rounded-full w-6 h-6 flex items-center justify-center text-xs">&rarr;</span>
                 </a>
             </div>
             <div class="absolute top-0 right-0 w-64 h-full bg-teal-500 opacity-20 -skew-x-12 translate-x-10"></div>
         </div>
 
-        <h2 class="text-3xl font-extrabold text-gray-800 mb-8">Let's Give Help To<br>Those In Need</h2>
+        <h2 id="requests" class="text-3xl font-extrabold text-gray-800 mb-8">Let's Give Help To<br>Those In Need</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             @forelse ($annonces as $annonce)

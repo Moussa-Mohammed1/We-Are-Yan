@@ -30,7 +30,7 @@ class AnnonceController extends Controller
         ]);
 
         return redirect()
-            ->route('donor.form')
+            ->route($request->user()->homeRouteName())
             ->with('status', 'annonce-created');
     }
 }

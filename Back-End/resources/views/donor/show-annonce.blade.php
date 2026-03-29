@@ -28,9 +28,9 @@
                        class="hidden md:inline-flex items-center px-5 py-3 rounded-full border border-[#d8d8d8] bg-white text-[#111] font-semibold hover:bg-[#f3f3f3] transition">
                         Back
                     </a>
-                    <a href="{{ route('donor.form') }}"
+                    <a href="{{ route('profile.edit') }}"
                        class="hidden md:inline-flex items-center px-5 py-3 rounded-full bg-[#007b67] text-white font-semibold hover:bg-[#006554] transition">
-                        New Post
+                        Edit Profile
                     </a>
                 </div>
             </div>
