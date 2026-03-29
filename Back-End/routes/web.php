@@ -7,7 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $featuredAnnonce = Annonce::with('beneficiary')
+        ->where('status', 'approved')
+        ->latest()
+        ->first()
+        ?? Annonce::with('beneficiary')->latest()->first();
+
+    return view('welcome', [
+        'featuredAnnonce' => $featuredAnnonce,
+    ]);
 });
 
 Route::get('/dashboard', function (Request $request) {

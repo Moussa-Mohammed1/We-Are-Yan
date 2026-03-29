@@ -88,36 +88,75 @@
     <section class="px-8 md:px-14 lg:px-20 pt-24">
       <div class="border border-[#7f7f7f] rounded-[42px] px-8 md:px-12 py-10 flex flex-col lg:flex-row items-center justify-between gap-10">
         <div class="w-full lg:w-[48%]">
-          <p class="text-[#007b67] text-[54px] font-extrabold leading-none font-princ">
-            $20<span class="text-[16px] font-medium text-[#444] align-middle"> /MON</span>
-          </p>
-          <p class="text-[11px] text-[#6b6b6b] mt-2">&copy; Make One Time Donation</p>
+          @if ($featuredAnnonce)
+            <p class="text-[#007b67] text-[54px] font-extrabold leading-none font-princ">
+              {{ $featuredAnnonce->quantity ?? '1' }}<span class="text-[16px] font-medium text-[#444] align-middle"> ITEMS NEEDED</span>
+            </p>
+            <p class="text-[11px] text-[#6b6b6b] mt-2 uppercase tracking-[0.18em]">{{ $featuredAnnonce->category }}</p>
 
-          <h2 class="text-[58px] leading-[1.05] font-princ mt-8 max-w-[560px]">
-            Share Food With Others Who Is In Need
-          </h2>
+            <h2 class="text-[58px] leading-[1.05] font-princ mt-8 max-w-[560px]">
+              {{ $featuredAnnonce->title }}
+            </h2>
 
-          <p class="text-[15px] text-[#666] mt-6 max-w-[560px] leading-7">
-            In carrying out their duties, charitable foundations provide a variety of social services
-            such as education, food, medicine, housing, and others
-          </p>
+            <p class="text-[15px] text-[#666] mt-6 max-w-[560px] leading-7">
+              {{ \Illuminate\Support\Str::limit($featuredAnnonce->description, 180) }}
+            </p>
 
-          <div class="flex justify-between text-[13px] text-[#555] mt-8 font-medium">
-            <span>Raised : $69,152</span>
-            <span>Goal : $89,000</span>
-          </div>
+            <div class="flex justify-between text-[13px] text-[#555] mt-8 font-medium gap-6 flex-wrap">
+              <span>City : {{ $featuredAnnonce->city }}</span>
+              <span>Posted by : {{ $featuredAnnonce->beneficiary?->name ?? 'Community member' }}</span>
+            </div>
 
-          <div class="w-full h-[12px] bg-[#d8d8d8] rounded-full mt-3 overflow-hidden">
-            <div class="h-full w-[65%] bg-[#007b67] rounded-full"></div>
-          </div>
+            <div class="w-full h-[12px] bg-[#d8d8d8] rounded-full mt-3 overflow-hidden">
+              <div class="h-full {{ in_array($featuredAnnonce->urgency, ['urgent', 'critical']) ? 'w-[85%]' : 'w-[60%]' }} bg-[#007b67] rounded-full"></div>
+            </div>
 
-          <button class="mt-8 bg-[#007b67] hover:bg-[#006554] text-white rounded-full px-12 py-4 text-[22px] font-semibold w-[290px]">
-            Donate Now
-          </button>
+            <a href="{{ route('register') }}" class="inline-flex mt-8 bg-[#007b67] hover:bg-[#006554] text-white rounded-full px-12 py-4 text-[22px] font-semibold w-[290px] justify-center">
+              Donate Now
+            </a>
+          @else
+            <p class="text-[#007b67] text-[54px] font-extrabold leading-none font-princ">
+              0<span class="text-[16px] font-medium text-[#444] align-middle"> ACTIVE REQUESTS</span>
+            </p>
+            <p class="text-[11px] text-[#6b6b6b] mt-2 uppercase tracking-[0.18em]">Community Support</p>
+
+            <h2 class="text-[58px] leading-[1.05] font-princ mt-8 max-w-[560px]">
+              Support the next request as soon as it is published
+            </h2>
+
+            <p class="text-[15px] text-[#666] mt-6 max-w-[560px] leading-7">
+              Join We Are Yan today so you are ready to discover verified requests and help people in need as soon as new annonces go live.
+            </p>
+
+            <div class="flex justify-between text-[13px] text-[#555] mt-8 font-medium">
+              <span>Status : Waiting for new requests</span>
+              <span>Access : Sign up to start</span>
+            </div>
+
+            <div class="w-full h-[12px] bg-[#d8d8d8] rounded-full mt-3 overflow-hidden">
+              <div class="h-full w-[25%] bg-[#007b67] rounded-full"></div>
+            </div>
+
+            <a href="{{ route('register') }}" class="inline-flex mt-8 bg-[#007b67] hover:bg-[#006554] text-white rounded-full px-12 py-4 text-[22px] font-semibold w-[290px] justify-center">
+              Donate Now
+            </a>
+          @endif
         </div>
 
         <div class="w-full lg:w-[42%]">
-          <img src="{{ Vite::asset('resources/images/téléchargement (20).jpeg') }}" alt="Donation" class="w-full h-[420px] object-cover rounded-[34px]">
+          @if ($featuredAnnonce?->image)
+            <img src="{{ asset('storage/' . $featuredAnnonce->image) }}" alt="{{ $featuredAnnonce->title }}" class="w-full h-[420px] object-cover rounded-[34px]">
+          @else
+            <div class="w-full h-[420px] rounded-[34px] bg-[#eef6f3] border border-[#d7e9e2] flex flex-col items-center justify-center text-center px-8">
+              <p class="text-[18px] uppercase tracking-[0.18em] text-[#007b67] font-semibold">Featured Request</p>
+              <h3 class="mt-4 text-[36px] leading-[1.1] font-princ text-[#00563f]">
+                {{ $featuredAnnonce?->category ?? 'A new community need will appear here' }}
+              </h3>
+              <p class="mt-4 text-[15px] text-[#5f6f69] max-w-[360px] leading-7">
+                {{ $featuredAnnonce ? 'No image was uploaded for this annonce yet, but donors can still learn about the need and offer support.' : 'Once beneficiaries publish verified requests, this area will highlight one of them for donors.' }}
+              </p>
+            </div>
+          @endif
         </div>
       </div>
     </section>
@@ -187,10 +226,10 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         <div>
           <h2 class="text-[60px] leading-[1.05] font-princ max-w-[500px]">
-            Find Answers to Your Donation Questions
+            Find Answers About Requests, Donations, And Community Support
           </h2>
           <p class="text-[15px] text-[#777] mt-6 max-w-[400px] leading-7">
-            Et felis vitae ac venenatis lacus cras etiam risus scelerisque auctor adipiscing in a porta
+            Learn how We Are Yan connects donors with verified needs, how requests are reviewed, and how support reaches people who need it most.
           </p>
 
           <div class="mt-16 ml-8">
@@ -202,45 +241,65 @@
         </div>
 
         <div class="space-y-5">
-          <details class="bg-transparent border border-[#8a8a8a] rounded-2xl px-6 py-5">
-            <summary class="cursor-pointer list-none flex items-center justify-between text-[15px] font-medium">
-              Is there a free trial?
-              <span>+</span>
-            </summary>
-          </details>
+          <div class="faq-item bg-transparent border border-[#8a8a8a] rounded-2xl px-6 py-5">
+            <button type="button" class="faq-toggle w-full flex items-center justify-between text-left text-[15px] font-medium" aria-expanded="false">
+              <span>How do I post a request for help?</span>
+              <span class="faq-icon text-[#1e1e1e]">+</span>
+            </button>
+            <div class="faq-answer hidden">
+              <p class="text-[13px] text-[#666] leading-6 mt-5">
+                Create a beneficiary account, open your dashboard, and complete the request form with the title, category, quantity, city, urgency, and a clear description of your need.
+              </p>
+            </div>
+          </div>
 
-          <details open class="bg-transparent border border-[#8a8a8a] rounded-2xl px-6 py-5">
-            <summary class="cursor-pointer list-none flex items-center justify-between text-[15px] font-semibold text-[#007b67]">
-              How many courses can I take at the same time?
-              <span class="text-[#1e1e1e]">-</span>
-            </summary>
-            <p class="text-[13px] text-[#666] leading-6 mt-5">
-              Adipiscing sagittis neque egestas id platea accumsan. Morbi nisi platea urna curabitur habitant pulvinar
-              lacinia neque. Netus gravida amet, aliquam quam turpis aliquet cras. Erat adipiscing dolor in reprehenderit
-              voluptate velit esse cillum dolore eu nulla pariatur. Sit amet, adipiscing elit.
-            </p>
-          </details>
+          <div class="faq-item bg-transparent border border-[#8a8a8a] rounded-2xl px-6 py-5">
+            <button type="button" class="faq-toggle w-full flex items-center justify-between text-left text-[15px] font-semibold text-[#007b67]" aria-expanded="true">
+              <span>How are donation requests reviewed before they appear?</span>
+              <span class="faq-icon text-[#1e1e1e]">-</span>
+            </button>
+            <div class="faq-answer">
+              <p class="text-[13px] text-[#666] leading-6 mt-5">
+                Every request is checked by the administrative team before publication. This review helps confirm the request details, keep the platform safe, and make sure donors see clear and relevant needs.
+              </p>
+            </div>
+          </div>
 
-          <details class="bg-transparent border border-[#8a8a8a] rounded-2xl px-6 py-5">
-            <summary class="cursor-pointer list-none flex items-center justify-between text-[15px] font-medium">
-              How can I choose my teacher?
-              <span>+</span>
-            </summary>
-          </details>
+          <div class="faq-item bg-transparent border border-[#8a8a8a] rounded-2xl px-6 py-5">
+            <button type="button" class="faq-toggle w-full flex items-center justify-between text-left text-[15px] font-medium" aria-expanded="false">
+              <span>Who can create requests and who can donate?</span>
+              <span class="faq-icon text-[#1e1e1e]">+</span>
+            </button>
+            <div class="faq-answer hidden">
+              <p class="text-[13px] text-[#666] leading-6 mt-5">
+                Beneficiaries create requests for help, and donors browse approved annonces to support people, families, and communities through the platform.
+              </p>
+            </div>
+          </div>
 
-          <details class="bg-transparent border border-[#8a8a8a] rounded-2xl px-6 py-5">
-            <summary class="cursor-pointer list-none flex items-center justify-between text-[15px] font-medium">
-              How much do the courses cost?
-              <span>+</span>
-            </summary>
-          </details>
+          <div class="faq-item bg-transparent border border-[#8a8a8a] rounded-2xl px-6 py-5">
+            <button type="button" class="faq-toggle w-full flex items-center justify-between text-left text-[15px] font-medium" aria-expanded="false">
+              <span>What types of needs can be shared on the platform?</span>
+              <span class="faq-icon text-[#1e1e1e]">+</span>
+            </button>
+            <div class="faq-answer hidden">
+              <p class="text-[13px] text-[#666] leading-6 mt-5">
+                Requests can include essential items such as food, clothing, school supplies, medicine, shelter support, or other urgent community needs that match the platform rules.
+              </p>
+            </div>
+          </div>
 
-          <details class="bg-transparent border border-[#8a8a8a] rounded-2xl px-6 py-5">
-            <summary class="cursor-pointer list-none flex items-center justify-between text-[15px] font-medium">
-              How can I track my progress?
-              <span>+</span>
-            </summary>
-          </details>
+          <div class="faq-item bg-transparent border border-[#8a8a8a] rounded-2xl px-6 py-5">
+            <button type="button" class="faq-toggle w-full flex items-center justify-between text-left text-[15px] font-medium" aria-expanded="false">
+              <span>How can I follow the status of my request?</span>
+              <span class="faq-icon text-[#1e1e1e]">+</span>
+            </button>
+            <div class="faq-answer hidden">
+              <p class="text-[13px] text-[#666] leading-6 mt-5">
+                After logging in as a beneficiary, you can open your dashboard to view your annonces and track whether each request is pending, approved, or rejected.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -257,16 +316,16 @@
         </div>
 
         <div class="w-full lg:w-[620px]">
-          <div class="bg-white rounded-full p-2 flex items-center justify-between">
+          <form action="{{ route('register') }}" method="GET" class="bg-white rounded-full p-2 flex items-center justify-between">
             <input
               type="email"
               placeholder="Enter your email"
               class="flex-1 px-8 py-5 rounded-full outline-none text-[16px] text-[#333] bg-transparent"
             />
-            <button class="bg-[#007b67] hover:bg-[#006554] text-white px-10 py-5 rounded-full text-[16px] font-semibold min-w-[170px]">
+            <button type="submit" class="bg-[#007b67] hover:bg-[#006554] text-white px-10 py-5 rounded-full text-[16px] font-semibold min-w-[170px]">
               Subscribe
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </section>
@@ -294,6 +353,39 @@
     </footer>
 
   </div>
+
+  <script>
+    const faqToggles = document.querySelectorAll('.faq-toggle');
+
+    faqToggles.forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        const item = toggle.closest('.faq-item');
+        const answer = item.querySelector('.faq-answer');
+        const icon = item.querySelector('.faq-icon');
+        const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+
+        faqToggles.forEach((otherToggle) => {
+          const otherItem = otherToggle.closest('.faq-item');
+          const otherAnswer = otherItem.querySelector('.faq-answer');
+          const otherIcon = otherItem.querySelector('.faq-icon');
+
+          otherToggle.setAttribute('aria-expanded', 'false');
+          otherToggle.classList.remove('text-[#007b67]', 'font-semibold');
+          otherToggle.classList.add('font-medium');
+          otherAnswer.classList.add('hidden');
+          otherIcon.textContent = '+';
+        });
+
+        if (!isOpen) {
+          toggle.setAttribute('aria-expanded', 'true');
+          toggle.classList.add('text-[#007b67]', 'font-semibold');
+          toggle.classList.remove('font-medium');
+          answer.classList.remove('hidden');
+          icon.textContent = '-';
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
