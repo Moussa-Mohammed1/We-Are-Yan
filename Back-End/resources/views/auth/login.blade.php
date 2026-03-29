@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login - We Are Yan</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/style.css', 'resources/js/app.js'])
 </head>
-<body class="bg-[#f6f5f2] text-[#111111] min-h-screen">
+<body class="bg-[#f6f5f2] text-[#111111] min-h-screen font-sec">
 
     <section class="min-h-screen px-6 py-8 md:px-10 lg:px-16">
         <!-- top -->
         <div class="flex items-center justify-between mb-8">
             <a href="{{ url('/') }}" class="text-[#007b67] font-extrabold text-3xl leading-none">
                 <div class="flex items-center">
-                    <img src="{{ asset('images/logowry.png') }}" alt="We Are Yan Logo" class="h-16 object-contain">
+                    <img src="{{ Vite::asset('resources/images/logowry.png') }}" alt="Logo" class="h-16 object-contain">
                 </div>
             </a>
 
@@ -37,7 +37,7 @@
                         Welcome Back
                     </span>
 
-                    <h1 class="mt-8 text-4xl md:text-6xl font-extrabold leading-[1.05] max-w-[520px]">
+                    <h1 class="font-sec mt-8 text-4xl md:text-6xl font-extrabold leading-[1.05] max-w-[520px]">
                         Continue helping those who need it.
                     </h1>
 
@@ -70,7 +70,7 @@
                 <div class="w-full max-w-[560px] mx-auto">
                     <div class="mb-8">
                         <p class="text-[#007b67] font-semibold text-sm uppercase tracking-[0.18em]">Account Access</p>
-                        <h2 class="mt-3 text-4xl md:text-5xl font-extrabold leading-tight">Login</h2>
+                        <h2 class="font-sec mt-3 text-4xl md:text-5xl font-extrabold leading-tight">Login</h2>
                         <p class="mt-3 text-[#6d6d6d] text-[16px] leading-7">
                             Enter your credentials to access your dashboard.
                         </p>

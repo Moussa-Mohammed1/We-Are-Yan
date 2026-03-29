@@ -84,48 +84,57 @@
         <h2 class="text-3xl font-extrabold text-gray-800 mb-8">Let's Give Help To<br>Those In Need</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            
-            <script>
-                const cardData = [
-                    { tag: 'URGENT', color: 'text-red-500 border-red-500' },
-                    { tag: 'CRITICAL', color: 'text-orange-500 border-orange-500' },
-                    { tag: 'NORMAL', color: 'text-green-500 border-green-500' },
-                    { tag: 'URGENT', color: 'text-red-500 border-red-500' },
-                    { tag: 'CRITICAL', color: 'text-orange-500 border-orange-500' },
-                    { tag: 'NORMAL', color: 'text-green-500 border-green-500' }
-                ];
+            @forelse ($annonces as $annonce)
+                @php
+                    $urgencyClasses = match ($annonce->urgency) {
+                        'urgent' => 'text-red-500 border-red-500 bg-red-50',
+                        'critical' => 'text-orange-500 border-orange-500 bg-orange-50',
+                        default => 'text-green-600 border-green-600 bg-green-50',
+                    };
+                @endphp
 
-                document.write(cardData.map(card => `
-                    <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition">
-                        <div class="p-4">
-                            <img src="https://via.placeholder.com/400x300" alt="Cause" class="w-full h-48 object-cover rounded-2xl mb-4">
-                            
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-teal-600 font-bold text-lg">$20<span class="text-xs text-gray-400">/MON</span></span>
-                                <span class="border ${card.color} text-[10px] px-2 py-0.5 rounded italic">${card.tag}</span>
+                <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition">
+                    <div class="p-4">
+                        @if ($annonce->image)
+                            <img src="{{ asset('storage/' . $annonce->image) }}" alt="{{ $annonce->title }}" class="w-full h-48 object-cover rounded-2xl mb-4">
+                        @else
+                            <div class="w-full h-48 rounded-2xl mb-4 bg-[#eef6f3] flex items-center justify-center text-[#007b67] font-bold text-lg">
+                                No Image
                             </div>
-                            
-                            <h3 class="font-bold text-gray-800 text-lg mb-2">Share Food With Others In Need</h3>
-                            <p class="text-gray-500 text-xs leading-relaxed mb-4">
-                                In carrying out their duties, charitable foundations food, medicine, food.
-                            </p>
+                        @endif
 
-                            <div class="flex justify-between text-[10px] mb-1 font-semibold text-gray-400">
-                                <span>Raised: $84,702</span>
-                                <span>Goal: $90,000</span>
-                            </div>
-                            <div class="w-full bg-gray-100 rounded-full h-1.5 mb-6">
-                                <div class="bg-teal-600 h-1.5 rounded-full" style="width: 85%"></div>
-                            </div>
-
-                            <button class="w-full bg-teal-800 text-white py-3 rounded-xl font-bold hover:bg-teal-900 transition">
-                                Donate Now
-                            </button>
+                        <div class="flex justify-between items-center gap-3 mb-3">
+                            <span class="text-teal-600 font-bold text-sm uppercase tracking-wide">{{ $annonce->category }}</span>
+                            <span class="border {{ $urgencyClasses }} text-[10px] px-3 py-1 rounded-full font-semibold uppercase">
+                                {{ $annonce->urgency }}
+                            </span>
                         </div>
-                    </div>
-                `).join(''));
-            </script>
 
+                        <h3 class="font-bold text-gray-800 text-lg mb-2">{{ $annonce->title }}</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                            {{ \Illuminate\Support\Str::limit($annonce->description, 110) }}
+                        </p>
+
+                        <div class="space-y-2 text-sm text-gray-600 mb-5">
+                            <p><span class="font-semibold text-gray-800">City:</span> {{ $annonce->city }}</p>
+                            <p><span class="font-semibold text-gray-800">Quantity:</span> {{ $annonce->quantity ?? 'Not specified' }}</p>
+                        </div>
+
+                        <div class="flex items-center justify-between text-xs text-gray-400 mb-4">
+                            <span>Posted by {{ $annonce->beneficiary?->name ?? 'Unknown user' }}</span>
+                            <span>{{ $annonce->created_at?->diffForHumans() }}</span>
+                        </div>
+
+                        <a href="{{ route('annonces.show', $annonce) }}" class="block w-full bg-teal-800 text-white py-3 rounded-xl font-bold hover:bg-teal-900 transition text-center">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            @empty
+                <div class="md:col-span-2 lg:col-span-3 bg-white border border-[#dfdfdf] rounded-[28px] px-8 py-12 text-center text-[#666] shadow-sm">
+                    No annonces available yet.
+                </div>
+            @endforelse
         </div>
 
         <div class="flex justify-center mb-20">

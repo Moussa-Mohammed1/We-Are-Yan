@@ -14,7 +14,7 @@
     <header class="w-full px-10 md:px-16 lg:px-20 pt-8">
       <div class="flex items-center justify-between">
         <div class="flex items-center">
-          <span class="text-[#007b67] text-3xl font-princ leading-none">We Are Yan</span>
+          <img src="{{ Vite::asset('resources/images/logowry.png') }}" alt="Logo" class="h-16 object-contain">
         </div>
 
         <nav class="hidden md:flex items-center gap-10 text-[15px] font-medium text-[#1e1e1e]">
@@ -274,7 +274,7 @@
     <footer class="bg-[#f7f7f5] px-8 md:px-14 lg:px-20 py-14">
       <div class="flex flex-col lg:flex-row items-center justify-between gap-10">
         <div>
-          <img src="{{ Vite::asset('resources/images/téléchargement (21).jpeg') }}" alt="Community support" class="h-20 w-20 object-cover rounded-2xl">
+          <img src="{{ Vite::asset('resources/images/logowry.png') }}" alt="Logo" class="h-20 object-contain">
         </div>
 
         <div class="flex flex-wrap justify-center gap-12 text-[16px] font-medium text-[#333]">

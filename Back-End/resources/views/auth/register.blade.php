@@ -6,7 +6,7 @@
     <title>Sign Up - We Are Yan</title>
     @vite(['resources/css/app.css', 'resources/css/style.css', 'resources/js/app.js', 'resources/js/city.js'])
 </head>
-<body class="bg-[#f6f5f2] text-[#111111] min-h-screen">
+<body class="bg-[#f6f5f2] text-[#111111] min-h-screen font-sec">
 
     <section class="min-h-screen px-6 py-8 md:px-10 lg:px-16">
         <!-- top -->
@@ -32,7 +32,7 @@
                 <div class="w-full max-w-[620px] mx-auto">
                     <div class="mb-8">
                         <p class="text-[#007b67] font-semibold text-sm uppercase tracking-[0.18em]">Join Community</p>
-                        <h2 class="font-princ mt-3 text-4xl md:text-5xl font-extrabold leading-tight">Create Account</h2>
+                        <h2 class="font-sec mt-3 text-4xl md:text-5xl font-extrabold leading-tight">Create Account</h2>
                         <p class="mt-3 text-[#6d6d6d] text-[16px] leading-7">
                             Sign up and become part of a community that connects help to those who need it.
                         </p>
@@ -185,7 +185,7 @@
                         Start Your Journey
                     </span>
 
-                    <h1 class="font-princ mt-8 text-4xl md:text-6xl font-extrabold leading-[1.05] max-w-[520px]">
+                    <h1 class="font-sec mt-8 text-4xl md:text-6xl font-extrabold leading-[1.05] max-w-[520px]">
                         Make every action count.
                     </h1>
 

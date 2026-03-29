@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Annonce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +15,11 @@ Route::get('/dashboard', function (Request $request) {
 
     abort_unless($user && $user->role === 'donateur', 403);
 
+    $annonces = Annonce::with('beneficiary')->latest()->get();
+
     return view('donor.pagedonor', [
         'user' => $user,
+        'annonces' => $annonces,
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -32,6 +36,19 @@ Route::get('/donor/form', function (Request $request) {
 Route::post('/donor/form', [AnnonceController::class, 'store'])
     ->middleware(['auth', 'verified'])
     ->name('donor.form.store');
+
+Route::get('/annonces/{annonce}', function (Request $request, Annonce $annonce) {
+    $user = $request->user();
+
+    abort_unless($user && $user->role === 'donateur', 403);
+
+    $annonce->load('beneficiary');
+
+    return view('donor.show-annonce', [
+        'user' => $user,
+        'annonce' => $annonce,
+    ]);
+})->middleware(['auth', 'verified'])->name('annonces.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

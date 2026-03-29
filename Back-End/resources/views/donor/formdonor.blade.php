@@ -19,14 +19,6 @@
           <img src="{{ Vite::asset('resources/images/logowry.png') }}" alt="Logo" class="h-14 object-contain">
         </a>
 
-        <nav class="hidden md:flex items-center gap-10 text-[15px] font-medium text-[#1d1d1d]">
-          <a href="{{ url('/') }}" class="text-[#007b67] font-semibold">Home</a>
-          <a href="#">About Us</a>
-          <a href="#">Services</a>
-          <a href="#">Teams</a>
-          <a href="#">Contact Us</a>
-        </nav>
-
         <a href="{{ route('dashboard') }}"
           class="bg-[#007b67] text-white px-8 py-4 rounded-full text-[15px] font-semibold flex items-center gap-2 hover:bg-[#006554] transition">
           Back Dashboard
@@ -67,7 +59,6 @@
             <div class="flex flex-wrap gap-3 text-sm">
               <span class="px-4 py-2 rounded-full bg-white/10">Role: {{ ucfirst($user->role) }}</span>
               <span class="px-4 py-2 rounded-full bg-white/10">City: {{ $user->city ?: 'Not set' }}</span>
-              <span class="px-4 py-2 rounded-full bg-white/10">Beneficiary ID: {{ $user->id }}</span>
             </div>
           </div>
 
@@ -77,11 +68,11 @@
             <div class="bg-white border border-[#dfdfdf] rounded-[28px] px-8 py-7 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
               <div class="flex items-center justify-between">
                 <h3 class="text-[18px] font-bold text-[#111111]">Step 1: Request Basics</h3>
-                <span class="text-[18px] font-bold text-[#1a6f58]">35% Complete</span>
+                <span id="progressText" class="text-[18px] font-bold text-[#1a6f58]">0% Complete</span>
               </div>
 
               <div class="mt-6 h-[24px] w-full rounded-full bg-[#e9e9e9] overflow-hidden">
-                <div class="h-full w-[45%] bg-[#00563f] rounded-full"></div>
+                <div id="progressBar" class="h-full w-0 bg-[#00563f] rounded-full transition-all duration-300"></div>
               </div>
 
               <p class="text-[12px] text-[#8a8a8a] mt-4">
@@ -374,6 +365,7 @@
     const fileName = document.getElementById('fileName');
     const requestTitle = document.getElementById('requestTitle');
     const requestCategory = document.getElementById('requestCategory');
+    const requestQuantity = document.getElementById('requestQuantity');
     const requestDescription = document.getElementById('requestDescription');
     const requestCity = document.getElementById('requestCity');
     const previewTitle = document.getElementById('previewTitle');
@@ -384,13 +376,37 @@
     const urgencyButtons = document.querySelectorAll('.urgency-button');
     const urgencyLevelInput = document.getElementById('urgencyLevel');
     const previewUrgencyBadge = document.getElementById('previewUrgencyBadge');
+    const progressText = document.getElementById('progressText');
+    const progressBar = document.getElementById('progressBar');
     const defaultCity = @json(old('city', $user->city ?: 'Casablanca'));
 
     function updatePreview() {
-      previewTitle.textContent = requestTitle.value.trim() || 'Request Title Preview ...';
-      previewCategoryBadge.textContent = requestCategory.value.trim() || 'Clothing';
-      previewDescription.textContent = requestDescription.value.trim() || 'Your detailed description will appear here. Provide as much context as possible to help donors understand your situation.';
-      previewCity.textContent = requestCity.value.trim() || defaultCity;
+      const titleValue = requestTitle.value.trim();
+      const categoryValue = requestCategory.value.trim();
+      const descriptionValue = requestDescription.value.trim();
+      const cityValue = requestCity.value.trim();
+
+      previewTitle.textContent = titleValue || 'Request Title Preview ...';
+      previewCategoryBadge.textContent = categoryValue || 'Clothing';
+      previewDescription.textContent = descriptionValue || 'Your detailed description will appear here. Provide as much context as possible to help donors understand your situation.';
+      previewCity.textContent = cityValue || defaultCity;
+    }
+
+    function updateProgress() {
+      const trackedFields = [
+        requestTitle.value.trim(),
+        requestCategory.value.trim(),
+        requestQuantity.value.trim(),
+        requestDescription.value.trim(),
+        requestCity.value.trim(),
+        urgencyLevelInput.value.trim(),
+        requestImageInput.files.length ? 'image-selected' : '',
+      ];
+      const completedFields = trackedFields.filter(Boolean).length;
+      const completionPercentage = Math.round((completedFields / trackedFields.length) * 100);
+
+      progressText.textContent = `${completionPercentage}% Complete`;
+      progressBar.style.width = `${completionPercentage}%`;
     }
 
     function updateMap() {
@@ -424,22 +440,29 @@
     }
 
     requestTitle.addEventListener('input', updatePreview);
+    requestTitle.addEventListener('input', updateProgress);
     requestCategory.addEventListener('input', updatePreview);
+    requestCategory.addEventListener('input', updateProgress);
+    requestQuantity.addEventListener('input', updateProgress);
     requestDescription.addEventListener('input', updatePreview);
+    requestDescription.addEventListener('input', updateProgress);
     requestCity.addEventListener('input', updatePreview);
     requestCity.addEventListener('input', updateMap);
+    requestCity.addEventListener('input', updateProgress);
 
     urgencyButtons.forEach((button) => {
       button.addEventListener('click', function () {
         const selectedValue = this.dataset.urgency;
         urgencyLevelInput.value = selectedValue;
         updateUrgencyButtons(selectedValue);
+        updateProgress();
       });
     });
 
     updatePreview();
     updateMap();
     updateUrgencyButtons(urgencyLevelInput.value);
+    updateProgress();
 
     requestImageInput.addEventListener('change', function () {
       const file = this.files[0];
@@ -462,6 +485,8 @@
         previewImage.classList.add('hidden');
         previewPlaceholder.classList.remove('hidden');
       }
+
+      updateProgress();
     });
   </script>
 
