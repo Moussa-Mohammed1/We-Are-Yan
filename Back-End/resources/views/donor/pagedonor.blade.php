@@ -11,11 +11,16 @@
 
     <nav class="bg-white border-b px-8 py-4 flex justify-between items-center">
         <div class="flex items-center space-x-2">
-            <div class="text-teal-600 font-bold text-2xl">We Are <span class="text-teal-800">Yan</span></div>
+            <img src="{{ Vite::asset('resources/images/logowry.png') }}" alt="Logo" class="h-14 object-contain">
         </div>
         <div class="flex items-center space-x-4">
             <span class="text-gray-700">Welcome <span class="font-semibold">{{ $user->name }}</span></span>
-            <div class="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white">Donor</div>
+            <div class="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5a7.5 7.5 0 0 1 15 0" />
+                </svg>
+            </div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="border border-teal-600 text-teal-600 px-4 py-1 rounded hover:bg-teal-50">Logout</button>
@@ -145,7 +150,7 @@
 
     <footer class="border-t py-12 px-8">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
-            <div class="text-teal-600 font-bold text-2xl mb-6 md:mb-0">We Are <span class="text-teal-800">Yan</span></div>
+            <img src="{{ Vite::asset('resources/images/logowry.png') }}" alt="Logo" class="h-16 object-contain mb-6 md:mb-0">
             <div class="flex flex-wrap justify-center gap-6 text-sm font-medium text-gray-600">
                 <a href="#">Donations</a>
                 <a href="#">Popular Causes</a>
