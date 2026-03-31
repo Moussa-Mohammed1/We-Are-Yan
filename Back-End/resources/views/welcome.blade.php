@@ -26,7 +26,7 @@
         </nav>
 
         <a href="{{ route('login') }}">
-          <button class="bg-[#007b67] hover:bg-[#006554] text-white px-9 py-4 rounded-full text-[16px] font-semibold flex items-center gap-2">
+          <button class="bg-[#00563f] hover:bg-[#004734] text-white px-9 py-4 rounded-full text-[16px] font-semibold flex items-center gap-2">
             Donate
             <span>&rarr;</span>
           </button>
@@ -111,7 +111,7 @@
               <div class="h-full {{ in_array($featuredAnnonce->urgency, ['urgent', 'critical']) ? 'w-[85%]' : 'w-[60%]' }} bg-[#007b67] rounded-full"></div>
             </div>
 
-            <a href="{{ route('register') }}" class="inline-flex mt-8 bg-[#007b67] hover:bg-[#006554] text-white rounded-full px-12 py-4 text-[22px] font-semibold w-[290px] justify-center">
+            <a href="{{ route('register') }}" class="inline-flex mt-8 bg-[#00563f] hover:bg-[#004734] text-white rounded-full px-12 py-4 text-[22px] font-semibold w-[290px] justify-center">
               Donate Now
             </a>
           @else
@@ -137,7 +137,7 @@
               <div class="h-full w-[25%] bg-[#007b67] rounded-full"></div>
             </div>
 
-            <a href="{{ route('register') }}" class="inline-flex mt-8 bg-[#007b67] hover:bg-[#006554] text-white rounded-full px-12 py-4 text-[22px] font-semibold w-[290px] justify-center">
+            <a href="{{ route('register') }}" class="inline-flex mt-8 bg-[#00563f] hover:bg-[#004734] text-white rounded-full px-12 py-4 text-[22px] font-semibold w-[290px] justify-center">
               Donate Now
             </a>
           @endif
@@ -322,7 +322,7 @@
               placeholder="Enter your email"
               class="flex-1 px-8 py-5 rounded-full outline-none text-[16px] text-[#333] bg-transparent"
             />
-            <button type="submit" class="bg-[#007b67] hover:bg-[#006554] text-white px-10 py-5 rounded-full text-[16px] font-semibold min-w-[170px]">
+            <button type="submit" class="bg-[#00563f] hover:bg-[#004734] text-white px-10 py-5 rounded-full text-[16px] font-semibold min-w-[170px]">
               Subscribe
             </button>
           </form>
