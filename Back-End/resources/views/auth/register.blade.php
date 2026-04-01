@@ -177,9 +177,6 @@
 
             <!-- right visual -->
             <div class="relative overflow-hidden rounded-[40px] bg-[#00563f] text-white p-8 md:p-12 min-h-[720px] flex flex-col justify-between order-1 xl:order-2">
-                <div class="absolute -top-12 -left-12 w-56 h-56 bg-white/10 rounded-full"></div>
-                <div class="absolute bottom-8 right-8 w-40 h-40 bg-white/10 rounded-full"></div>
-
                 <div class="relative z-10">
                     <span class="inline-block px-4 py-2 rounded-full bg-white/10 text-sm font-semibold">
                         Start Your Journey
