@@ -18,7 +18,7 @@
             </a>
 
             <a href="{{ url('/') }}"
-               class="hidden md:inline-flex items-center gap-2 bg-[#007b67] text-white px-7 py-3 rounded-full font-semibold hover:bg-[#006554] transition">
+               class="hidden md:inline-flex items-center gap-2 bg-[#00563f] text-white px-7 py-3 rounded-full font-semibold hover:bg-[#004734] transition">
                 Back Home
                 <span>→</span>
             </a>
@@ -162,7 +162,7 @@
 
                         <button
                             type="submit"
-                            class="w-full h-[60px] rounded-[18px] bg-[#007b67] hover:bg-[#006554] text-white font-bold text-[16px] transition"
+                            class="w-full h-[60px] rounded-[18px] bg-[#00563f] hover:bg-[#004734] text-white font-bold text-[16px] transition"
                         >
                             Create Account
                         </button>
