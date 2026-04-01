@@ -73,7 +73,7 @@
         <div class="flex items-center gap-4 pt-2">
             <button
                 type="submit"
-                class="h-[56px] rounded-[18px] bg-[#007b67] hover:bg-[#006554] text-white font-bold text-[15px] px-8 transition"
+                class="h-[56px] rounded-[18px] bg-[#00563f] hover:bg-[#004734] text-white font-bold text-[15px] px-8 transition"
             >
                 Save Information
             </button>

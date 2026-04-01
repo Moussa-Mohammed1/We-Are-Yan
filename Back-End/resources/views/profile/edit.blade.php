@@ -17,7 +17,7 @@
             </a>
 
             <a href="{{ route($user->homeRouteName()) }}"
-               class="hidden md:inline-flex items-center gap-2 bg-[#007b67] text-white px-7 py-3 rounded-full font-semibold hover:bg-[#006554] transition">
+               class="hidden md:inline-flex items-center gap-2 bg-[#00563f] text-white px-7 py-3 rounded-full font-semibold hover:bg-[#004734] transition">
                 Back Dashboard
                 <span>&rarr;</span>
             </a>
@@ -48,10 +48,6 @@
             </div>
 
             <div class="relative overflow-hidden rounded-[40px] bg-[#00563f] text-white p-8 md:p-12 min-h-[780px] flex flex-col justify-between">
-                <div class="absolute -top-10 -left-10 w-52 h-52 bg-white/10 rounded-full"></div>
-                <div class="absolute top-24 right-8 w-28 h-28 bg-white/10 rounded-full"></div>
-                <div class="absolute bottom-10 right-10 w-40 h-40 bg-white/10 rounded-full"></div>
-
                 <div class="relative z-10">
                     <span class="inline-flex px-4 py-2 rounded-full bg-white/10 text-sm font-semibold">
                         Account Overview
