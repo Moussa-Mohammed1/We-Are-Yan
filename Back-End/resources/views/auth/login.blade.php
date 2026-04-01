@@ -29,9 +29,6 @@
 
             <!-- left visual -->
             <div class="relative overflow-hidden rounded-[40px] bg-[#00563f] text-white p-8 md:p-12 min-h-[720px] flex flex-col justify-between">
-                <div class="absolute -top-16 -right-16 w-64 h-64 bg-white/10 rounded-full"></div>
-                <div class="absolute bottom-10 right-10 w-36 h-36 bg-white/10 rounded-full"></div>
-
                 <div class="relative z-10">
                     <span class="inline-block px-4 py-2 rounded-full bg-white/10 text-sm font-semibold">
                         Welcome Back
