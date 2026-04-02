@@ -29,7 +29,7 @@
                         Back
                     </a>
                     <a href="{{ route('profile.edit') }}"
-                       class="hidden md:inline-flex items-center px-5 py-3 rounded-full bg-[#007b67] text-white font-semibold hover:bg-[#006554] transition">
+                       class="hidden md:inline-flex items-center px-5 py-3 rounded-full bg-[#00563f] text-white font-semibold hover:bg-[#004734] transition">
                         Edit Profile
                     </a>
                 </div>

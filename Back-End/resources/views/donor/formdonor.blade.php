@@ -20,7 +20,7 @@
         </a>
 
         <a href="{{ route($user->homeRouteName()) }}"
-          class="bg-[#007b67] text-white px-8 py-4 rounded-full text-[15px] font-semibold flex items-center gap-2 hover:bg-[#006554] transition">
+          class="bg-[#00563f] text-white px-8 py-4 rounded-full text-[15px] font-semibold flex items-center gap-2 hover:bg-[#004734] transition">
           Back Dashboard
           <span>&rarr;</span>
         </a>
@@ -272,7 +272,7 @@
 
               <button
                 type="submit"
-                class="h-[64px] w-[220px] px-8 rounded-[16px] bg-[#007b67] text-white text-[18px] font-bold self-start md:self-auto hover:bg-[#006554] transition">
+                class="h-[64px] w-[220px] px-8 rounded-[16px] bg-[#00563f] text-white text-[18px] font-bold self-start md:self-auto hover:bg-[#004734] transition">
                 Save Annonce
               </button>
             </div>
