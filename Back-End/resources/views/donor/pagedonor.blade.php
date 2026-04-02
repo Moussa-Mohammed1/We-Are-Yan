@@ -23,19 +23,19 @@
             </div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="border border-teal-600 text-teal-600 px-4 py-1 rounded hover:bg-teal-50">Logout</button>
+                <button type="submit" class="border border-[#00563f] text-[#00563f] px-4 py-1 rounded hover:bg-[#eef6f3]">Logout</button>
             </form>
         </div>
     </nav>
 
     <div class="max-w-7xl mx-auto px-8 py-6 flex justify-between">
         <div class="flex space-x-3">
-            <button class="border border-teal-600 text-teal-600 px-6 py-2 rounded-md font-medium">Dashboard</button>
-            <a href="{{ route('profile.edit') }}" class="bg-teal-700 text-white px-6 py-2 rounded-md font-medium flex items-center">
+            <button class="border border-[#00563f] text-[#00563f] px-6 py-2 rounded-md font-medium hover:bg-[#eef6f3] transition">Dashboard</button>
+            <a href="{{ route('profile.edit') }}" class="bg-[#00563f] text-white px-6 py-2 rounded-md font-medium flex items-center hover:bg-[#004734] transition">
                 <span class="mr-2">+</span> Edit Profile
             </a>
         </div>
-        <a href="{{ url('/') }}" class="bg-teal-700 text-white px-6 py-2 rounded-md font-medium">Back To Home</a>
+        <a href="{{ url('/') }}" class="bg-[#00563f] text-white px-6 py-2 rounded-md font-medium hover:bg-[#004734] transition">Back To Home</a>
     </div>
 
     <main class="max-w-7xl mx-auto px-8">
@@ -47,7 +47,7 @@
                     <p class="text-gray-500 mt-1">Your personal donor information</p>
                 </div>
 
-                <a href="{{ route('profile.edit') }}" class="inline-flex items-center gap-2 bg-teal-700 text-white px-5 py-3 rounded-xl font-semibold hover:bg-teal-800 transition">
+                <a href="{{ route('profile.edit') }}" class="inline-flex items-center gap-2 bg-[#00563f] text-white px-5 py-3 rounded-xl font-semibold hover:bg-[#004734] transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 3.487a2.25 2.25 0 1 1 3.182 3.182L7.5 19.213 3 21l1.787-4.5L16.862 3.487Z" />
                     </svg>
@@ -129,7 +129,7 @@
                             <span>{{ $annonce->created_at?->diffForHumans() }}</span>
                         </div>
 
-                        <a href="{{ route('annonces.show', $annonce) }}" class="block w-full bg-teal-800 text-white py-3 rounded-xl font-bold hover:bg-teal-900 transition text-center">
+                        <a href="{{ route('annonces.show', $annonce) }}" class="block w-full bg-[#00563f] text-white py-3 rounded-xl font-bold hover:bg-[#004734] transition text-center">
                             View Details
                         </a>
                     </div>
@@ -142,7 +142,7 @@
         </div>
 
         <div class="flex justify-center mb-20">
-            <button class="border-2 border-teal-600 text-teal-600 px-12 py-2 rounded-lg font-bold hover:bg-teal-50">
+            <button class="border-2 border-[#00563f] text-[#00563f] px-12 py-2 rounded-lg font-bold hover:bg-[#eef6f3] transition">
                 Load More
             </button>
         </div>
