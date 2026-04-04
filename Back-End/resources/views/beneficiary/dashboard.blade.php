@@ -10,9 +10,6 @@
 <body class="bg-[#f7f7f3] text-[#161616] font-sec min-h-screen">
     @php
         $pendingCount = $annonces->where('status', 'pending')->count();
-        $approvedCount = $annonces->where('status', 'approved')->count();
-        $rejectedCount = $annonces->where('status', 'rejected')->count();
-        $urgentCount = $annonces->whereIn('urgency', ['urgent', 'critical'])->count();
         $latestAnnonce = $annonces->first();
         $recentItems = $annonces->take(3);
         $totalAnnonces = $annonces->count();
