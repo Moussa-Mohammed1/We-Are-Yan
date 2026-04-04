@@ -15,6 +15,8 @@
         $urgentCount = $annonces->whereIn('urgency', ['urgent', 'critical'])->count();
         $latestAnnonce = $annonces->first();
         $recentItems = $annonces->take(3);
+        $totalAnnonces = $annonces->count();
+        $totalCollected = 0;
     @endphp
 
     <div class="min-h-screen xl:grid xl:grid-cols-[280px_minmax(0,1fr)]">
