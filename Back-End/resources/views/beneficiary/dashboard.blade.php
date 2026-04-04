@@ -326,47 +326,7 @@
 
             </section>
 
-            <section class="mt-6 grid grid-cols-1 gap-6 2xl:grid-cols-[460px_minmax(0,1fr)]">
-                <div class="rounded-[30px] border border-[#d7eadf] bg-[#e7f6ef] p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)]">
-                    <div class="flex items-start gap-4">
-                        <div class="h-14 w-14 rounded-full bg-[#ff9b73]"></div>
-                        <div>
-                            <p class="text-3xl font-extrabold text-[#11543f]">Beneficiary Profile</p>
-                            <p class="mt-1 text-sm text-[#648273]">{{ $user->name }}</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                        <div class="rounded-[18px] bg-white px-4 py-4">
-                            <p class="text-xs uppercase tracking-[0.14em] text-[#93a09a]">Status</p>
-                            <p class="mt-2 text-sm font-bold">Active Beneficiary</p>
-                        </div>
-                        <div class="rounded-[18px] bg-white px-4 py-4">
-                            <p class="text-xs uppercase tracking-[0.14em] text-[#93a09a]">City</p>
-                            <p class="mt-2 text-sm font-bold">{{ $user->city ?: 'Not set' }}</p>
-                        </div>
-                        <div class="rounded-[18px] bg-white px-4 py-4">
-                            <p class="text-xs uppercase tracking-[0.14em] text-[#93a09a]">Main Need</p>
-                            <p class="mt-2 text-sm font-bold">{{ $latestAnnonce?->category ?? 'No request yet' }}</p>
-                        </div>
-                        <div class="rounded-[18px] bg-white px-4 py-4">
-                            <p class="text-xs uppercase tracking-[0.14em] text-[#93a09a]">Request Rhythm</p>
-                            <p class="mt-2 text-sm font-bold">{{ $annonces->count() > 1 ? 'Ongoing' : 'Starting' }}</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 flex flex-wrap gap-3">
-                        <a href="{{ route('profile.edit') }}"
-                           class="inline-flex items-center justify-center rounded-full bg-[#00563f] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#004734]">
-                            Edit Profile
-                        </a>
-                        <a href="{{ route('donor.form') }}"
-                           class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#00563f] transition hover:bg-[#f4fbf8]">
-                            Create Request
-                        </a>
-                    </div>
-                </div>
-
+            <section class="mt-6">
                 <div class="rounded-[30px] border border-[#ece9e2] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)]">
                     <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <div>
