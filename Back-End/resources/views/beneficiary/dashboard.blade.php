@@ -134,28 +134,19 @@
                 </div>
             </header>
 
-            <section class="mt-8 grid grid-cols-1 gap-6 2xl:grid-cols-[minmax(0,1.4fr)_360px]">
+            <section class="mt-8">
                 <div class="rounded-[30px] bg-[#00563f] p-7 text-white shadow-[0_18px_40px_rgba(0,86,63,0.18)] md:p-9">
-                    <p class="text-sm font-semibold uppercase tracking-[0.18em] text-white/65">Your Impact Overview</p>
-                    <h2 class="mt-4 max-w-[560px] text-3xl font-extrabold leading-tight md:text-[42px]">
-                        You have posted {{ $annonces->count() }} requests and {{ $approvedCount }} of them are already approved.
+                    <p class="text-sm font-semibold uppercase tracking-[0.18em] text-white/65">A Message For You</p>
+                    <h2 class="mt-4 max-w-[560px] text-3xl font-extrabold leading-tight md:text-[30px]">
+                        Every request you share matters, and each clear detail brings you closer to the right support.
                     </h2>
                     <p class="mt-4 max-w-[580px] text-[15px] leading-7 text-white/80">
-                        Keep updating your annonces with the right details so donors can understand your needs and respond with confidence.
+                        Keep going, your need deserves to be seen and supported.
                     </p>
-
-                    <div class="mt-8 flex flex-wrap gap-3">
-                        <a href="#requests"
-                           class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#00563f] transition hover:bg-[#f1f5f3]">
-                            View My Requests
-                        </a>
-                        <a href="{{ route('profile.edit') }}"
-                           class="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/8 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/14">
-                            Edit Profile
-                        </a>
-                    </div>
                 </div>
+            </section>
 
+            <section class="mt-6 grid grid-cols-1 gap-6 2xl:grid-cols-[minmax(0,1.4fr)_360px]">
                 <div class="grid gap-6">
                     <div class="rounded-[30px] border border-[#ece9e2] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)]">
                         <div class="flex items-center justify-between">
