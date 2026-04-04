@@ -162,7 +162,7 @@
             </div>
         </div>
         <div class="text-center text-gray-400 text-xs mt-8">
-            © 2024 We Are Yan. All rights reserved.
+            © 2026 We Are Yan. All rights reserved.
         </div>
     </footer>
 
