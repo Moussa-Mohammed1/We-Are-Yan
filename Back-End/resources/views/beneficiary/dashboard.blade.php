@@ -104,10 +104,10 @@
             <header class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                 <div>
                     <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#8ca097]">Dashboard / Beneficiary Space</p>
-                    <h1 class="mt-3 text-4xl font-extrabold leading-tight md:text-5xl">
-                        Welcome back, {{ $user->name }}
+                    <h1 class="mt-3 text-3xl font-extrabold leading-tight md:text-4xl">
+                        Welcome back, <span class="border-b-2 border-[#00563f]">{{ $user->name }}</span>
                     </h1>
-                    <p class="mt-3 max-w-[760px] text-[15px] leading-7 text-[#6a6f6b]">
+                    <p class="mt-3 max-w-[760px] text-[11px] leading-7 text-[#6a6f6b]">
                         Track your requests, review their status, and keep your profile ready so support can reach you quickly.
                     </p>
                 </div>
