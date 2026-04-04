@@ -146,78 +146,55 @@
                 </div>
             </section>
 
-            <section class="mt-6 grid grid-cols-1 gap-6 2xl:grid-cols-[minmax(0,1.4fr)_360px]">
-                <div class="grid gap-6">
-                    <div class="rounded-[30px] border border-[#ece9e2] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)]">
-                        <div class="flex items-center justify-between">
-                            <p class="text-lg font-bold">This Month</p>
-                            <span class="text-xs font-semibold uppercase tracking-[0.18em] text-[#8ea39a]">
-                                {{ now()->format('F Y') }}
-                            </span>
+            <section class="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+                <div class="relative overflow-hidden rounded-[30px] border border-[#e5ebe7] bg-white p-6 shadow-[0_14px_30px_rgba(0,0,0,0.04)]">
+                    <div class="absolute right-0 top-0 h-28 w-28 rounded-full bg-[#eef8f4] blur-2xl"></div>
+                    <div class="relative flex items-start justify-between gap-4">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.18em] text-[#8fa198]">Total Requests</p>
+                            <p class="mt-4 text-4xl font-extrabold text-[#111111]">{{ $totalAnnonces }}</p>
+                            <p class="mt-3 max-w-[220px] text-sm leading-6 text-[#747b77]">All annonces you created from your beneficiary dashboard.</p>
                         </div>
-
-                        <div class="mt-5">
-                            <p class="text-xs uppercase tracking-[0.16em] text-[#93a09a]">Approved Requests</p>
-                            <p class="mt-2 text-4xl font-extrabold text-[#111]">{{ $approvedCount }}</p>
-                        </div>
-
-                        @php
-                            $progress = $annonces->count() > 0 ? round(($approvedCount / $annonces->count()) * 100) : 0;
-                        @endphp
-
-                        <div class="mt-5">
-                            <div class="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.14em] text-[#93a09a]">
-                                <span>Goal Progress</span>
-                                <span>{{ $progress }}%</span>
-                            </div>
-                            <div class="mt-3 h-3 rounded-full bg-[#ecebe6]">
-                                <div class="h-3 rounded-full bg-[#00563f]" style="width: {{ $progress }}%"></div>
-                            </div>
-                        </div>
-
-                        <div class="mt-5 grid grid-cols-2 gap-3">
-                            <div class="rounded-[18px] bg-[#f7f7f4] p-4">
-                                <p class="text-xs uppercase tracking-[0.14em] text-[#9aa6a0]">Pending</p>
-                                <p class="mt-2 text-2xl font-bold">{{ $pendingCount }}</p>
-                            </div>
-                            <div class="rounded-[18px] bg-[#f7f7f4] p-4">
-                                <p class="text-xs uppercase tracking-[0.14em] text-[#9aa6a0]">Urgent</p>
-                                <p class="mt-2 text-2xl font-bold">{{ $urgentCount }}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="rounded-[30px] border border-[#d7eadf] bg-[#e7f6ef] p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)]">
-                        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[#7ca08f]">Achievement</p>
-                        <h3 class="mt-2 text-3xl font-extrabold text-[#14604b]">
-                            {{ $approvedCount > 0 ? 'Trusted Beneficiary' : 'Getting Started' }}
-                        </h3>
-                        <p class="mt-3 text-sm leading-6 text-[#5d7f71]">
-                            {{ $approvedCount > 0 ? 'Your requests are being validated and reaching the community.' : 'Create your first strong request and start receiving support.' }}
-                        </p>
+                        <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#eef8f4] text-[#00563f]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h10" />
+                            </svg>
+                        </span>
                     </div>
                 </div>
-            </section>
 
-            <section class="mt-6 grid grid-cols-1 gap-5 xl:grid-cols-3">
-                <div class="rounded-[26px] border border-[#ece9e2] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)]">
-                    <p class="text-xs uppercase tracking-[0.16em] text-[#96a29d]">Total Requests</p>
-                    <p class="mt-3 text-4xl font-extrabold">{{ $annonces->count() }}</p>
-                    <p class="mt-2 text-sm text-[#7b807d]">All annonces created from your beneficiary account.</p>
+                <div class="relative overflow-hidden rounded-[30px] border border-[#ece6d8] bg-[#fffaf1] p-6 shadow-[0_14px_30px_rgba(0,0,0,0.04)]">
+                    <div class="absolute right-0 top-0 h-28 w-28 rounded-full bg-[#fff0cc] blur-2xl"></div>
+                    <div class="relative flex items-start justify-between gap-4">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.18em] text-[#a98b45]">Total Collected</p>
+                            <p class="mt-4 text-4xl font-extrabold text-[#2b2313]">{{ $totalCollected }} <span class="text-2xl">MAD</span></p>
+                            <p class="mt-3 max-w-[220px] text-sm leading-6 text-[#81745c]">This amount will update once donation payments are saved in the system.</p>
+                        </div>
+                        <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff0cc] text-[#b07b00]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-2.2 0-4 1.12-4 2.5S9.8 13 12 13s4 1.12 4 2.5S14.2 18 12 18s-4-1.12-4-2.5" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12" />
+                            </svg>
+                        </span>
+                    </div>
                 </div>
 
-                <div class="rounded-[26px] border border-[#ece9e2] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)]">
-                    <p class="text-xs uppercase tracking-[0.16em] text-[#96a29d]">Latest Category</p>
-                    <p class="mt-3 text-3xl font-extrabold">{{ $latestAnnonce?->category ?? 'No category yet' }}</p>
-                    <p class="mt-2 text-sm text-[#7b807d]">Based on your most recent request.</p>
-                </div>
-
-                <div class="rounded-[26px] border border-[#d7eadf] bg-[#e7f6ef] p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)]">
-                    <p class="text-xs uppercase tracking-[0.16em] text-[#96a29d]">Profile Status</p>
-                    <p class="mt-3 text-3xl font-extrabold text-[#14604b]">{{ $user->city ? 'Complete' : 'Needs Update' }}</p>
-                    <p class="mt-2 text-sm text-[#5d7f71]">
-                        {{ $user->city ? 'Your account details look ready for new support requests.' : 'Add your city in profile settings for better request visibility.' }}
-                    </p>
+                <div class="relative overflow-hidden rounded-[30px] border border-[#d7eadf] bg-[#e7f6ef] p-6 shadow-[0_14px_30px_rgba(0,0,0,0.04)]">
+                    <div class="absolute right-0 top-0 h-28 w-28 rounded-full bg-white/40 blur-2xl"></div>
+                    <div class="relative flex items-start justify-between gap-4">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.18em] text-[#669886]">Pending Requests</p>
+                            <p class="mt-4 text-4xl font-extrabold text-[#14604b]">{{ $pendingCount }}</p>
+                            <p class="mt-3 max-w-[220px] text-sm leading-6 text-[#5d7f71]">These annonces are still waiting for review and approval.</p>
+                        </div>
+                        <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/70 text-[#14604b]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l2.5 2.5" />
+                                <circle cx="12" cy="12" r="8" />
+                            </svg>
+                        </span>
+                    </div>
                 </div>
             </section>
 
