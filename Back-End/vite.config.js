@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/css/style.css',
                 'resources/js/app.js',
                 'resources/js/city.js',
+                'resources/js/donation.js',
                 'resources/js/formdonor.js',
             ],
             refresh: true,
