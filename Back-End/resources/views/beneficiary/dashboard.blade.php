@@ -198,7 +198,41 @@
                 </div>
             </section>
 
-            <section class="mt-6 grid grid-cols-1 gap-6 2xl:grid-cols-[minmax(0,1.45fr)_360px]">
+            <section class="mt-6 grid grid-cols-1 gap-6 2xl:grid-cols-[360px_minmax(0,1.45fr)]">
+                <div class="rounded-[30px] border border-[#ece9e2] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)]">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-2xl font-extrabold">Recent Activity</h2>
+                        <span class="rounded-full bg-[#e7f6ef] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#11624c]">
+                            Live
+                        </span>
+                    </div>
+
+                    <div class="mt-6 space-y-4">
+                        @forelse ($recentItems as $item)
+                            <div class="flex gap-3 rounded-[22px] bg-[#f8f8f5] p-4">
+                                <span class="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#e7f6ef] text-[#11624c]">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </span>
+                                <div>
+                                    <p class="text-sm font-bold">
+                                        {{ ucfirst($item->status) }} request: {{ \Illuminate\Support\Str::limit($item->title, 28) }}
+                                    </p>
+                                    <p class="mt-1 text-sm leading-6 text-[#717774]">
+                                        {{ ucfirst($item->category) }} request in {{ $item->city }} with {{ $item->urgency }} urgency.
+                                    </p>
+                                    <p class="mt-2 text-xs text-[#98a29d]">{{ $item->created_at?->diffForHumans() }}</p>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="rounded-[22px] bg-[#f8f8f5] p-5 text-sm text-[#717774]">
+                                Your recent activity will appear here after you create a request.
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+
                 <div id="requests" class="rounded-[30px] border border-[#ece9e2] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)] md:p-7">
                     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
@@ -290,39 +324,6 @@
                     </div>
                 </div>
 
-                <div class="rounded-[30px] border border-[#ece9e2] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)]">
-                    <div class="flex items-center justify-between">
-                        <h2 class="text-2xl font-extrabold">Recent Activity</h2>
-                        <span class="rounded-full bg-[#e7f6ef] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#11624c]">
-                            Live
-                        </span>
-                    </div>
-
-                    <div class="mt-6 space-y-4">
-                        @forelse ($recentItems as $item)
-                            <div class="flex gap-3 rounded-[22px] bg-[#f8f8f5] p-4">
-                                <span class="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#e7f6ef] text-[#11624c]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
-                                    </svg>
-                                </span>
-                                <div>
-                                    <p class="text-sm font-bold">
-                                        {{ ucfirst($item->status) }} request: {{ \Illuminate\Support\Str::limit($item->title, 28) }}
-                                    </p>
-                                    <p class="mt-1 text-sm leading-6 text-[#717774]">
-                                        {{ ucfirst($item->category) }} request in {{ $item->city }} with {{ $item->urgency }} urgency.
-                                    </p>
-                                    <p class="mt-2 text-xs text-[#98a29d]">{{ $item->created_at?->diffForHumans() }}</p>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="rounded-[22px] bg-[#f8f8f5] p-5 text-sm text-[#717774]">
-                                Your recent activity will appear here after you create a request.
-                            </div>
-                        @endforelse
-                    </div>
-                </div>
             </section>
 
             <section class="mt-6 grid grid-cols-1 gap-6 2xl:grid-cols-[460px_minmax(0,1fr)]">
