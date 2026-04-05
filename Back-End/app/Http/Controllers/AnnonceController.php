@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAnnonceRequest;
 use App\Models\Annonce;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
 class AnnonceController extends Controller
@@ -39,6 +41,35 @@ class AnnonceController extends Controller
         $annonce = Annonce::findOrFail($id);
         return view('donor.formdonor', [
             'annonce' => $annonce,
+        ]);
+    }
+
+    public function filterByCategory(Request $request): JsonResponse
+    {
+        $query = Annonce::with('beneficiary')->latest();
+
+        if ($request->filled('category')) {
+            $query->where('category', $request->string('category')->toString());
+        }
+
+        $annonces = $query->get()->map(function (Annonce $annonce) {
+            return [
+                'id' => $annonce->id,
+                'title' => $annonce->title,
+                'description' => $annonce->description,
+                'category' => $annonce->category,
+                'quantity' => $annonce->quantity,
+                'city' => $annonce->city,
+                'urgency' => $annonce->urgency,
+                'image' => $annonce->image ? asset('storage/' . $annonce->image) : null,
+                'beneficiary_name' => $annonce->beneficiary?->name ?? 'Unknown user',
+                'created_at_human' => $annonce->created_at?->diffForHumans(),
+                'show_url' => route('annonces.show', $annonce),
+            ];
+        });
+
+        return response()->json([
+            'annonces' => $annonces,
         ]);
     }
 }
