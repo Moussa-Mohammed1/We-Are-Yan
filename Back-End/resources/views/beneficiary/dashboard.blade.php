@@ -304,6 +304,20 @@
                                         </span>
                                         <span class="text-xs text-[#939c98]">{{ $annonce->created_at?->diffForHumans() }}</span>
                                     </div>
+
+                                    <div class="mt-5 flex flex-wrap gap-3">
+                                        <a href="{{route('edit.form', $annonce)}}">
+                                            <button type="button"
+                                               class="inline-flex items-center justify-center rounded-full border border-[#00563f] px-4 py-2 text-sm font-semibold text-[#00563f] transition hover:bg-[#00563f] hover:text-white">
+                                                Edit Annonce
+                                            </button>
+                                        </a>
+
+                                        <button type="button"
+                                           class="inline-flex items-center justify-center rounded-full border border-[#c75e43] px-4 py-2 text-sm font-semibold text-[#c75e43] transition hover:bg-[#c75e43] hover:text-white">
+                                            Delete Annonce
+                                        </button>
+                                    </div>
                                 </div>
                             </article>
                         @empty
