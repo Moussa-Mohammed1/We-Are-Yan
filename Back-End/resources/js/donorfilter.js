@@ -19,10 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
             : `<div class="w-full h-48 rounded-2xl mb-4 bg-[#eef6f3] flex items-center justify-center text-[#007b67] font-bold text-lg">No Image</div>`;
 
         const quantity = annonce.quantity ? annonce.quantity : 'Not specified';
+        const description = annonce.description && annonce.description.length > 85
+            ? `${annonce.description.slice(0, 85)}...`
+            : (annonce.description || '');
 
         return `
-            <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition">
-                <div class="p-4">
+            <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition h-full">
+                <div class="p-4 flex h-full flex-col">
                     ${image}
                     <div class="flex justify-between items-center gap-3 mb-3">
                         <span class="text-teal-600 font-bold text-sm uppercase tracking-wide">${annonce.category}</span>
@@ -31,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </span>
                     </div>
                     <h3 class="font-bold text-gray-800 text-lg mb-2">${annonce.title}</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-4">${annonce.description}</p>
+                    <p class="min-h-[72px] text-gray-500 text-sm leading-relaxed mb-4">${description}</p>
                     <div class="space-y-2 text-sm text-gray-600 mb-5">
                         <p><span class="font-semibold text-gray-800">City:</span> ${annonce.city}</p>
                         <p><span class="font-semibold text-gray-800">Quantity:</span> ${quantity}</p>
@@ -40,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span>Posted by ${annonce.beneficiary_name}</span>
                         <span>${annonce.created_at_human ?? ''}</span>
                     </div>
-                    <a href="${annonce.show_url}" class="block w-full bg-[#00563f] text-white py-3 rounded-xl font-bold hover:bg-[#004734] transition text-center">
+                    <a href="${annonce.show_url}" class="mt-auto block w-full bg-[#00563f] text-white py-3 rounded-xl font-bold hover:bg-[#004734] transition text-center">
                         View Details
                     </a>
                 </div>
