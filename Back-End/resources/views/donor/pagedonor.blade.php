@@ -84,7 +84,7 @@
 
                 <div class="mt-10 rounded-[28px] border border-[#dce9e3] bg-[#e7f6ef] p-5">
                     <p class="text-[13px] font-bold text-[#0f3d31]">Every donation matters</p>
-                    <p class="mt-2 text-[11px] leading-6 text-[#55736a]">
+                    <p class="mt-2 text-[10px] text-[#55736a]">
                         Browse verified requests and support people with care, clarity, and real impact.
                     </p>
                 </div>
@@ -180,8 +180,8 @@
                         };
                     @endphp
 
-                    <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition">
-                        <div class="p-4">
+                    <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition h-full">
+                        <div class="p-4 flex h-full flex-col">
                             @if ($annonce->image)
                                 <img src="{{ asset('storage/' . $annonce->image) }}" alt="{{ $annonce->title }}" class="w-full h-48 object-cover rounded-2xl mb-4">
                             @else
@@ -198,8 +198,8 @@
                             </div>
 
                             <h3 class="font-bold text-gray-800 text-lg mb-2">{{ $annonce->title }}</h3>
-                            <p class="text-gray-500 text-sm leading-relaxed mb-4">
-                                {{ \Illuminate\Support\Str::limit($annonce->description, 110) }}
+                            <p class="min-h-[72px] text-gray-500 text-sm leading-relaxed mb-4">
+                                {{ \Illuminate\Support\Str::limit($annonce->description, 85) }}
                             </p>
 
                             <div class="space-y-2 text-sm text-gray-600 mb-5">
@@ -212,7 +212,7 @@
                                 <span>{{ $annonce->created_at }}</span>
                             </div>
 
-                            <a href="{{ route('annonces.show', $annonce) }}" class="block w-full bg-[#00563f] text-white py-3 rounded-xl font-bold hover:bg-[#004734] transition text-center">
+                            <a href="{{ route('annonces.show', $annonce) }}" class="mt-auto block w-full bg-[#00563f] text-white py-3 rounded-xl font-bold hover:bg-[#004734] transition text-center">
                                 View Details
                             </a>
                         </div>

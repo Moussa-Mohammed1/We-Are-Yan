@@ -90,7 +90,7 @@
 
                 <div class="mt-10 rounded-[28px] border border-[#dce9e3] bg-[#e7f6ef] p-5">
                     <p class="text-[13px] font-bold text-[#0f3d31]">Your requests matter</p>
-                    <p class="mt-2 text-[8px] text-[#55736a]">
+                    <p class="mt-2 text-[10px] text-[#55736a]">
                         Share your needs clearly so donors can respond faster and help the right people at the right time.
                     </p>
                 </div>
