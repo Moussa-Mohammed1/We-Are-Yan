@@ -11,7 +11,8 @@
 
 <body
   class="bg-[#f6f5f2] text-[#111111] font-sec"
-  data-default-city="{{ old('city', $user->city ?: 'Casablanca') }}">
+  data-default-city="{{ old('city', $user->city ?: 'Casablanca') }}"
+  data-existing-image="{{ isset($annonce) && $annonce->image ? asset('storage/' . $annonce->image) : '' }}">
 
   <div class="max-w-[1440px] mx-auto min-h-screen flex flex-col">
 
@@ -64,7 +65,7 @@
             </div>
           </div>
 
-          <form method="POST" action="{{ route('donor.form.store') }}" enctype="multipart/form-data" class="space-y-10 mt-10">
+          <form method="POST" action="{{ route('donor.form.store', $annonce->id) }}" enctype="multipart/form-data" class="space-y-10 mt-10">
             @csrf
 
             <div class="bg-white border border-[#dfdfdf] rounded-[28px] px-8 py-7 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
@@ -95,7 +96,7 @@
                     id="requestTitle"
                     name="title"
                     type="text"
-                    value="{{ old('title') }}"
+                    value="{{ old('title', $annonce->title) }}"
                     placeholder="ex : Need warm blankets for local shelter"
                     class="w-full h-[62px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-5 text-[16px] placeholder:text-[#b0b0b0] outline-none focus:border-[#007b67]" />
                   @error('title')
@@ -109,7 +110,7 @@
                     id="requestCategory"
                     name="category"
                     type="text"
-                    value="{{ old('category') }}"
+                    value="{{ old('category', $annonce->category) }}"
                     placeholder="ex : Clothing & Textiles"
                     class="w-full h-[62px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-5 text-[16px] placeholder:text-[#b0b0b0] outline-none focus:border-[#007b67]" />
                   @error('category')
@@ -132,7 +133,7 @@
                     id="requestQuantity"
                     name="quantity"
                     type="number"
-                    value="{{ old('quantity') }}"
+                    value="{{ old('quantity', $annonce->quantity) }}"
                     placeholder="0"
                     class="w-full h-[60px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-4 text-[16px] placeholder:text-[#b0b0b0] outline-none focus:border-[#007b67]" />
                   @error('quantity')
@@ -142,7 +143,7 @@
 
                 <div>
                   <label class="block text-[16px] font-bold mb-3">Urgency</label>
-                  <input id="urgencyLevel" name="urgency" type="hidden" value="{{ old('urgency', 'urgent') }}" />
+                  <input id="urgencyLevel" name="urgency" type="hidden" value="{{ old('urgency', $annonce->urgency) }}" />
                   <div class="flex flex-wrap gap-4">
                     <button
                       type="button"
@@ -175,7 +176,7 @@
                   id="requestDescription"
                   name="description"
                   placeholder="Describe your situation ..."
-                  class="w-full h-[180px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-4 py-4 text-[16px] placeholder:text-[#b0b0b0] outline-none resize-none focus:border-[#007b67]">{{ old('description') }}</textarea>
+                  class="w-full h-[180px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-4 py-4 text-[16px] placeholder:text-[#b0b0b0] outline-none resize-none focus:border-[#007b67]">{{ old('description', $annonce->description) }}</textarea>
                 @error('description')
                   <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
                 @enderror
@@ -195,7 +196,7 @@
                     id="requestCity"
                     name="city"
                     type="text"
-                    value="{{ old('city', $user->city) }}"
+                    value="{{ old('city', $annonce->city) }}"
                     placeholder="ex : Casablanca"
                     class="w-full h-[62px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-4 text-[16px] placeholder:text-[#b0b0b0] outline-none focus:border-[#007b67]" />
                   @error('city')
@@ -246,12 +247,13 @@
                   <input id="requestImage" name="image" type="file" accept="image/*" class="hidden" />
 
                   <p id="fileName" class="text-[14px] text-[#777] mt-4">
-                    No image selected
+                    {{ isset($annonce) && $annonce->image ? 'Current image: ' . basename($annonce->image) : 'No image selected' }}
                   </p>
                   @error('image')
                     <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
                   @enderror
                 </div>
+
               </div>
             </section>
 
@@ -296,9 +298,13 @@
                 </span>
               </div>
 
-              <img id="previewImage" src="" alt="Preview" class="hidden w-full h-full object-cover">
+              <img
+                id="previewImage"
+                src="{{ isset($annonce) && $annonce->image ? asset('storage/' . $annonce->image) : '' }}"
+                alt="Preview"
+                class="{{ isset($annonce) && $annonce->image ? '' : 'hidden ' }}w-full h-full object-cover">
 
-              <div id="previewPlaceholder" class="flex items-center justify-center">
+              <div id="previewPlaceholder" class="{{ isset($annonce) && $annonce->image ? 'hidden' : 'flex' }} items-center justify-center">
                 <svg class="w-20 h-20 text-[#1f1f1f]" fill="none" stroke="currentColor" stroke-width="1.8"
                   viewBox="0 0 24 24">
                   <rect x="3" y="5" width="18" height="14" rx="2"></rect>
