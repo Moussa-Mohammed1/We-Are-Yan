@@ -23,9 +23,12 @@ Route::get('/dashboard', function (Request $request) {
 
     $annonces = Annonce::with('beneficiary')->latest()->get();
 
+    $category = Annonce::select('category')->distinct()->get();
+
     return view('donor.pagedonor', [
         'user' => $user,
         'annonces' => $annonces,
+        'category' => $category,
     ]);
 })->middleware(['auth', 'verified', 'role:donateur'])->name('dashboard');
 
