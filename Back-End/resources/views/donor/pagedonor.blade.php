@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    @vite(['resources/css/style.css'])
+    @vite(['resources/css/style.css', 'resources/js/donorfilter.js'])
     <title>We Are Yan - Donor Dashboard</title>
 </head>
-<body class="bg-[#f7f7f3] text-[#161616] font-sec min-h-screen">
+<body class="bg-[#f7f7f3] text-[#161616] font-sec min-h-screen" data-filter-url="{{ url('/api/annonces/filter') }}">
 
     <div class="min-h-screen xl:grid xl:grid-cols-[280px_minmax(0,1fr)]">
         <aside class="border-b xl:border-b-0 xl:border-r border-[#e6e4dc] bg-[#fbfbf8] px-6 py-8 xl:px-7">
@@ -102,11 +102,6 @@
                         Explore active requests, review details, and support families and communities in need.
                     </p>
                 </div>
-
-                <a href="{{ route('profile.edit') }}"
-                   class="inline-flex items-center justify-center rounded-full bg-[#00563f] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#004734]">
-                    Edit Profile
-                </a>
             </header>
 
             <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
@@ -155,9 +150,28 @@
                 <div class="absolute top-0 right-0 w-64 h-full bg-teal-500 opacity-20 -skew-x-12 translate-x-10"></div>
             </div>
 
-            <h2 id="requests" class="text-3xl font-extrabold text-gray-800 mb-8">Let's Give Help To<br>Those In Need</h2>
+            <h2 id="requests" class="text-3xl font-extrabold text-gray-800 mb-8">Let's Give Help To Those In <span class="text-green-700 border-b-4 border-green-700">Need</span></h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <div class="category flex flex-wrap items-center gap-3 pb-5" id="categoryFilters">
+                    <button
+                        type="button"
+                        data-category=""
+                        class="filter-button block w-44 text-sm border-2 py-3 rounded-xl font-bold transition text-center uppercase bg-[#004734] text-white border-[#004734]">
+                        See All
+                    </button>
+                @forelse ($category as $ancategory)
+                    <button
+                        type="button"
+                        data-category="{{ $ancategory->category }}"
+                        class="filter-button block w-44 text-sm text-[#004734] border-[#004732] border-2 py-3 rounded-xl font-bold hover:bg-[#004734] hover:text-white transition text-center uppercase">
+                        {{ $ancategory->category }}
+                    </button>
+                @empty
+                    <button class="block w-52 bg-[#00563f] text-white py-3 rounded-xl font-bold hover:bg-[#004734] transition text-center">No Canegory yet !</button>
+                @endforelse
+            </div>
+
+            <div id="annoncesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 @forelse ($annonces as $annonce)
                     @php
                         $urgencyClasses = match ($annonce->urgency) {
@@ -211,11 +225,6 @@
                 @endforelse
             </div>
 
-            <div class="flex justify-center mb-20">
-                <button class="border-2 border-[#00563f] text-[#00563f] px-12 py-2 rounded-lg font-bold hover:bg-[#eef6f3] transition">
-                    Load More
-                </button>
-            </div>
         </main>
     </div>
 
