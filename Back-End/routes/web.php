@@ -50,6 +50,15 @@ Route::get('/donor/form', function (Request $request) {
     ]);
 })->middleware(['auth', 'verified', 'role:beneficiaire'])->name('donor.form');
 
+Route::get('/edit/{annonce}/form', function (Request $request, Annonce $annonce){
+    $user = $request->user();
+
+    return view('donor.formdonor', [
+        'user'=> $user,
+        'annonce' => $annonce,
+    ]);
+})->middleware(['auth', 'verified', 'role:beneficiaire'])->name('edit.form');;
+
 Route::post('/donor/form', [AnnonceController::class, 'store'])
     ->middleware(['auth', 'verified', 'role:beneficiaire'])
     ->name('donor.form.store');
