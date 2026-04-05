@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const defaultCity = document.body.dataset.defaultCity || 'Casablanca';
+    const existingImage = document.body.dataset.existingImage || '';
 
     const updatePreview = () => {
         const titleValue = requestTitle.value.trim();
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             requestDescription.value.trim(),
             requestCity.value.trim(),
             urgencyLevelInput.value.trim(),
-            requestImageInput.files.length ? 'image-selected' : '',
+            requestImageInput.files.length || existingImage ? 'image-selected' : '',
         ];
         const completedFields = trackedFields.filter(Boolean).length;
         const completionPercentage = Math.round((completedFields / trackedFields.length) * 100);
@@ -144,10 +145,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             reader.readAsDataURL(file);
         } else {
-            fileName.textContent = 'No image selected';
-            previewImage.src = '';
-            previewImage.classList.add('hidden');
-            previewPlaceholder.classList.remove('hidden');
+            fileName.textContent = existingImage ? 'Current image selected' : 'No image selected';
+            previewImage.src = existingImage;
+
+            if (existingImage) {
+                previewImage.classList.remove('hidden');
+                previewPlaceholder.classList.add('hidden');
+            } else {
+                previewImage.classList.add('hidden');
+                previewPlaceholder.classList.remove('hidden');
+            }
         }
 
         updateProgress();
@@ -156,5 +163,12 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePreview();
     updateMap();
     updateUrgencyButtons(urgencyLevelInput.value);
+
+    if (existingImage) {
+        previewImage.src = existingImage;
+        previewImage.classList.remove('hidden');
+        previewPlaceholder.classList.add('hidden');
+    }
+
     updateProgress();
 });
