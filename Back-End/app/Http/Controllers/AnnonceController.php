@@ -33,4 +33,12 @@ class AnnonceController extends Controller
             ->route($request->user()->homeRouteName())
             ->with('status', 'annonce-created');
     }
+
+    public function edit($id){
+
+        $annonce = Annonce::findOrFail($id);
+        return view('donor.formdonor', [
+            'annonce' => $annonce,
+        ]);
+    }
 }
