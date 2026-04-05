@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  @php
+    $isEdit = isset($annonce);
+  @endphp
   <title>Create Donation Request - We Are Yan</title>
   <script src="https://cdn.tailwindcss.com"></script>
   @vite(['resources/css/style.css', 'resources/js/formdonor.js'])
@@ -11,8 +14,8 @@
 
 <body
   class="bg-[#f6f5f2] text-[#111111] font-sec"
-  data-default-city="{{ old('city', $user->city ?: 'Casablanca') }}"
-  data-existing-image="{{ isset($annonce) && $annonce->image ? asset('storage/' . $annonce->image) : '' }}">
+  data-default-city="{{ old('city', $isEdit ? $annonce->city : ($user->city ?: 'Casablanca')) }}"
+  data-existing-image="{{ $isEdit && $annonce->image ? asset('storage/' . $annonce->image) : '' }}">
 
   <div class="max-w-[1440px] mx-auto min-h-screen flex flex-col">
 
@@ -34,7 +37,7 @@
       <div class="text-[14px] text-[#6d6d6d] font-medium mb-10">
         <span class="text-[#007b67]">Dashboard</span>
         <span class="mx-2">&gt;</span>
-        <span>Create Donation Request</span>
+        <span>{{ $isEdit ? 'Edit Donation Request' : 'Create Donation Request' }}</span>
       </div>
 
       @if (session('status') === 'annonce-created')
@@ -46,7 +49,7 @@
       <div class="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-10 items-start">
         <div>
           <h1 class="text-[56px] leading-[1.05] font-sec font-bold tracking-[-0.02em] text-[#007b67]">
-            Post Your Need
+            {{ $isEdit ? 'Edit Your Need' : 'Post Your Need' }}
           </h1>
           <p class="text-[16px] text-[#666666] mt-4 max-w-[760px] leading-6">
             Connect with our community. Please fill out the form accurately. Note that all
@@ -65,7 +68,7 @@
             </div>
           </div>
 
-          <form method="POST" action="{{ route('donor.form.store', $annonce->id) }}" enctype="multipart/form-data" class="space-y-10 mt-10">
+          <form method="POST" action="{{ route('donor.form.store') }}" enctype="multipart/form-data" class="space-y-10 mt-10">
             @csrf
 
             <div class="bg-white border border-[#dfdfdf] rounded-[28px] px-8 py-7 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
@@ -96,7 +99,7 @@
                     id="requestTitle"
                     name="title"
                     type="text"
-                    value="{{ old('title', $annonce->title) }}"
+                    value="{{ old('title', $isEdit ? $annonce->title : '') }}"
                     placeholder="ex : Need warm blankets for local shelter"
                     class="w-full h-[62px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-5 text-[16px] placeholder:text-[#b0b0b0] outline-none focus:border-[#007b67]" />
                   @error('title')
@@ -110,7 +113,7 @@
                     id="requestCategory"
                     name="category"
                     type="text"
-                    value="{{ old('category', $annonce->category) }}"
+                    value="{{ old('category', $isEdit ? $annonce->category : '') }}"
                     placeholder="ex : Clothing & Textiles"
                     class="w-full h-[62px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-5 text-[16px] placeholder:text-[#b0b0b0] outline-none focus:border-[#007b67]" />
                   @error('category')
@@ -133,7 +136,7 @@
                     id="requestQuantity"
                     name="quantity"
                     type="number"
-                    value="{{ old('quantity', $annonce->quantity) }}"
+                    value="{{ old('quantity', $isEdit ? $annonce->quantity : '') }}"
                     placeholder="0"
                     class="w-full h-[60px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-4 text-[16px] placeholder:text-[#b0b0b0] outline-none focus:border-[#007b67]" />
                   @error('quantity')
@@ -143,7 +146,7 @@
 
                 <div>
                   <label class="block text-[16px] font-bold mb-3">Urgency</label>
-                  <input id="urgencyLevel" name="urgency" type="hidden" value="{{ old('urgency', $annonce->urgency) }}" />
+                  <input id="urgencyLevel" name="urgency" type="hidden" value="{{ old('urgency', $isEdit ? $annonce->urgency : 'urgent') }}" />
                   <div class="flex flex-wrap gap-4">
                     <button
                       type="button"
@@ -176,7 +179,7 @@
                   id="requestDescription"
                   name="description"
                   placeholder="Describe your situation ..."
-                  class="w-full h-[180px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-4 py-4 text-[16px] placeholder:text-[#b0b0b0] outline-none resize-none focus:border-[#007b67]">{{ old('description', $annonce->description) }}</textarea>
+                  class="w-full h-[180px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-4 py-4 text-[16px] placeholder:text-[#b0b0b0] outline-none resize-none focus:border-[#007b67]">{{ old('description', $isEdit ? $annonce->description : '') }}</textarea>
                 @error('description')
                   <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
                 @enderror
@@ -196,7 +199,7 @@
                     id="requestCity"
                     name="city"
                     type="text"
-                    value="{{ old('city', $annonce->city) }}"
+                    value="{{ old('city', $isEdit ? $annonce->city : $user->city) }}"
                     placeholder="ex : Casablanca"
                     class="w-full h-[62px] rounded-[16px] border border-[#d8d8d8] bg-[#fbfbfb] px-4 text-[16px] placeholder:text-[#b0b0b0] outline-none focus:border-[#007b67]" />
                   @error('city')
@@ -212,7 +215,7 @@
                       class="w-full h-full"
                       loading="lazy"
                       referrerpolicy="no-referrer-when-downgrade"
-                      src="https://www.google.com/maps?q={{ urlencode((old('city', $user->city ?: 'Casablanca')) . ', Morocco') }}&output=embed">
+                      src="https://www.google.com/maps?q={{ urlencode((old('city', $isEdit ? $annonce->city : ($user->city ?: 'Casablanca')) ) . ', Morocco') }}&output=embed">
                     </iframe>
                   </div>
                 </div>
@@ -247,7 +250,7 @@
                   <input id="requestImage" name="image" type="file" accept="image/*" class="hidden" />
 
                   <p id="fileName" class="text-[14px] text-[#777] mt-4">
-                    {{ isset($annonce) && $annonce->image ? 'Current image: ' . basename($annonce->image) : 'No image selected' }}
+                    {{ $isEdit && $annonce->image ? 'Current image: ' . basename($annonce->image) : 'No image selected' }}
                   </p>
                   @error('image')
                     <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
@@ -300,11 +303,11 @@
 
               <img
                 id="previewImage"
-                src="{{ isset($annonce) && $annonce->image ? asset('storage/' . $annonce->image) : '' }}"
+                src="{{ $isEdit && $annonce->image ? asset('storage/' . $annonce->image) : '' }}"
                 alt="Preview"
-                class="{{ isset($annonce) && $annonce->image ? '' : 'hidden ' }}w-full h-full object-cover">
+                class="{{ $isEdit && $annonce->image ? '' : 'hidden ' }}w-full h-full object-cover">
 
-              <div id="previewPlaceholder" class="{{ isset($annonce) && $annonce->image ? 'hidden' : 'flex' }} items-center justify-center">
+              <div id="previewPlaceholder" class="{{ $isEdit && $annonce->image ? 'hidden' : 'flex' }} items-center justify-center">
                 <svg class="w-20 h-20 text-[#1f1f1f]" fill="none" stroke="currentColor" stroke-width="1.8"
                   viewBox="0 0 24 24">
                   <rect x="3" y="5" width="18" height="14" rx="2"></rect>
@@ -319,17 +322,17 @@
                 <span
                   id="previewCategoryBadge"
                   class="bg-[#69b6a4] text-white text-[13px] font-semibold px-4 py-1.5 rounded-[6px] uppercase tracking-wide">
-                  {{ old('category', 'Clothing') }}
+                  {{ old('category', $isEdit ? $annonce->category : 'Clothing') }}
                 </span>
                 <span class="text-[14px] text-[#777777]">- Just Now</span>
               </div>
 
               <h3 id="previewTitle" class="text-[22px] leading-[1.2] font-bold mb-4">
-                {{ old('title', 'Request Title Preview ...') }}
+                {{ old('title', $isEdit ? $annonce->title : 'Request Title Preview ...') }}
               </h3>
 
               <p id="previewDescription" class="text-[15px] text-[#787878] leading-6">
-                {{ old('description', 'Your detailed description will appear here. Provide as much context as possible to help donors understand your situation.') }}
+                {{ old('description', $isEdit ? $annonce->description : 'Your detailed description will appear here. Provide as much context as possible to help donors understand your situation.') }}
               </p>
 
               <div class="flex items-center gap-2 mt-8 text-[#8a8a8a] text-[15px] font-medium">
@@ -338,7 +341,7 @@
                     d="M5.05 8.05A7 7 0 1115 8c0 3.9-5 9-5 9s-4.95-5.1-4.95-8.95zM10 9.5A1.5 1.5 0 1010 6a1.5 1.5 0 000 3.5z"
                     clip-rule="evenodd" />
                 </svg>
-                <span id="previewCity">{{ old('city', $user->city ?: 'Casablanca') }}</span>
+                <span id="previewCity">{{ old('city', $isEdit ? $annonce->city : ($user->city ?: 'Casablanca')) }}</span>
               </div>
 
               <div class="mt-6 text-[14px] text-[#777]">
