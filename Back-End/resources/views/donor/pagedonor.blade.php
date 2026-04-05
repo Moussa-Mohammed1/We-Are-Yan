@@ -138,7 +138,7 @@
                 </div>
             </section>
 
-            <div class="relative bg-teal-600 rounded-2xl p-10 overflow-hidden mb-12 text-white">
+            <div class="relative bg-[#00563f] rounded-2xl p-10 overflow-hidden mb-12 text-white">
                 <div class="relative z-10 max-w-lg">
                     <p class="uppercase tracking-widest text-sm mb-2 opacity-90 font-semibold">Community Support</p>
                     <h1 class="text-4xl font-bold leading-tight mb-6">Explore active requests and support families and communities in need.</h1>
@@ -147,7 +147,6 @@
                         <span class="bg-white text-black rounded-full w-6 h-6 flex items-center justify-center text-xs">&rarr;</span>
                     </a>
                 </div>
-                <div class="absolute top-0 right-0 w-64 h-full bg-teal-500 opacity-20 -skew-x-12 translate-x-10"></div>
             </div>
 
             <h2 id="requests" class="text-3xl font-extrabold text-gray-800 mb-8">Let's Give Help To Those In <span class="text-green-700 border-b-4 border-green-700">Need</span></h2>
@@ -156,14 +155,14 @@
                     <button
                         type="button"
                         data-category=""
-                        class="filter-button block w-44 text-sm border-2 py-3 rounded-xl font-bold transition text-center uppercase bg-[#004734] text-white border-[#004734]">
+                        class="filter-button block w-40 text-[12px] border-2 py-3 rounded-xl font-bold transition text-center uppercase bg-[#004734] text-white border-[#004734]">
                         See All
                     </button>
                 @forelse ($category as $ancategory)
                     <button
                         type="button"
                         data-category="{{ $ancategory->category }}"
-                        class="filter-button block w-44 text-sm text-[#004734] border-[#004732] border-2 py-3 rounded-xl font-bold hover:bg-[#004734] hover:text-white transition text-center uppercase">
+                        class="filter-button block w-40 text-[12px] text-[#004734] border-[#004732] border-2 py-3 rounded-xl font-bold hover:bg-[#004734] hover:text-white transition text-center uppercase">
                         {{ $ancategory->category }}
                     </button>
                 @empty
@@ -209,8 +208,8 @@
                             </div>
 
                             <div class="flex items-center justify-between text-xs text-gray-400 mb-4">
-                                <span>Posted by {{ $annonce->beneficiary?->name ?? 'Unknown user' }}</span>
-                                <span>{{ $annonce->created_at?->diffForHumans() }}</span>
+                                <span>Posted by {{ $annonce->beneficiary?->name }}</span>
+                                <span>{{ $annonce->created_at }}</span>
                             </div>
 
                             <a href="{{ route('annonces.show', $annonce) }}" class="block w-full bg-[#00563f] text-white py-3 rounded-xl font-bold hover:bg-[#004734] transition text-center">
