@@ -68,8 +68,9 @@
             </div>
           </div>
 
-          <form method="POST" action="{{ route('donor.form.store') }}" enctype="multipart/form-data" class="space-y-10 mt-10">
+          <form method="POST" action="{{ $annonce ? route('annonce.update', $annonce) : route('donor.form.store') }}" enctype="multipart/form-data" class="space-y-10 mt-10">
             @csrf
+            @method('PUT')
 
             <div class="bg-white border border-[#dfdfdf] rounded-[28px] px-8 py-7 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
               <div class="flex items-center justify-between">
