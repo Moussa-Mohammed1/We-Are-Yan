@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>We Are Yan</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   @vite(['resources/css/style.css'])
 </head>
 <body class="bg-[#f7f7f5] text-[#111111] font-sec">
@@ -172,12 +173,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-16 text-center">
           <div>
             <div class="flex justify-center mb-6">
-              <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="10" cy="7" r="4"/>
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
+              <i class="fa-solid fa-users text-[54px] text-white"></i>
             </div>
             <h3 class="text-[34px] font-bold">Register Yourself</h3>
             <p class="text-[14px] text-white/75 mt-4 leading-6">
@@ -187,16 +183,7 @@
 
           <div>
             <div class="flex justify-center mb-6">
-              <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
-                <path d="M12 2v6"/>
-                <path d="M12 16v6"/>
-                <path d="M4.93 4.93l4.24 4.24"/>
-                <path d="M14.83 14.83l4.24 4.24"/>
-                <path d="M2 12h6"/>
-                <path d="M16 12h6"/>
-                <path d="M4.93 19.07l4.24-4.24"/>
-                <path d="M14.83 9.17l4.24-4.24"/>
-              </svg>
+              <i class="fa-solid fa-hand-holding-heart text-[54px] text-white"></i>
             </div>
             <h3 class="text-[34px] font-bold">Select Donate</h3>
             <p class="text-[14px] text-white/75 mt-4 leading-6">
@@ -206,12 +193,7 @@
 
           <div>
             <div class="flex justify-center mb-6">
-              <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                <line x1="9" y1="9" x2="9.01" y2="9"/>
-                <line x1="15" y1="9" x2="15.01" y2="9"/>
-              </svg>
+              <i class="fa-regular fa-face-smile text-[54px] text-white"></i>
             </div>
             <h3 class="text-[34px] font-bold">Share Happiness</h3>
             <p class="text-[14px] text-white/75 mt-4 leading-6">
@@ -233,10 +215,9 @@
           </p>
 
           <div class="mt-16 ml-8">
-            <svg width="180" height="140" viewBox="0 0 180 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M83 5C61 13 50 40 62 58C73 75 107 79 114 58C121 36 103 22 86 32C67 43 58 67 66 90C75 114 107 126 151 126" stroke="#007b67" stroke-width="3" stroke-linecap="round"/>
-              <path d="M142 117L151 126L141 133" stroke="#007b67" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <div class="text-[#007b67]">
+              <i class="fa-solid fa-arrow-right-long text-[120px] rotate-[25deg]"></i>
+            </div>
           </div>
         </div>
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     @vite(['resources/css/style.css'])
     <title>We Are Yan - Beneficiary Dashboard</title>
 </head>
@@ -33,10 +34,7 @@
                     <a href="{{ route('beneficiary.dashboard') }}"
                        class="flex items-center gap-3 rounded-2xl bg-[#00563f] px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(0,86,63,0.18)]">
                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-white/12">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12 12 4l9 8" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 10v10h14V10" />
-                            </svg>
+                            <i class="fa-solid fa-house text-sm"></i>
                         </span>
                         Dashboard
                     </a>
@@ -44,9 +42,7 @@
                     <a href="{{ route('donor.form') }}"
                        class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14" />
-                            </svg>
+                            <i class="fa-solid fa-plus text-sm"></i>
                         </span>
                         Create Request
                     </a>
@@ -54,9 +50,7 @@
                     <a href="#requests"
                        class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h10" />
-                            </svg>
+                            <i class="fa-solid fa-list text-sm"></i>
                         </span>
                         My Requests
                     </a>
@@ -64,10 +58,7 @@
                     <a href="{{ route('profile.edit') }}"
                        class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5a7.5 7.5 0 0 1 15 0" />
-                            </svg>
+                            <i class="fa-solid fa-user-gear text-sm"></i>
                         </span>
                         Profile Settings
                     </a>
@@ -77,10 +68,7 @@
                         <button type="submit"
                             class="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
                             <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#fff1ee] text-[#d26c52]">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-7.5a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 6 21h7.5a2.25 2.25 0 0 0 2.25-2.25V15" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H9m0 0 3-3m-3 3 3 3" />
-                                </svg>
+                                <i class="fa-solid fa-right-from-bracket text-sm"></i>
                             </span>
                             Logout
                         </button>
@@ -111,10 +99,7 @@
                 <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
                     <label class="relative block">
                         <span class="absolute inset-y-0 left-4 flex items-center text-[#94a39d]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35" />
-                                <circle cx="11" cy="11" r="6" />
-                            </svg>
+                            <i class="fa-solid fa-magnifying-glass text-sm"></i>
                         </span>
                         <input
                             type="text"
@@ -152,9 +137,7 @@
                             <p class="mt-3 max-w-[220px] text-sm leading-6 text-[#747b77]">All annonces you created from your beneficiary dashboard.</p>
                         </div>
                         <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#eef8f4] text-[#00563f]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h10" />
-                            </svg>
+                            <i class="fa-solid fa-list-ul text-[24px]"></i>
                         </span>
                     </div>
                 </div>
@@ -168,10 +151,7 @@
                             <p class="mt-3 max-w-[220px] text-sm leading-6 text-[#81745c]">This amount will update once donation payments are saved in the system.</p>
                         </div>
                         <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff0cc] text-[#b07b00]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-2.2 0-4 1.12-4 2.5S9.8 13 12 13s4 1.12 4 2.5S14.2 18 12 18s-4-1.12-4-2.5" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12" />
-                            </svg>
+                            <i class="fa-solid fa-hand-holding-dollar text-[24px]"></i>
                         </span>
                     </div>
                 </div>
@@ -185,10 +165,7 @@
                             <p class="mt-3 max-w-[220px] text-sm leading-6 text-[#5d7f71]">These annonces are still waiting for review and approval.</p>
                         </div>
                         <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/70 text-[#14604b]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l2.5 2.5" />
-                                <circle cx="12" cy="12" r="8" />
-                            </svg>
+                            <i class="fa-regular fa-clock text-[24px]"></i>
                         </span>
                     </div>
                 </div>
@@ -229,11 +206,7 @@
                                     <img src="{{ asset('storage/' . $annonce->image) }}" alt="{{ $annonce->title }}" class="h-44 w-full object-cover">
                                 @else
                                     <div class="flex h-44 items-center justify-center bg-[#efefec] text-[#7a807b]">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                                            <rect x="3" y="5" width="18" height="14" rx="2" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m8 13 2.5-2.5L14 14l2-2 3 3" />
-                                            <circle cx="8.5" cy="9" r="1.2" />
-                                        </svg>
+                                        <i class="fa-regular fa-image text-4xl"></i>
                                     </div>
                                 @endif
 

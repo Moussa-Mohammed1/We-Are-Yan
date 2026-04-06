@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     @vite(['resources/css/style.css', 'resources/js/donorfilter.js'])
     <title>We Are Yan - Donor Dashboard</title>
 </head>
@@ -27,10 +28,7 @@
                     <a href="{{ route('dashboard') }}"
                        class="flex items-center gap-3 rounded-2xl bg-[#00563f] px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(0,86,63,0.18)]">
                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-white/12">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12 12 4l9 8" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 10v10h14V10" />
-                            </svg>
+                            <i class="fa-solid fa-house text-sm"></i>
                         </span>
                         Dashboard
                     </a>
@@ -38,9 +36,7 @@
                     <a href="#requests"
                        class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h10" />
-                            </svg>
+                            <i class="fa-solid fa-list text-sm"></i>
                         </span>
                         Requests
                     </a>
@@ -48,10 +44,7 @@
                     <a href="{{ route('profile.edit') }}"
                        class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5a7.5 7.5 0 0 1 15 0" />
-                            </svg>
+                            <i class="fa-solid fa-user-gear text-sm"></i>
                         </span>
                         Profile Settings
                     </a>
@@ -59,10 +52,7 @@
                     <a href="{{ url('/') }}"
                        class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 19 3 12l7-7" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18" />
-                            </svg>
+                            <i class="fa-solid fa-arrow-left text-sm"></i>
                         </span>
                         Back Home
                     </a>
@@ -72,10 +62,7 @@
                         <button type="submit"
                             class="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
                             <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#fff1ee] text-[#d26c52]">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-7.5a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 6 21h7.5a2.25 2.25 0 0 0 2.25-2.25V15" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H9m0 0 3-3m-3 3 3 3" />
-                                </svg>
+                                <i class="fa-solid fa-right-from-bracket text-sm"></i>
                             </span>
                             Logout
                         </button>
@@ -113,9 +100,7 @@
                     </div>
 
                     <a href="{{ route('profile.edit') }}" class="inline-flex items-center gap-2 bg-[#00563f] text-white px-5 py-3 rounded-xl font-semibold hover:bg-[#004734] transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 3.487a2.25 2.25 0 1 1 3.182 3.182L7.5 19.213 3 21l1.787-4.5L16.862 3.487Z" />
-                        </svg>
+                        <i class="fa-solid fa-pen-to-square w-5 h-5 flex items-center justify-center"></i>
                         Edit Profile
                     </a>
 
