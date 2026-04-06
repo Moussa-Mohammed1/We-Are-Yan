@@ -9,6 +9,7 @@
   @endphp
   <title>Create Donation Request - We Are Yan</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   @vite(['resources/css/style.css', 'resources/js/formdonor.js'])
 </head>
 
@@ -58,7 +59,10 @@
 
           <div class="mt-8 bg-[#00563f] text-white rounded-[28px] px-6 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
             <div>
-              <p class="text-white/70 text-[13px] uppercase tracking-[0.18em] font-semibold">Posting As</p>
+              <p class="text-white/70 text-[13px] uppercase tracking-[0.18em] font-semibold flex items-center gap-2">
+                <i class="fa-solid fa-circle-user text-[12px]"></i>
+                Posting As
+              </p>
               <h2 class="font-sec text-3xl mt-2 font-bold">{{ $user->name }}</h2>
             </div>
 
@@ -115,7 +119,9 @@
 
             <section class="bg-white border border-[#dfdfdf] rounded-[32px] px-8 py-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
               <div class="flex items-center gap-4 mb-10">
-                <div class="w-10 h-10 rounded-[4px] bg-[#00563f]"></div>
+                <div class="w-10 h-10 rounded-[10px] bg-[#00563f] text-white flex items-center justify-center">
+                  <i class="fa-solid fa-list-check text-[16px]"></i>
+                </div>
                 <h2 class="text-[22px] font-bold">2. Needs Details</h2>
               </div>
 
@@ -141,19 +147,19 @@
                     <button
                       type="button"
                       data-urgency="urgent"
-                      class="urgency-button px-8 h-[42px] rounded-[12px] border-2 border-red-500 text-red-500 text-[16px] font-semibold bg-white transition">
+                      class="urgency-button px-8 h-[42px] rounded-[12px] border-2 border-red-500 text-red-500 text-[14px] font-semibold bg-white transition">
                       Urgent
                     </button>
                     <button
                       type="button"
                       data-urgency="critical"
-                      class="urgency-button px-8 h-[42px] rounded-[12px] border-2 border-amber-500 text-amber-500 text-[16px] font-semibold bg-white transition">
+                      class="urgency-button px-8 h-[42px] rounded-[12px] border-2 border-amber-500 text-amber-500 text-[14px] font-semibold bg-white transition">
                       Critical
                     </button>
                     <button
                       type="button"
                       data-urgency="normal"
-                      class="urgency-button px-8 h-[42px] rounded-[12px] border-2 border-lime-600 text-lime-600 text-[16px] font-semibold bg-white transition">
+                      class="urgency-button px-8 h-[42px] rounded-[12px] border-2 border-lime-600 text-lime-600 text-[14px] font-semibold bg-white transition">
                       Normal
                     </button>
                   </div>
@@ -178,7 +184,9 @@
 
             <section class="bg-white border border-[#dfdfdf] rounded-[32px] px-8 py-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
               <div class="flex items-center gap-4 mb-10">
-                <div class="w-10 h-10 rounded-[4px] bg-[#00563f]"></div>
+                <div class="w-10 h-10 rounded-[10px] bg-[#00563f] text-white flex items-center justify-center">
+                  <i class="fa-solid fa-location-dot text-[16px]"></i>
+                </div>
                 <h2 class="text-[22px] font-bold">3. Location Information</h2>
               </div>
 
@@ -214,7 +222,9 @@
 
             <section class="bg-white border border-[#dfdfdf] rounded-[32px] px-8 py-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
               <div class="flex items-center gap-4 mb-10">
-                <div class="w-10 h-10 rounded-[4px] bg-[#00563f]"></div>
+                <div class="w-10 h-10 rounded-[10px] bg-[#00563f] text-white flex items-center justify-center">
+                  <i class="fa-solid fa-image text-[16px]"></i>
+                </div>
                 <h2 class="text-[22px] font-bold">4. Request Image</h2>
               </div>
 
@@ -253,14 +263,9 @@
             <div class="bg-[#dff4e5] border border-[#84c6a0] rounded-[24px] px-8 py-7 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div class="flex items-start gap-5">
                 <div class="w-14 h-14 rounded-full border-2 border-[#0c5a45] flex items-center justify-center shrink-0 mt-1">
-                  <svg class="w-7 h-7 text-[#0c5a45]" fill="none" stroke="currentColor" stroke-width="2.2"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.5 12.5l1.7 1.7 3.3-3.7" />
-                  </svg>
+                  <i class="fa-solid fa-shield-heart text-[26px] text-[#0c5a45]"></i>
                 </div>
-                <p class="text-[12px] md:text-[14px] text-black/50 leading-6 max-w-[620px]">
+                <p class="text-[10px] md:text-[12px] text-black/50 leading-6 max-w-[620px]">
                   Your request will be submitted to our administrative team.<br>
                   Approval usually takes <span class="text-black font-bold">24-48 hours</span> before it appears to
                   donors.
@@ -269,7 +274,8 @@
 
               <button
                 type="submit"
-                class="h-[64px] w-[220px] px-8 rounded-[16px] bg-[#00563f] text-white text-[18px] font-bold self-start md:self-auto hover:bg-[#004734] transition">
+                class="h-[64px] w-[220px] px-8 rounded-[16px] bg-[#00563f] text-white text-[16px] font-bold self-start md:self-auto hover:bg-[#004734] transition inline-flex items-center justify-center gap-3">
+                <i class="fa-solid fa-floppy-disk text-[16px]"></i>
                 Save Annonce
               </button>
             </div>
