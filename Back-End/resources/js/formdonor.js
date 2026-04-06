@@ -16,9 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const urgencyButtons = document.querySelectorAll('.urgency-button');
     const urgencyLevelInput = document.getElementById('urgencyLevel');
     const previewUrgencyBadge = document.getElementById('previewUrgencyBadge');
-    const progressText = document.getElementById('progressText');
-    const progressBar = document.getElementById('progressBar');
-
     if (
         !requestImageInput ||
         !previewImage ||
@@ -35,9 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         !previewCity ||
         !cityMap ||
         !urgencyLevelInput ||
-        !previewUrgencyBadge ||
-        !progressText ||
-        !progressBar
+        !previewUrgencyBadge
     ) {
         return;
     }
@@ -57,23 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
             descriptionValue ||
             'Your detailed description will appear here. Provide as much context as possible to help donors understand your situation.';
         previewCity.textContent = cityValue || defaultCity;
-    };
-
-    const updateProgress = () => {
-        const trackedFields = [
-            requestTitle.value.trim(),
-            requestCategory.value.trim(),
-            requestQuantity.value.trim(),
-            requestDescription.value.trim(),
-            requestCity.value.trim(),
-            urgencyLevelInput.value.trim(),
-            requestImageInput.files.length || existingImage ? 'image-selected' : '',
-        ];
-        const completedFields = trackedFields.filter(Boolean).length;
-        const completionPercentage = Math.round((completedFields / trackedFields.length) * 100);
-
-        progressText.textContent = `${completionPercentage}% Complete`;
-        progressBar.style.width = `${completionPercentage}%`;
     };
 
     const updateMap = () => {
@@ -110,22 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     requestTitle.addEventListener('input', updatePreview);
-    requestTitle.addEventListener('input', updateProgress);
     requestCategory.addEventListener('input', updatePreview);
-    requestCategory.addEventListener('input', updateProgress);
-    requestQuantity.addEventListener('input', updateProgress);
     requestDescription.addEventListener('input', updatePreview);
-    requestDescription.addEventListener('input', updateProgress);
     requestCity.addEventListener('input', updatePreview);
     requestCity.addEventListener('input', updateMap);
-    requestCity.addEventListener('input', updateProgress);
 
     urgencyButtons.forEach((button) => {
         button.addEventListener('click', () => {
             const selectedValue = button.dataset.urgency;
             urgencyLevelInput.value = selectedValue;
             updateUrgencyButtons(selectedValue);
-            updateProgress();
         });
     });
 
@@ -156,8 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 previewPlaceholder.classList.remove('hidden');
             }
         }
-
-        updateProgress();
     });
 
     updatePreview();
@@ -170,5 +140,4 @@ document.addEventListener('DOMContentLoaded', () => {
         previewPlaceholder.classList.add('hidden');
     }
 
-    updateProgress();
 });

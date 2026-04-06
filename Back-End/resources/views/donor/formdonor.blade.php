@@ -74,24 +74,11 @@
               @method('PUT')
             @endif
 
-            <div class="bg-white border border-[#dfdfdf] rounded-[28px] px-8 py-7 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
-              <div class="flex items-center justify-between">
-                <h3 class="text-[18px] font-bold text-[#111111]">Step 1: Request Basics</h3>
-                <span id="progressText" class="text-[18px] font-bold text-[#1a6f58]">0% Complete</span>
-              </div>
-
-              <div class="mt-6 h-[24px] w-full rounded-full bg-[#e9e9e9] overflow-hidden">
-                <div id="progressBar" class="h-full w-0 bg-[#00563f] rounded-full transition-all duration-300"></div>
-              </div>
-
-              <p class="text-[12px] text-[#8a8a8a] mt-4">
-                Step 1 of 3: Define what you need and why.
-              </p>
-            </div>
-
             <section class="bg-white border border-[#dfdfdf] rounded-[32px] px-8 py-8 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
               <div class="flex items-center gap-4 mb-10">
-                <div class="w-10 h-10 rounded-[4px] bg-[#00563f]"></div>
+                <div class="w-10 h-10 rounded-[10px] bg-[#00563f] text-white flex items-center justify-center">
+                  <i class="fa-solid fa-file-lines text-[16px]"></i>
+                </div>
                 <h2 class="text-[22px] font-bold">1. Basic Information</h2>
               </div>
 
