@@ -60,7 +60,9 @@ Route::get('/edit/{annonce}/form', function (Request $request, Annonce $annonce)
         'user'=> $user,
         'annonce' => $annonce,
     ]);
-})->middleware(['auth', 'verified', 'role:beneficiaire'])->name('edit.form');;
+})->middleware(['auth', 'verified', 'role:beneficiaire'])->name('edit.form');
+
+Route::put('/update/{annonce}', [AnnonceController::class, 'update'])->name('annonce.update');
 
 Route::post('/donor/form', [AnnonceController::class, 'store'])
     ->middleware(['auth', 'verified', 'role:beneficiaire'])
