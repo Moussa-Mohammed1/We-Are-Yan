@@ -235,13 +235,7 @@
                   <label
                     for="requestImage"
                     class="w-full min-h-[180px] rounded-[18px] border-2 border-dashed border-[#bfbfbf] bg-white/60 flex flex-col items-center justify-center text-center px-6 cursor-pointer hover:border-[#007b67] transition">
-                    <svg class="w-12 h-12 text-[#007b67] mb-4" fill="none" stroke="currentColor" stroke-width="1.8"
-                      viewBox="0 0 24 24">
-                      <path d="M12 16V4"></path>
-                      <path d="M8 8l4-4 4 4"></path>
-                      <path d="M20 16.58A5 5 0 0018 7h-1.26A8 8 0 104 16.25"></path>
-                      <path d="M8 16l4 4 4-4"></path>
-                    </svg>
+                    <i class="fa-solid fa-cloud-arrow-up text-[48px] text-[#007b67] mb-4"></i>
 
                     <p class="text-[18px] font-bold text-[#111111]">Click to upload an image</p>
                     <p class="text-[14px] text-[#777] mt-2">PNG, JPG, JPEG up to 5MB</p>
@@ -304,12 +298,7 @@
                 class="{{ $isEdit && $annonce->image ? '' : 'hidden ' }}w-full h-full object-cover">
 
               <div id="previewPlaceholder" class="{{ $isEdit && $annonce->image ? 'hidden' : 'flex' }} items-center justify-center">
-                <svg class="w-20 h-20 text-[#1f1f1f]" fill="none" stroke="currentColor" stroke-width="1.8"
-                  viewBox="0 0 24 24">
-                  <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                  <circle cx="16.5" cy="9.5" r="1.5"></circle>
-                  <path d="M21 15l-5-5L5 21"></path>
-                </svg>
+                <i class="fa-regular fa-image text-[80px] text-[#1f1f1f]"></i>
               </div>
             </div>
 
@@ -332,11 +321,7 @@
               </p>
 
               <div class="flex items-center gap-2 mt-8 text-[#8a8a8a] text-[15px] font-medium">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd"
-                    d="M5.05 8.05A7 7 0 1115 8c0 3.9-5 9-5 9s-4.95-5.1-4.95-8.95zM10 9.5A1.5 1.5 0 1010 6a1.5 1.5 0 000 3.5z"
-                    clip-rule="evenodd" />
-                </svg>
+                <i class="fa-solid fa-location-dot"></i>
                 <span id="previewCity">{{ old('city', $isEdit ? $annonce->city : ($user->city ?: 'Casablanca')) }}</span>
               </div>
 
@@ -345,7 +330,9 @@
               </div>
 
               <div class="mt-10 flex items-center gap-4">
-                <div class="w-14 h-14 rounded-full bg-[#f79a7a]"></div>
+                <div class="w-14 h-14 rounded-full bg-[#f79a7a] text-white flex items-center justify-center">
+                  <i class="fa-solid fa-user text-[20px]"></i>
+                </div>
                 <div>
                   <p class="text-[18px] font-bold leading-none">{{ $user->name }}</p>
                 </div>
