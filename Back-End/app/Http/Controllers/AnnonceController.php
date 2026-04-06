@@ -44,6 +44,22 @@ class AnnonceController extends Controller
         ]);
     }
 
+    public function update(Request $request, $id){
+        $annonce = Annonce::findOrFail($id);
+
+        $annonce->title = $request->title;
+        $annonce->category = $request->category;
+        $annonce->quantity = $request->quantity;
+        $annonce->city = $request->city;
+        $annonce->urgency = $request->urgency;
+
+
+        $annonce->save();
+
+        return redirect()->route('beneficiary.dashboard')->with('success','Annonce Update');
+
+    }
+
     public function filterByCategory(Request $request): JsonResponse
     {
         $query = Annonce::with('beneficiary')->latest();
