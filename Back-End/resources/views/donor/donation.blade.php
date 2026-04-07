@@ -12,7 +12,11 @@
         $beneficiaryName = $annonce->beneficiary?->name ?? 'Unknown user';
         $beneficiaryEmail = $annonce->beneficiary?->email ?? 'Not available';
         $beneficiaryCity = $annonce->beneficiary?->city ?? $annonce->city;
-        $ribValue = 'RIB not added yet by beneficiary';
+        $stripeAccountEmail = $annonce->beneficiary?->stripe_account_email;
+        $stripePaymentLink = $annonce->beneficiary?->stripe_payment_link;
+        $ribAccountHolder = $annonce->beneficiary?->rib_account_holder;
+        $ribBankName = $annonce->beneficiary?->rib_bank_name;
+        $ribValue = $annonce->beneficiary?->rib_number ?? 'RIB not added yet by beneficiary';
         $selectedPaymentMode = old('payment_mode', 'cash');
         $selectedDonationKind = old('donation_kind', 'money');
     @endphp
@@ -240,8 +244,27 @@
                         <div id="stripePaymentInfo" class="payment-info-panel mt-6 rounded-[28px] border border-[#ece7dc] bg-[#faf8f3] p-6">
                             <h3 class="text-2xl font-bold">Stripe Payment</h3>
                             <p class="mt-3 text-[15px] text-[#666] leading-7">
-                                Stripe integration is not connected yet. For now, submit your info here and confirm the online payment with the platform team.
+                                Use the Stripe details below to continue with the online card payment.
                             </p>
+
+                            <div class="mt-5 space-y-4">
+                                <div class="rounded-[22px] bg-white border border-[#ece7dc] p-5">
+                                    <p class="text-xs uppercase tracking-[0.14em] text-[#8a8a8a] font-semibold">Stripe Email</p>
+                                    <p class="mt-3 text-lg font-bold break-all">{{ $stripeAccountEmail ?? 'Stripe email not added yet by beneficiary' }}</p>
+                                </div>
+
+                                @if ($stripePaymentLink)
+                                    <a href="{{ $stripePaymentLink }}" target="_blank" rel="noopener noreferrer"
+                                       class="inline-flex items-center justify-center rounded-full bg-[#00563f] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#004734]">
+                                        Open Stripe Payment Link
+                                    </a>
+                                @else
+                                    <div class="rounded-[22px] bg-white border border-[#ece7dc] p-5">
+                                        <p class="text-xs uppercase tracking-[0.14em] text-[#8a8a8a] font-semibold">Payment Link</p>
+                                        <p class="mt-3 text-sm font-semibold text-[#666]">Stripe payment link not added yet by beneficiary.</p>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
 
                         <div id="ribPaymentInfo" class="payment-info-panel mt-6 rounded-[28px] border border-[#ece7dc] bg-[#faf8f3] p-6">
@@ -251,6 +274,16 @@
                             </p>
 
                             <div class="mt-5 rounded-[22px] bg-white border border-[#ece7dc] p-5">
+                                <p class="text-xs uppercase tracking-[0.14em] text-[#8a8a8a] font-semibold">Account Holder</p>
+                                <p class="mt-3 text-lg font-bold break-all">{{ $ribAccountHolder ?? 'Not added yet' }}</p>
+                            </div>
+
+                            <div class="mt-4 rounded-[22px] bg-white border border-[#ece7dc] p-5">
+                                <p class="text-xs uppercase tracking-[0.14em] text-[#8a8a8a] font-semibold">Bank Name</p>
+                                <p class="mt-3 text-lg font-bold break-all">{{ $ribBankName ?? 'Not added yet' }}</p>
+                            </div>
+
+                            <div class="mt-4 rounded-[22px] bg-white border border-[#ece7dc] p-5">
                                 <p class="text-xs uppercase tracking-[0.14em] text-[#8a8a8a] font-semibold">RIB</p>
                                 <p class="mt-3 text-lg font-bold break-all">{{ $ribValue }}</p>
                             </div>
