@@ -63,6 +63,14 @@
                         Profile Settings
                     </a>
 
+                    <a href="#payment-settings"
+                       class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
+                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
+                            <i class="fa-solid fa-credit-card text-sm"></i>
+                        </span>
+                        Payment Settings
+                    </a>
+
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit"
@@ -273,6 +281,136 @@
                     </div>
                 </div>
 
+            </section>
+
+            <section id="payment-settings" class="mt-6">
+                <div class="rounded-[30px] border border-[#ece9e2] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)] md:p-7">
+                    <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                        <div>
+                            <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#8fa198]">Payment Settings</p>
+                            <h2 class="mt-2 text-3xl font-extrabold">Stripe And Bank RIB Info</h2>
+                            <p class="mt-3 max-w-[720px] text-sm leading-7 text-[#727875]">
+                                Add your Stripe and bank information so donors can see the right payment details when they choose Stripe or RIB.
+                            </p>
+                        </div>
+
+                        @if (session('status') === 'payment-settings-updated')
+                            <span class="inline-flex rounded-full bg-[#e7f6ef] px-4 py-2 text-sm font-semibold text-[#11624c]">
+                                Payment info saved
+                            </span>
+                        @endif
+                    </div>
+
+                    <form method="POST" action="{{ route('beneficiary.payment-settings.update') }}" class="mt-7 space-y-8">
+                        @csrf
+                        @method('PATCH')
+
+                        <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
+                            <div class="rounded-[24px] border border-[#ece9e2] bg-[#fcfcfa] p-5">
+                                <div class="flex items-center gap-3">
+                                    <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[#eef4f1] text-[#00563f]">
+                                        <i class="fa-brands fa-stripe-s"></i>
+                                    </span>
+                                    <div>
+                                        <h3 class="text-xl font-extrabold">Stripe</h3>
+                                        <p class="text-sm text-[#727875]">Online card payment details.</p>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 space-y-5">
+                                    <div>
+                                        <label for="stripe_account_email" class="block text-sm font-bold text-[#2d3430]">Stripe Account Email</label>
+                                        <input
+                                            id="stripe_account_email"
+                                            name="stripe_account_email"
+                                            type="email"
+                                            value="{{ old('stripe_account_email', $user->stripe_account_email) }}"
+                                            placeholder="name@example.com"
+                                            class="mt-2 h-12 w-full rounded-2xl border border-[#d8d8d8] bg-white px-4 text-sm outline-none transition focus:border-[#00563f]">
+                                        @error('stripe_account_email')
+                                            <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div>
+                                        <label for="stripe_payment_link" class="block text-sm font-bold text-[#2d3430]">Stripe Payment Link</label>
+                                        <input
+                                            id="stripe_payment_link"
+                                            name="stripe_payment_link"
+                                            type="url"
+                                            value="{{ old('stripe_payment_link', $user->stripe_payment_link) }}"
+                                            placeholder="https://buy.stripe.com/..."
+                                            class="mt-2 h-12 w-full rounded-2xl border border-[#d8d8d8] bg-white px-4 text-sm outline-none transition focus:border-[#00563f]">
+                                        @error('stripe_payment_link')
+                                            <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="rounded-[24px] border border-[#ece9e2] bg-[#fcfcfa] p-5">
+                                <div class="flex items-center gap-3">
+                                    <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[#eef4f1] text-[#00563f]">
+                                        <i class="fa-solid fa-building-columns"></i>
+                                    </span>
+                                    <div>
+                                        <h3 class="text-xl font-extrabold">Bank RIB</h3>
+                                        <p class="text-sm text-[#727875]">Bank transfer information.</p>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 grid grid-cols-1 gap-5">
+                                    <div>
+                                        <label for="rib_account_holder" class="block text-sm font-bold text-[#2d3430]">Account Holder</label>
+                                        <input
+                                            id="rib_account_holder"
+                                            name="rib_account_holder"
+                                            type="text"
+                                            value="{{ old('rib_account_holder', $user->rib_account_holder) }}"
+                                            placeholder="Full name"
+                                            class="mt-2 h-12 w-full rounded-2xl border border-[#d8d8d8] bg-white px-4 text-sm outline-none transition focus:border-[#00563f]">
+                                        @error('rib_account_holder')
+                                            <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div>
+                                        <label for="rib_bank_name" class="block text-sm font-bold text-[#2d3430]">Bank Name</label>
+                                        <input
+                                            id="rib_bank_name"
+                                            name="rib_bank_name"
+                                            type="text"
+                                            value="{{ old('rib_bank_name', $user->rib_bank_name) }}"
+                                            placeholder="Your bank"
+                                            class="mt-2 h-12 w-full rounded-2xl border border-[#d8d8d8] bg-white px-4 text-sm outline-none transition focus:border-[#00563f]">
+                                        @error('rib_bank_name')
+                                            <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div>
+                                        <label for="rib_number" class="block text-sm font-bold text-[#2d3430]">RIB Number</label>
+                                        <input
+                                            id="rib_number"
+                                            name="rib_number"
+                                            type="text"
+                                            value="{{ old('rib_number', $user->rib_number) }}"
+                                            placeholder="RIB / bank account number"
+                                            class="mt-2 h-12 w-full rounded-2xl border border-[#d8d8d8] bg-white px-4 text-sm outline-none transition focus:border-[#00563f]">
+                                        @error('rib_number')
+                                            <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit"
+                            class="inline-flex items-center justify-center rounded-full bg-[#00563f] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#004734]">
+                            Save Payment Settings
+                        </button>
+                    </form>
+                </div>
             </section>
 
             <section class="mt-6">
