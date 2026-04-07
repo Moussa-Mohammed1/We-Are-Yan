@@ -24,6 +24,11 @@ class User extends Authenticatable
         'password',
         'role',
         'city',
+        'stripe_account_email',
+        'stripe_payment_link',
+        'rib_account_holder',
+        'rib_bank_name',
+        'rib_number',
     ];
 
     /**
@@ -51,6 +56,10 @@ class User extends Authenticatable
 
     public function homeRouteName(): string
     {
-        return $this->role === 'beneficiaire' ? 'beneficiary.dashboard' : 'dashboard';
+        return match ($this->role) {
+            'beneficiaire' => 'beneficiary.dashboard',
+            'admin' => 'admin.dashboard',
+            default => 'dashboard',
+        };
     }
 }
