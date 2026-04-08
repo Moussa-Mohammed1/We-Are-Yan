@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('urgency')->default('medium');
             $table->string('status')->default('pending');
-            $table->text('rejection_reason')->nullable();
+            $table->text('raport')->nullable();
 
             $table->timestamps();
         });
