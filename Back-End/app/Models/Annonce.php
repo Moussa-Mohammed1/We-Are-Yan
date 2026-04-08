@@ -25,8 +25,16 @@ class Annonce extends Model
         'urgency',
         'status',
         'image',
-        'rejection_reason',
+        'raport',
+        'reviewed_at',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'reviewed_at' => 'datetime',
+        ];
+    }
 
     public function beneficiary(): BelongsTo
     {
