@@ -28,7 +28,7 @@ class AnnonceController extends Controller
             'urgency' => $request->validated('urgency'),
             'status' => 'pending',
             'image' => $imagePath,
-            'rejection_reason' => null,
+            'raport' => null,
         ]);
 
         return redirect()
@@ -62,7 +62,9 @@ class AnnonceController extends Controller
 
     public function filterByCategory(Request $request): JsonResponse
     {
-        $query = Annonce::with('beneficiary')->latest();
+        $query = Annonce::with('beneficiary')
+            ->where('status', 'approved')
+            ->latest();
 
         if ($request->filled('category')) {
             $query->where('category', $request->string('category')->toString());
