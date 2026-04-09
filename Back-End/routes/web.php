@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Annonce;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function (Request $request) {
     $user = $request->user();
 
-    $annonces = Annonce::with('beneficiary')->latest()->get();
+    $annonces = Annonce::with('beneficiary')
+        ->where('status', 'approved')
+        ->latest()
+        ->get();
 
     $category = Annonce::select('category')->distinct()->get();
 
@@ -31,6 +35,41 @@ Route::get('/dashboard', function (Request $request) {
         'category' => $category,
     ]);
 })->middleware(['auth', 'verified', 'role:donateur'])->name('dashboard');
+
+Route::get('/admin/dashboard', function () {
+    $annonces = Annonce::with('beneficiary')->latest()->get();
+    $pendingAnnonces = $annonces->where('status', 'pending');
+    $reviewedAnnonces = $annonces->whereIn('status', ['approved', 'rejected'])->take(8);
+
+    return view('admin.admindashbord', [
+        'stats' => [
+            'total_users' => User::count(),
+            'donors' => User::where('role', 'donateur')->count(),
+            'beneficiaries' => User::where('role', 'beneficiaire')->count(),
+            'total_annonces' => $annonces->count(),
+            'pending_annonces' => $pendingAnnonces->count(),
+            'approved_annonces' => $annonces->where('status', 'approved')->count(),
+            'rejected_annonces' => $annonces->where('status', 'rejected')->count(),
+        ],
+        'pendingAnnonces' => $pendingAnnonces,
+        'reviewedAnnonces' => $reviewedAnnonces,
+    ]);
+})->middleware(['auth', 'verified', 'role:admin'])->name('admin.dashboard');
+
+Route::patch('/admin/annonces/{annonce}/status', function (Request $request, Annonce $annonce) {
+    $validated = $request->validate([
+        'status' => ['required', 'in:approved,rejected'],
+        'raport' => ['required', 'string', 'max:1000'],
+    ]);
+
+    $annonce->update([
+        'status' => $validated['status'],
+        'raport' => $validated['raport'],
+        'reviewed_at' => now(),
+    ]);
+
+    return back()->with('status', 'annonce-reviewed');
+})->middleware(['auth', 'verified', 'role:admin'])->name('admin.annonces.status.update');
 
 Route::get('/beneficiary/dashboard', function (Request $request) {
     $user = $request->user();
@@ -44,6 +83,20 @@ Route::get('/beneficiary/dashboard', function (Request $request) {
         'annonces' => $annonces,
     ]);
 })->middleware(['auth', 'verified', 'role:beneficiaire'])->name('beneficiary.dashboard');
+
+Route::patch('/beneficiary/payment-settings', function (Request $request) {
+    $validated = $request->validate([
+        'stripe_account_email' => ['nullable', 'email', 'max:255'],
+        'stripe_payment_link' => ['nullable', 'url', 'max:255'],
+        'rib_account_holder' => ['nullable', 'string', 'max:255'],
+        'rib_bank_name' => ['nullable', 'string', 'max:255'],
+        'rib_number' => ['nullable', 'string', 'max:34'],
+    ]);
+
+    $request->user()->update($validated);
+
+    return back()->with('status', 'payment-settings-updated');
+})->middleware(['auth', 'verified', 'role:beneficiaire'])->name('beneficiary.payment-settings.update');
 
 Route::get('/donor/form', function (Request $request) {
     $user = $request->user();
@@ -71,6 +124,8 @@ Route::post('/donor/form', [AnnonceController::class, 'store'])
 Route::get('/annonces/{annonce}', function (Request $request, Annonce $annonce) {
     $user = $request->user();
 
+    abort_if($annonce->status !== 'approved', 404);
+
     $annonce->load('beneficiary');
 
     return view('donor.show-annonce', [
@@ -82,6 +137,8 @@ Route::get('/annonces/{annonce}', function (Request $request, Annonce $annonce) 
 Route::get('/annonces/{annonce}/donate', function (Request $request, Annonce $annonce) {
     $user = $request->user();
 
+    abort_if($annonce->status !== 'approved', 404);
+
     $annonce->load('beneficiary');
 
     return view('donor.donation', [
@@ -91,6 +148,8 @@ Route::get('/annonces/{annonce}/donate', function (Request $request, Annonce $an
 })->middleware(['auth', 'verified', 'role:donateur'])->name('annonces.donate');
 
 Route::post('/annonces/{annonce}/donate', function (Request $request, Annonce $annonce) {
+    abort_if($annonce->status !== 'approved', 404);
+
     $validated = $request->validate([
         'donor_name' => ['required', 'string', 'max:255'],
         'donor_email' => ['required', 'email', 'max:255'],
