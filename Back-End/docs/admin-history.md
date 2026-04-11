@@ -8,3 +8,4 @@
 - 2026-04-11 10:00: Added donor payment details polish checkpoint.
 - 2026-04-11 11:00: Added admin route polish checkpoint.
 - 2026-04-11 12:00: Added annonce review polish checkpoint.
+- 2026-04-11 13:00: Added report rename to raport checkpoint.
