@@ -6,3 +6,4 @@
 - 2026-04-10 14:00: Added admin status colors checkpoint.
 - 2026-04-11 09:00: Added payment settings polish checkpoint.
 - 2026-04-11 10:00: Added donor payment details polish checkpoint.
+- 2026-04-11 11:00: Added admin route polish checkpoint.
