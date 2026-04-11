@@ -10,3 +10,4 @@
 - 2026-04-11 12:00: Added annonce review polish checkpoint.
 - 2026-04-11 13:00: Added report rename to raport checkpoint.
 - 2026-04-11 14:00: Added admin dashboard filename checkpoint.
+- 2026-04-11 15:00: Added compact admin statistics checkpoint.
