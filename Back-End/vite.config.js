@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/city.js',
                 'resources/js/donation.js',
+                'resources/js/donorfilter.js',
                 'resources/js/formdonor.js',
             ],
             refresh: true,

@@ -10,7 +10,7 @@
   <title>Create Donation Request - We Are Yan</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  @vite(['resources/css/style.css', 'resources/js/formdonor.js'])
+  @vite(['resources/css/style.css', 'resources/js/app.js', 'resources/js/formdonor.js'])
 </head>
 
 <body
