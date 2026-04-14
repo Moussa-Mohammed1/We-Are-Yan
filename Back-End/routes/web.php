@@ -3,6 +3,9 @@
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Annonce;
+use App\Models\Conversation;
+use App\Models\Donation;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -78,9 +81,15 @@ Route::get('/beneficiary/dashboard', function (Request $request) {
         ->latest()
         ->get();
 
+    $conversations = Conversation::with(['donor', 'donation.annonce', 'messages.sender'])
+        ->where('beneficiary_id', $user->id)
+        ->latest()
+        ->get();
+
     return view('beneficiary.dashboard', [
         'user' => $user,
         'annonces' => $annonces,
+        'conversations' => $conversations,
     ]);
 })->middleware(['auth', 'verified', 'role:beneficiaire'])->name('beneficiary.dashboard');
 
@@ -153,7 +162,7 @@ Route::post('/annonces/{annonce}/donate', function (Request $request, Annonce $a
     $validated = $request->validate([
         'donor_name' => ['required', 'string', 'max:255'],
         'donor_email' => ['required', 'email', 'max:255'],
-        'payment_mode' => ['required', 'in:cash,stripe,rib'],
+        'payment_mode' => ['nullable', 'in:cash,stripe,rib'],
         'donation_kind' => ['required', 'in:money,items'],
         'donation_amount' => ['nullable', 'numeric', 'min:1'],
         'donation_items' => ['nullable', 'string', 'max:1000'],
@@ -166,14 +175,108 @@ Route::post('/annonces/{annonce}/donate', function (Request $request, Annonce $a
             ->withInput();
     }
 
+    if ($validated['donation_kind'] === 'money' && empty($validated['payment_mode'])) {
+        return back()
+            ->withErrors(['payment_mode' => 'Please choose a payment mode.'])
+            ->withInput();
+    }
+
     if ($validated['donation_kind'] === 'items' && empty($validated['donation_items'])) {
         return back()
             ->withErrors(['donation_items' => 'Please describe the items you want to donate.'])
             ->withInput();
     }
 
+    Donation::create([
+        'annonce_id' => $annonce->id,
+        'donor_id' => $request->user()->id,
+        'donor_name' => $validated['donor_name'],
+        'donor_email' => $validated['donor_email'],
+        'type' => $validated['donation_kind'],
+        'amount_or_qty' => $validated['donation_kind'] === 'money'
+            ? $validated['donation_amount']
+            : $validated['donation_items'],
+        'method' => $validated['donation_kind'] === 'money'
+            ? $validated['payment_mode']
+            : null,
+        'message' => $validated['message'] ?? null,
+        'status' => 'pending',
+    ]);
+
     return back()->with('status', 'donation-submitted');
 })->middleware(['auth', 'verified', 'role:donateur'])->name('annonces.donate.submit');
+
+Route::get('/annonces/{annonce}/chat', function (Request $request, Annonce $annonce) {
+    abort_if($annonce->status !== 'approved', 404);
+
+    $annonce->load('beneficiary');
+
+    $user = $request->user();
+
+    abort_if($annonce->beneficiary_id === $user->id, 403);
+
+    $donation = Donation::firstOrCreate(
+        [
+            'annonce_id' => $annonce->id,
+            'donor_id' => $user->id,
+            'type' => 'chat',
+        ],
+        [
+            'donor_name' => $user->name,
+            'donor_email' => $user->email,
+            'amount_or_qty' => 'Chat',
+            'method' => null,
+            'message' => null,
+            'status' => 'pending',
+        ]
+    );
+
+    $conversation = Conversation::firstOrCreate(
+        ['donation_id' => $donation->id],
+        [
+            'donor_id' => $user->id,
+            'beneficiary_id' => $annonce->beneficiary_id,
+        ]
+    );
+
+    $conversation->load(['donor', 'beneficiary', 'donation.annonce', 'messages.sender']);
+
+    return view('chat.show', [
+        'user' => $user,
+        'conversation' => $conversation,
+    ]);
+})->middleware(['auth', 'verified', 'role:donateur'])->name('chat.start');
+
+Route::get('/chat/{conversation}', function (Request $request, Conversation $conversation) {
+    $user = $request->user();
+
+    abort_unless($conversation->donor_id === $user->id || $conversation->beneficiary_id === $user->id, 403);
+
+    $conversation->load(['donor', 'beneficiary', 'donation.annonce', 'messages.sender']);
+
+    return view('chat.show', [
+        'user' => $user,
+        'conversation' => $conversation,
+    ]);
+})->middleware(['auth', 'verified'])->name('chat.show');
+
+Route::post('/chat/{conversation}/messages', function (Request $request, Conversation $conversation) {
+    $user = $request->user();
+
+    abort_unless($conversation->donor_id === $user->id || $conversation->beneficiary_id === $user->id, 403);
+
+    $validated = $request->validate([
+        'content' => ['required', 'string', 'max:1000'],
+    ]);
+
+    Message::create([
+        'conversation_id' => $conversation->id,
+        'sender_id' => $user->id,
+        'content' => $validated['content'],
+    ]);
+
+    return back();
+})->middleware(['auth', 'verified'])->name('chat.messages.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
