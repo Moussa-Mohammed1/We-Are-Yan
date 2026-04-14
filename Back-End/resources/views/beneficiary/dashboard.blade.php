@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    @vite(['resources/css/style.css'])
+    @vite(['resources/css/style.css', 'resources/js/app.js'])
     <title>We Are Yan - Beneficiary Dashboard</title>
 </head>
 <body class="bg-[#f7f7f3] text-[#161616] font-sec min-h-screen">
@@ -53,6 +53,14 @@
                             <i class="fa-solid fa-list text-sm"></i>
                         </span>
                         My Requests
+                    </a>
+
+                    <a href="#conversations"
+                       class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
+                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
+                            <i class="fa-regular fa-message text-sm"></i>
+                        </span>
+                        My Conversations
                     </a>
 
                     <a href="{{ route('profile.edit') }}"
@@ -175,6 +183,61 @@
                         <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/70 text-[#14604b]">
                             <i class="fa-regular fa-clock text-[24px]"></i>
                         </span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="conversations" class="mt-6">
+                <div class="rounded-[30px] border border-[#ece9e2] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)] md:p-7">
+                    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#8fa198]">My Conversations</p>
+                            <h2 class="mt-2 text-3xl font-extrabold">Messages From Donors</h2>
+                        </div>
+
+                        <span class="inline-flex rounded-full bg-[#e7f6ef] px-4 py-2 text-sm font-semibold text-[#11624c]">
+                            {{ $conversations->count() }} chats
+                        </span>
+                    </div>
+
+                    <div class="mt-7 grid grid-cols-1 gap-4">
+                        @forelse ($conversations as $conversation)
+                            @php
+                                $lastMessage = $conversation->messages->last();
+                                $chatAnnonce = $conversation->donation?->annonce;
+                            @endphp
+
+                            <article class="rounded-[24px] border border-[#ece9e2] bg-[#fcfcfa] p-5">
+                                <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                                    <div>
+                                        <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#8fa198]">
+                                            Donor: {{ $conversation->donor?->name ?? 'Unknown donor' }}
+                                        </p>
+                                        <h3 class="mt-2 text-xl font-extrabold">{{ $chatAnnonce?->title ?? 'Chat' }}</h3>
+                                        <p class="mt-2 text-sm leading-6 text-[#727875]">
+                                            @if ($lastMessage)
+                                                <span class="font-semibold text-[#111]">{{ $lastMessage->sender?->name ?? 'User' }}:</span>
+                                                {{ \Illuminate\Support\Str::limit($lastMessage->content, 120) }}
+                                            @else
+                                                No message yet. Open chat to reply.
+                                            @endif
+                                        </p>
+                                    </div>
+
+                                    <a href="{{ route('chat.show', $conversation) }}"
+                                       class="inline-flex shrink-0 items-center justify-center rounded-full bg-[#00563f] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#004734]">
+                                        Open Chat
+                                    </a>
+                                </div>
+                            </article>
+                        @empty
+                            <div class="rounded-[26px] border border-dashed border-[#d3d9d4] bg-[#fbfbf8] px-8 py-14 text-center">
+                                <h3 class="text-2xl font-extrabold">No conversations yet</h3>
+                                <p class="mx-auto mt-3 max-w-[520px] text-sm leading-7 text-[#727875]">
+                                    Donor chats will appear here after a donor clicks Chat With Beneficiary.
+                                </p>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
             </section>
