@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    @vite(['resources/css/style.css'])
+    @vite(['resources/css/style.css', 'resources/js/app.js'])
     <title>{{ $annonce->title }} - We Are Yan</title>
 </head>
 <body class="bg-[#f6f5f2] text-[#111111] font-sec min-h-screen">
@@ -15,10 +15,7 @@
             default => 'bg-green-50 text-green-600 border-green-200',
         };
 
-        $posterEmail = $annonce->beneficiary?->email;
-        $chatLink = $posterEmail
-            ? 'mailto:' . $posterEmail . '?subject=' . rawurlencode('Question about: ' . $annonce->title)
-            : null;
+        $canChat = $annonce->beneficiary && $annonce->beneficiary->id !== $user->id;
     @endphp
 
     <section class="px-6 py-8 md:px-10 lg:px-16">
@@ -137,8 +134,8 @@
                         <h2 class="mt-3 text-3xl font-bold leading-tight">Contact and support now.</h2>
 
                         <div class="mt-8 flex flex-col gap-4">
-                            @if ($chatLink)
-                                <a href="{{ $chatLink }}"
+                            @if ($canChat)
+                                <a href="{{ route('chat.start', $annonce) }}"
                                    class="inline-flex items-center justify-center px-6 py-4 rounded-full border border-white/20 bg-white/10 text-white font-bold hover:bg-white/20 transition">
                                     Chat With Beneficiary
                                 </a>
