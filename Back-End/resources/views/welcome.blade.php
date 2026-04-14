@@ -6,7 +6,7 @@
   <title>We Are Yan</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  @vite(['resources/css/style.css'])
+  @vite(['resources/css/style.css', 'resources/js/app.js'])
 </head>
 <body class="bg-[#f7f7f5] text-[#111111] font-sec">
 
@@ -19,11 +19,11 @@
         </div>
 
         <nav class="hidden md:flex items-center gap-10 text-[15px] font-medium text-[#1e1e1e]">
-          <a href="#" class="text-[#007b67] font-semibold">Home</a>
-          <a href="#">About Us</a>
-          <a href="#">Services</a>
-          <a href="#">Teams</a>
-          <a href="#">Contact Us</a>
+          <a href="#home" class="text-[#007b67] font-semibold">Home</a>
+          <a href="#featured-request">Featured Request</a>
+          <a href="#how-to-help">How To Help</a>
+          <a href="#faq">FAQ</a>
+          <a href="#newsletter">Newsletter</a>
         </nav>
 
         <a href="{{ route('login') }}">
@@ -35,7 +35,7 @@
       </div>
     </header>
 
-    <section class="px-8 md:px-14 lg:px-20 pt-10">
+    <section id="home" class="px-8 md:px-14 lg:px-20 pt-10">
       <div class="text-center">
         <h1 class="text-[#007b67] text-[56px] md:text-[74px] leading-[0.95] font-princ max-w-[920px] mx-auto">
           Connecting Help to Those Who Need It
@@ -86,83 +86,39 @@
       </div>
     </section>
 
-    <section class="px-8 md:px-14 lg:px-20 pt-24">
-      <div class="border border-[#7f7f7f] rounded-[42px] px-8 md:px-12 py-10 flex flex-col lg:flex-row items-center justify-between gap-10">
-        <div class="w-full lg:w-[48%]">
-          @if ($featuredAnnonce)
-            <p class="text-[#007b67] text-[54px] font-extrabold leading-none font-princ">
-              {{ $featuredAnnonce->quantity ?? '1' }}<span class="text-[16px] font-medium text-[#444] align-middle"> ITEMS NEEDED</span>
-            </p>
-            <p class="text-[11px] text-[#6b6b6b] mt-2 uppercase tracking-[0.18em]">{{ $featuredAnnonce->category }}</p>
+    <section id="featured-request" class="px-8 md:px-14 lg:px-20 pt-24">
+      <div class="rounded-[34px] border border-[#d8d8d8] bg-white p-6 shadow-[0_12px_30px_rgba(0,0,0,0.04)] md:p-8">
+        <p class="text-[#007b67] font-semibold text-sm uppercase tracking-[0.18em]">Featured Request</p>
 
-            <h2 class="text-[58px] leading-[1.05] font-princ mt-8 max-w-[560px]">
-              {{ $featuredAnnonce->title }}
+        <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div>
+            @if ($featuredAnnonce?->image)
+              <img src="{{ asset('storage/' . $featuredAnnonce->image) }}" alt="{{ $featuredAnnonce->title }}" class="w-full h-[360px] object-cover rounded-[26px]">
+            @else
+              <div class="w-full h-[360px] rounded-[26px] bg-[#eef6f3] border border-[#d7e9e2] flex items-center justify-center text-center px-8">
+                <p class="text-[18px] uppercase tracking-[0.18em] text-[#007b67] font-semibold">No image yet</p>
+              </div>
+            @endif
+          </div>
+
+          <div>
+            <h2 class="text-[42px] leading-[1.05] font-princ md:text-[56px]">
+              {{ $featuredAnnonce?->title ?? 'Support the next request' }}
             </h2>
 
-            <p class="text-[15px] text-[#666] mt-6 max-w-[560px] leading-7">
-              {{ \Illuminate\Support\Str::limit($featuredAnnonce->description, 180) }}
+            <p class="mt-6 text-[15px] text-[#666] leading-7 max-w-[620px]">
+              {{ $featuredAnnonce ? \Illuminate\Support\Str::limit($featuredAnnonce->description, 220) : 'Join We Are Yan today so you are ready to support verified requests as soon as they are published.' }}
             </p>
 
-            <div class="flex justify-between text-[13px] text-[#555] mt-8 font-medium gap-6 flex-wrap">
-              <span>City : {{ $featuredAnnonce->city }}</span>
-              <span>Posted by : {{ $featuredAnnonce->beneficiary?->name ?? 'Community member' }}</span>
-            </div>
-
-            <div class="w-full h-[12px] bg-[#d8d8d8] rounded-full mt-3 overflow-hidden">
-              <div class="h-full {{ in_array($featuredAnnonce->urgency, ['urgent', 'critical']) ? 'w-[85%]' : 'w-[60%]' }} bg-[#007b67] rounded-full"></div>
-            </div>
-
-            <a href="{{ route('register') }}" class="inline-flex mt-8 bg-[#00563f] hover:bg-[#004734] text-white rounded-full px-12 py-4 text-[22px] font-semibold w-[290px] justify-center">
-              Donate Now
+            <a href="{{ route('register') }}" class="inline-flex mt-8 bg-[#00563f] hover:bg-[#004734] text-white rounded-full px-10 py-4 text-[18px] font-semibold justify-center">
+              Support Now
             </a>
-          @else
-            <p class="text-[#007b67] text-[54px] font-extrabold leading-none font-princ">
-              0<span class="text-[16px] font-medium text-[#444] align-middle"> ACTIVE REQUESTS</span>
-            </p>
-            <p class="text-[11px] text-[#6b6b6b] mt-2 uppercase tracking-[0.18em]">Community Support</p>
-
-            <h2 class="text-[58px] leading-[1.05] font-princ mt-8 max-w-[560px]">
-              Support the next request as soon as it is published
-            </h2>
-
-            <p class="text-[15px] text-[#666] mt-6 max-w-[560px] leading-7">
-              Join We Are Yan today so you are ready to discover verified requests and help people in need as soon as new annonces go live.
-            </p>
-
-            <div class="flex justify-between text-[13px] text-[#555] mt-8 font-medium">
-              <span>Status : Waiting for new requests</span>
-              <span>Access : Sign up to start</span>
-            </div>
-
-            <div class="w-full h-[12px] bg-[#d8d8d8] rounded-full mt-3 overflow-hidden">
-              <div class="h-full w-[25%] bg-[#007b67] rounded-full"></div>
-            </div>
-
-            <a href="{{ route('register') }}" class="inline-flex mt-8 bg-[#00563f] hover:bg-[#004734] text-white rounded-full px-12 py-4 text-[22px] font-semibold w-[290px] justify-center">
-              Donate Now
-            </a>
-          @endif
-        </div>
-
-        <div class="w-full lg:w-[42%]">
-          @if ($featuredAnnonce?->image)
-            <img src="{{ asset('storage/' . $featuredAnnonce->image) }}" alt="{{ $featuredAnnonce->title }}" class="w-full h-[420px] object-cover rounded-[34px]">
-          @else
-            <div class="w-full h-[420px] rounded-[34px] bg-[#eef6f3] border border-[#d7e9e2] flex flex-col items-center justify-center text-center px-8">
-              <p class="text-[18px] uppercase tracking-[0.18em] text-[#007b67] font-semibold">Featured Request</p>
-              <h3 class="mt-4 text-[36px] leading-[1.1] font-princ text-[#00563f]">
-                {{ $featuredAnnonce?->category ?? 'A new community need will appear here' }}
-              </h3>
-              <p class="mt-4 text-[15px] text-[#5f6f69] max-w-[360px] leading-7">
-                {{ $featuredAnnonce ? 'No image was uploaded for this annonce yet, but donors can still learn about the need and offer support.' : 'Once beneficiaries publish verified requests, this area will highlight one of them for donors.' }}
-              </p>
-            </div>
-          @endif
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="px-8 md:px-14 lg:px-20 pt-24">
+    <section id="how-to-help" class="px-8 md:px-14 lg:px-20 pt-24">
       <div class="bg-[#01563f] rounded-[70px] px-10 md:px-16 py-16 text-white">
         <h2 class="text-center text-[54px] font-princ">How To Start Help</h2>
         <p class="text-center text-[14px] text-white/70 max-w-[720px] mx-auto mt-4 leading-6">
@@ -204,7 +160,7 @@
       </div>
     </section>
 
-    <section class="px-8 md:px-14 lg:px-20 pt-28 pb-20">
+    <section id="faq" class="px-8 md:px-14 lg:px-20 pt-28 pb-20">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         <div>
           <h2 class="text-[60px] leading-[1.05] font-princ max-w-[500px]">
@@ -285,7 +241,7 @@
       </div>
     </section>
 
-    <section class="bg-[#01563f] mt-10 px-8 md:px-14 lg:px-20 py-20">
+    <section id="newsletter" class="bg-[#01563f] mt-10 px-8 md:px-14 lg:px-20 py-20">
       <div class="flex flex-col lg:flex-row items-center justify-between gap-10">
         <div>
           <h2 class="text-white text-[55px] leading-[1.1] font-princ max-w-[500px]">
