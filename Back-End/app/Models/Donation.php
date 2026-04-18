@@ -21,6 +21,7 @@ class Donation extends Model
         'method',
         'message',
         'status',
+        'stripe_session_id',
     ];
 
     public function annonce(): BelongsTo
