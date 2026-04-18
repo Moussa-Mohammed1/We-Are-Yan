@@ -7,6 +7,9 @@ use App\Models\Donation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Stripe\Checkout\Session as StripeSession;
+use Stripe\Exception\ApiErrorException;
+use Stripe\Stripe;
 
 class DonationController extends Controller
 {
@@ -66,7 +69,7 @@ class DonationController extends Controller
                 ->withInput();
         }
 
-        Donation::create([
+        $donation = Donation::create([
             'annonce_id' => $annonce->id,
             'donor_id' => $request->user()->id,
             'donor_name' => $validated['donor_name'],
@@ -82,6 +85,62 @@ class DonationController extends Controller
             'status' => 'pending',
         ]);
 
+        if (($validated['payment_mode'] ?? null) === 'stripe') {
+            return $this->redirectToStripeCheckout($request, $annonce, $donation, (float) $validated['donation_amount']);
+        }
+
         return back()->with('status', 'donation-submitted');
+    }
+
+    private function redirectToStripeCheckout(
+        Request $request,
+        Annonce $annonce,
+        Donation $donation,
+        float $amount
+    ): RedirectResponse {
+        if (! config('services.stripe.secret')) {
+            return back()
+                ->withErrors(['payment_mode' => 'Stripe payment is not configured yet.'])
+                ->withInput();
+        }
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        try {
+            $session = StripeSession::create([
+                'mode' => 'payment',
+                'customer_email' => $donation->donor_email,
+                'line_items' => [[
+                    'price_data' => [
+                        'currency' => 'mad',
+                        'product_data' => [
+                            'name' => 'Donation: ' . $annonce->title,
+                        ],
+                        'unit_amount' => (int) round($amount * 100),
+                    ],
+                    'quantity' => 1,
+                ]],
+                'success_url' => route('stripe.success') . '?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('stripe.cancel') . '?donation_id=' . $donation->id,
+                'metadata' => [
+                    'donation_id' => (string) $donation->id,
+                    'annonce_id' => (string) $annonce->id,
+                    'donor_id' => (string) $request->user()->id,
+                ],
+            ]);
+        } catch (ApiErrorException $exception) {
+            $donation->update(['status' => 'stripe_failed']);
+
+            return back()
+                ->withErrors(['payment_mode' => 'Stripe could not start the payment. Please try again.'])
+                ->withInput();
+        }
+
+        $donation->update([
+            'status' => 'payment_pending',
+            'stripe_session_id' => $session->id,
+        ]);
+
+        return redirect()->away($session->url);
     }
 }

@@ -46,6 +46,10 @@ Route::patch('/beneficiary/payment-settings', [BeneficiaryController::class, 'up
     ->middleware(['auth', 'verified', 'role:beneficiaire'])
     ->name('beneficiary.payment-settings.update');
 
+Route::get('/beneficiary/annonces/{annonce}/donations', [BeneficiaryController::class, 'annonceDonations'])
+    ->middleware(['auth', 'verified', 'role:beneficiaire'])
+    ->name('beneficiary.annonces.donations');
+
 Route::get('/donor/form', [AnnonceController::class, 'create'])
     ->middleware(['auth', 'verified', 'role:beneficiaire'])
     ->name('donor.form');
@@ -94,6 +98,10 @@ require __DIR__.'/auth.php';
 
 
 
-Route::get('/checkout', [StripeCheckoutController::class, 'checkout'])->name('stripe.checkout');
-Route::get('/checkout/success', [StripeCheckoutController::class, 'success'])->name('stripe.success');
-Route::get('/checkout/cancel', [StripeCheckoutController::class, 'cancel'])->name('stripe.cancel');
+Route::get('/checkout/success', [StripeCheckoutController::class, 'success'])
+    ->middleware(['auth', 'verified', 'role:donateur'])
+    ->name('stripe.success');
+
+Route::get('/checkout/cancel', [StripeCheckoutController::class, 'cancel'])
+    ->middleware(['auth', 'verified', 'role:donateur'])
+    ->name('stripe.cancel');

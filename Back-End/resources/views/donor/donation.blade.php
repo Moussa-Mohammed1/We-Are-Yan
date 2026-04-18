@@ -32,6 +32,18 @@
             <div class="mb-6 rounded-2xl border border-green-200 bg-green-50 px-5 py-4 text-green-700">
                 Your donation information was sent successfully.
             </div>
+        @elseif (session('status') === 'stripe-payment-paid')
+            <div class="mb-6 rounded-2xl border border-green-200 bg-green-50 px-5 py-4 text-green-700">
+                Your Stripe payment was validated successfully.
+            </div>
+        @elseif (session('status') === 'stripe-payment-not-paid')
+            <div class="mb-6 rounded-2xl border border-yellow-200 bg-yellow-50 px-5 py-4 text-yellow-800">
+                Stripe did not confirm the payment yet. Please try again.
+            </div>
+        @elseif (session('status') === 'stripe-payment-cancelled')
+            <div class="mb-6 rounded-2xl border border-yellow-200 bg-yellow-50 px-5 py-4 text-yellow-800">
+                Stripe payment was cancelled.
+            </div>
         @endif
 
         <section class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-start">
@@ -42,7 +54,7 @@
                     <p class="text-sm uppercase tracking-[0.16em] text-[#777] font-semibold">Donation</p>
                     <h1 class="mt-2 text-3xl md:text-4xl font-bold">Donate to {{ $annonce->title }}</h1>
                     <p class="mt-3 text-[#666] leading-7">
-                        Fill in your information, choose how you want to donate, then submit the form.
+                        Fill in your information, choose how you want to donate, then submit the form. Stripe payments open a secure payment page.
                     </p>
                 </div>
 
@@ -135,7 +147,7 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="w-full sm:w-auto px-8 py-4 rounded-full bg-[#00563f] text-white font-bold hover:bg-[#004734] transition">
+                <button id="donationSubmitButton" type="submit" class="w-full sm:w-auto px-8 py-4 rounded-full bg-[#00563f] text-white font-bold hover:bg-[#004734] transition">
                     Submit Donation
                 </button>
             </form>
@@ -179,9 +191,11 @@
             const amountSection = document.getElementById('amountSection');
             const itemsSection = document.getElementById('itemsSection');
             const paymentInputs = document.querySelectorAll('input[name="payment_mode"]');
+            const submitButton = document.getElementById('donationSubmitButton');
 
             function updateDonationForm() {
                 const selectedKind = document.querySelector('input[name="donation_kind"]:checked').value;
+                const selectedPayment = document.querySelector('input[name="payment_mode"]:checked')?.value;
                 const isMoney = selectedKind === 'money';
 
                 paymentSection.classList.toggle('hidden', !isMoney);
@@ -191,9 +205,16 @@
                 paymentInputs.forEach(function (input) {
                     input.disabled = !isMoney;
                 });
+
+                submitButton.textContent = isMoney && selectedPayment === 'stripe'
+                    ? 'Pay With Stripe'
+                    : 'Submit Donation';
             }
 
             kindInputs.forEach(function (input) {
+                input.addEventListener('change', updateDonationForm);
+            });
+            paymentInputs.forEach(function (input) {
                 input.addEventListener('change', updateDonationForm);
             });
 
