@@ -13,7 +13,7 @@
         $pendingCount = $annonces->where('status', 'pending')->count();
         $latestAnnonce = $annonces->first();
         $totalAnnonces = $annonces->count();
-        $totalCollected = 0;
+        $totalCollected = $totalCollected ?? 0;
     @endphp
 
     <div class="min-h-screen xl:grid xl:grid-cols-[280px_minmax(0,1fr)]">
@@ -163,8 +163,8 @@
                     <div class="relative flex items-start justify-between gap-4">
                         <div>
                             <p class="text-xs uppercase tracking-[0.18em] text-[#a98b45]">Total Collected</p>
-                            <p class="mt-4 text-4xl font-extrabold text-[#2b2313]">{{ $totalCollected }} <span class="text-2xl">MAD</span></p>
-                            <p class="mt-3 max-w-[220px] text-sm leading-6 text-[#81745c]">This amount will update once donation payments are saved in the system.</p>
+                            <p class="mt-4 text-4xl font-extrabold text-[#2b2313]">{{ number_format((float) $totalCollected, 2) }} <span class="text-2xl">MAD</span></p>
+                            <p class="mt-3 max-w-[220px] text-sm leading-6 text-[#81745c]">Total paid money donations received across your annonces.</p>
                         </div>
                         <span class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff0cc] text-[#b07b00]">
                             <i class="fa-solid fa-hand-holding-dollar text-[24px]"></i>
@@ -216,8 +216,7 @@
                                         <h3 class="mt-2 text-xl font-extrabold">{{ $chatAnnonce?->title ?? 'Chat' }}</h3>
                                         <p class="mt-2 text-sm leading-6 text-[#727875]">
                                             @if ($lastMessage)
-                                                <span class="font-semibold text-[#111]">{{ $lastMessage->sender?->name ?? 'User' }}:</span>
-                                                {{ \Illuminate\Support\Str::limit($lastMessage->content, 120) }}
+                                                <span class="font-semibold text-[#111]">From : {{ $lastMessage->sender?->name ?? 'User' }}</span>
                                             @else
                                                 No message yet. Open chat to reply.
                                             @endif
@@ -301,6 +300,10 @@
                                             <p class="text-xs uppercase tracking-[0.16em] text-[#99a59f]">City</p>
                                             <p class="mt-1 text-sm font-semibold">{{ $annonce->city }}</p>
                                         </div>
+                                        <div class="text-center">
+                                            <p class="text-xs uppercase tracking-[0.16em] text-[#99a59f]">Donations</p>
+                                            <p class="mt-1 text-sm font-semibold">{{ number_format((float) ($annonce->paid_money_donations_sum ?? 0), 2) }} MAD</p>
+                                        </div>
                                         <div class="text-right">
                                             <p class="text-xs uppercase tracking-[0.16em] text-[#99a59f]">Quantity</p>
                                             <p class="mt-1 text-sm font-semibold">{{ $annonce->quantity ?? 'Not set' }}</p>
@@ -314,7 +317,12 @@
                                         <span class="text-xs text-[#939c98]">{{ $annonce->created_at?->diffForHumans() }}</span>
                                     </div>
 
-                                    <div class="mt-5 flex gap-3 justify-end">
+                                    <div class="mt-5 flex flex-wrap gap-3 justify-end">
+                                        <a href="{{ route('beneficiary.annonces.donations', $annonce) }}"
+                                           class="inline-flex items-center justify-center rounded-full bg-[#00563f] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#004734]">
+                                            View Donations
+                                        </a>
+
                                         <a href="{{route('edit.form', $annonce)}}">
                                             <button type="button"
                                                class="inline-flex items-center justify-center rounded-full border border-[#00563f] px-4 py-2 text-sm font-semibold text-[#00563f] transition hover:bg-[#00563f] hover:text-white">
@@ -496,6 +504,7 @@
                                     <th class="pb-3 pr-4 font-semibold">Title</th>
                                     <th class="pb-3 pr-4 font-semibold">Category</th>
                                     <th class="pb-3 pr-4 font-semibold">Urgency</th>
+                                    <th class="pb-3 pr-4 font-semibold">Donations</th>
                                     <th class="pb-3 pr-4 font-semibold">Date</th>
                                     <th class="pb-3 font-semibold">Status</th>
                                 </tr>
@@ -513,6 +522,11 @@
                                         <td class="py-4 pr-4 font-semibold text-[#181818]">{{ \Illuminate\Support\Str::limit($annonce->title, 28) }}</td>
                                         <td class="py-4 pr-4">{{ $annonce->category }}</td>
                                         <td class="py-4 pr-4">{{ ucfirst($annonce->urgency) }}</td>
+                                        <td class="py-4 pr-4">
+                                            <a href="{{ route('beneficiary.annonces.donations', $annonce) }}" class="font-semibold text-[#00563f] hover:underline">
+                                                {{ number_format((float) ($annonce->paid_money_donations_sum ?? 0), 2) }} MAD
+                                            </a>
+                                        </td>
                                         <td class="py-4 pr-4">{{ $annonce->created_at?->format('d M Y') }}</td>
                                         <td class="py-4">
                                             <span class="inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase {{ $tableStatusClasses }}">
