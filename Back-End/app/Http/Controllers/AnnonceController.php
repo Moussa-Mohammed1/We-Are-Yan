@@ -7,9 +7,25 @@ use App\Models\Annonce;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class AnnonceController extends Controller
 {
+    public function create(Request $request): View
+    {
+        return view('donor.formdonor', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function edit(Request $request, Annonce $annonce): View
+    {
+        return view('donor.formdonor', [
+            'user' => $request->user(),
+            'annonce' => $annonce,
+        ]);
+    }
+
     public function store(StoreAnnonceRequest $request): RedirectResponse
     {
         $imagePath = null;
@@ -34,14 +50,6 @@ class AnnonceController extends Controller
         return redirect()
             ->route($request->user()->homeRouteName())
             ->with('status', 'annonce-created');
-    }
-
-    public function edit($id){
-
-        $annonce = Annonce::findOrFail($id);
-        return view('donor.formdonor', [
-            'annonce' => $annonce,
-        ]);
     }
 
     public function update(Request $request, $id){

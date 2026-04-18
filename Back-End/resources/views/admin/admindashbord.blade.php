@@ -41,6 +41,14 @@
                         Review History
                     </a>
 
+                    <a href="#events"
+                       class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
+                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
+                            <i class="fa-solid fa-calendar-days text-sm"></i>
+                        </span>
+                        Events
+                    </a>
+
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit"
@@ -83,6 +91,10 @@
                 @if (session('status') === 'annonce-reviewed')
                     <span class="inline-flex rounded-full bg-[#e7f6ef] px-5 py-3 text-sm font-semibold text-[#11624c]">
                         Annonce status updated
+                    </span>
+                @elseif (session('status') === 'event-created')
+                    <span class="inline-flex rounded-full bg-[#e7f6ef] px-5 py-3 text-sm font-semibold text-[#11624c]">
+                        Event created
                     </span>
                 @endif
             </header>
@@ -248,6 +260,56 @@
                                 @endforelse
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="events" class="mt-8">
+                <div class="rounded-[30px] border border-[#ece9e2] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)] md:p-7">
+                    <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                        <div>
+                            <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#8fa198]">Events</p>
+                            <h2 class="mt-2 text-3xl font-extrabold">Donor Participation</h2>
+                            <p class="mt-3 max-w-[760px] text-sm leading-7 text-[#727875]">
+                                Create events and follow how many donors participate.
+                            </p>
+                        </div>
+
+                        <a href="{{ route('admin.events.create') }}" class="inline-flex items-center justify-center rounded-full bg-[#00563f] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#004734]">
+                            Create Event
+                        </a>
+                    </div>
+
+                    <div class="mt-7 grid grid-cols-1 gap-5 xl:grid-cols-2">
+                        @forelse ($events as $event)
+                            <article class="rounded-[24px] border border-[#ece9e2] bg-[#fcfcfa] p-5">
+                                <div class="flex flex-wrap items-start justify-between gap-4">
+                                    <div>
+                                        <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#8fa198]">{{ $event->city }}</p>
+                                        <h3 class="mt-2 text-xl font-extrabold">{{ $event->title }}</h3>
+                                    </div>
+                                    <span class="inline-flex rounded-full bg-[#e7f6ef] px-4 py-2 text-sm font-bold text-[#11624c]">
+                                        {{ $event->participants_count }} participants
+                                    </span>
+                                </div>
+
+                                <p class="mt-4 text-sm leading-7 text-[#727875]">
+                                    {{ $event->description ?: 'No description added.' }}
+                                </p>
+
+                                <div class="mt-5 flex items-center gap-3 text-sm font-semibold text-[#4b4f4d]">
+                                    <i class="fa-regular fa-calendar text-[#00563f]"></i>
+                                    {{ $event->date_event?->format('d M Y') }}
+                                </div>
+                            </article>
+                        @empty
+                            <div class="xl:col-span-2 rounded-[26px] border border-dashed border-[#d3d9d4] bg-[#fbfbf8] px-8 py-16 text-center">
+                                <h3 class="text-2xl font-extrabold">No events yet</h3>
+                                <p class="mx-auto mt-3 max-w-[520px] text-sm leading-7 text-[#727875]">
+                                    Create the first event so donors can participate.
+                                </p>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
             </section>

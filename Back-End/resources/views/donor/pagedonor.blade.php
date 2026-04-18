@@ -41,6 +41,14 @@
                         Requests
                     </a>
 
+                    <a href="#events"
+                       class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
+                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
+                            <i class="fa-solid fa-calendar-days text-sm"></i>
+                        </span>
+                        My Events
+                    </a>
+
                     <a href="{{ route('profile.edit') }}"
                        class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
@@ -91,6 +99,17 @@
                 </div>
             </header>
 
+            <div class="relative bg-[#00563f] rounded-2xl p-10 overflow-hidden mb-12 text-white">
+                <div class="relative z-10 max-w-lg">
+                    <p class="uppercase tracking-widest text-sm mb-2 opacity-90 font-semibold">Community Support</p>
+                    <h1 class="text-4xl font-bold leading-tight mb-6">Explore active requests and support families and communities in need.</h1>
+                    <a href="#requests" class="inline-flex bg-gray-900 text-white px-8 py-3 rounded-full items-center space-x-3 hover:bg-black">
+                        <span>Browse Requests</span>
+                        <span class="bg-white text-black rounded-full w-6 h-6 flex items-center justify-center text-xs">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+
             <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
                 <div class="flex items-center justify-between gap-6 flex-wrap">
                     <div>
@@ -123,16 +142,67 @@
                 </div>
             </section>
 
-            <div class="relative bg-[#00563f] rounded-2xl p-10 overflow-hidden mb-12 text-white">
-                <div class="relative z-10 max-w-lg">
-                    <p class="uppercase tracking-widest text-sm mb-2 opacity-90 font-semibold">Community Support</p>
-                    <h1 class="text-4xl font-bold leading-tight mb-6">Explore active requests and support families and communities in need.</h1>
-                    <a href="#requests" class="inline-flex bg-gray-900 text-white px-8 py-3 rounded-full items-center space-x-3 hover:bg-black">
-                        <span>Browse Requests</span>
-                        <span class="bg-white text-black rounded-full w-6 h-6 flex items-center justify-center text-xs">&rarr;</span>
-                    </a>
+            @if (session('status') === 'event-participated')
+                <div class="mb-8 rounded-2xl border border-[#bfe5cf] bg-[#e7f6ef] px-5 py-4 text-sm font-semibold text-[#11624c]">
+                    You are participating in this event.
                 </div>
-            </div>
+            @endif
+
+            <section id="events" class="mb-10">
+                <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                    <div>
+                        <p class="text-sm uppercase tracking-[0.2em] text-teal-600 font-semibold">Community Events</p>
+                        <h2 class="mt-2 text-3xl font-extrabold text-gray-800">My Events</h2>
+                    </div>
+                    <p class="text-sm text-gray-500">Choose an event and join the community action.</p>
+                </div>
+
+                <div class="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2">
+                    @forelse ($events as $event)
+                        <article class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+                            <div class="flex flex-wrap items-start justify-between gap-4">
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-[0.16em] text-teal-600">{{ $event->city }}</p>
+                                    <h3 class="mt-2 text-xl font-extrabold text-gray-900">{{ $event->title }}</h3>
+                                </div>
+                                <span class="inline-flex rounded-full bg-[#eef6f3] px-4 py-2 text-xs font-bold text-[#00563f]">
+                                    {{ $event->participants_count }} joined
+                                </span>
+                            </div>
+
+                            <p class="mt-4 text-sm leading-7 text-gray-500">
+                                {{ $event->description ?: 'More details will be shared soon.' }}
+                            </p>
+
+                            <div class="mt-5 flex flex-wrap items-center justify-between gap-4">
+                                <p class="text-sm font-semibold text-gray-700">
+                                    <i class="fa-regular fa-calendar mr-2 text-[#00563f]"></i>
+                                    {{ $event->date_event?->format('d M Y') }}
+                                </p>
+
+                                @if ($event->joined_by_user)
+                                    <span class="inline-flex items-center justify-center rounded-full border border-[#00563f] px-5 py-3 text-sm font-bold text-[#00563f]">
+                                        Participating
+                                    </span>
+                                @else
+                                    <form method="POST" action="{{ route('events.participate', $event) }}">
+                                        @csrf
+                                        <button type="submit" class="inline-flex items-center justify-center rounded-full bg-[#00563f] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#004734]">
+                                            Participate
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
+                        </article>
+                    @empty
+                        <div class="lg:col-span-2 rounded-[28px] border border-dashed border-[#d3d9d4] bg-white px-8 py-12 text-center text-[#666] shadow-sm">
+                            No events available yet.
+                        </div>
+                    @endforelse
+                </div>
+            </section>
+
+            
 
             <h2 id="requests" class="text-3xl font-extrabold text-gray-800 mb-8">Let's Give Help To Those In <span class="text-green-700 border-b-4 border-green-700">Need</span></h2>
 
