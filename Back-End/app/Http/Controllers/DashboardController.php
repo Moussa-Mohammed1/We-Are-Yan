@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Annonce;
+use App\Models\Donation;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -43,10 +44,16 @@ class DashboardController extends Controller
                 'pending_annonces' => $pendingAnnonces->count(),
                 'approved_annonces' => $annonces->where('status', 'approved')->count(),
                 'rejected_annonces' => $annonces->where('status', 'rejected')->count(),
+                'total_money_collected' => Donation::where('type', 'money')
+                    ->where('status', 'paid')
+                    ->sum('amount_or_qty'),
             ],
             'pendingAnnonces' => $pendingAnnonces,
             'reviewedAnnonces' => $reviewedAnnonces,
-            'events' => Event::withCount('participants')->orderBy('date_event')->get(),
+            'events' => Event::with(['participants:id,name,email'])
+                ->withCount('participants')
+                ->orderBy('date_event')
+                ->get(),
         ]);
     }
 }

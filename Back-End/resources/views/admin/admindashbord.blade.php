@@ -99,40 +99,59 @@
                 @endif
             </header>
 
-            <section class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-                @foreach ([
-                    ['label' => 'Users', 'value' => $stats['total_users'], 'icon' => 'fa-users', 'tone' => 'bg-[#eef8f4] text-[#00563f]'],
-                    ['label' => 'Donors', 'value' => $stats['donors'], 'icon' => 'fa-hand-holding-heart', 'tone' => 'bg-[#fff4df] text-[#b77411]'],
-                    ['label' => 'Beneficiaries', 'value' => $stats['beneficiaries'], 'icon' => 'fa-people-roof', 'tone' => 'bg-[#eef0ff] text-[#4b5fc4]'],
-                    ['label' => 'Annonces', 'value' => $stats['total_annonces'], 'icon' => 'fa-list-ul', 'tone' => 'bg-[#fff1ee] text-[#c75e43]'],
-                ] as $card)
-                    <div class="rounded-[22px] border border-[#e5ebe7] bg-white p-5 shadow-[0_10px_24px_rgba(0,0,0,0.04)]">
-                        <div class="flex items-center justify-between gap-4">
-                            <div>
-                                <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#8fa198]">{{ $card['label'] }}</p>
-                                <p class="mt-3 text-3xl font-extrabold text-[#111111]">{{ $card['value'] }}</p>
-                            </div>
-                            <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl {{ $card['tone'] }}">
-                                <i class="fa-solid {{ $card['icon'] }} text-lg"></i>
-                            </span>
-                        </div>
-                    </div>
-                @endforeach
-            </section>
+            <section class="mt-8 rounded-[28px] border border-[#dce9e3] bg-[#0f3d31] p-4 text-white shadow-[0_18px_44px_rgba(0,86,63,0.16)] md:p-5">
+                <div class="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)]">
+                    <div class="rounded-[22px] border border-white/10 bg-white/10 p-5 md:p-6">
+                        <p class="text-xs font-bold uppercase tracking-[0.18em] text-white/60">Platform Statistics</p>
+                        <h2 class="mt-3 text-2xl font-extrabold leading-tight md:text-3xl">Overview</h2>
+                        <p class="mt-2 text-sm leading-6 text-white/70">
+                            Users, requests, and validated money donations.
+                        </p>
 
-            <section class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-                @foreach ([
-                    ['label' => 'Pending', 'value' => $stats['pending_annonces'], 'class' => 'border-[#f1d28a] bg-[#fff4df] text-[#8a5a00]'],
-                    ['label' => 'Accepted', 'value' => $stats['approved_annonces'], 'class' => 'border-[#bfe5cf] bg-[#e7f6ef] text-[#11624c]'],
-                    ['label' => 'Refused', 'value' => $stats['rejected_annonces'], 'class' => 'border-[#f0c1b6] bg-[#fff1ee] text-[#c75e43]'],
-                ] as $statusCard)
-                    <div class="rounded-[22px] border p-5 {{ $statusCard['class'] }}">
-                        <div class="flex items-center justify-between gap-4">
-                            <p class="text-sm font-bold">{{ $statusCard['label'] }}</p>
-                            <p class="text-2xl font-extrabold">{{ $statusCard['value'] }}</p>
+                        <div class="mt-6">
+                            <p class="text-xs font-bold uppercase tracking-[0.16em] text-white/55">Money Collected</p>
+                            <div class="mt-2 flex flex-wrap items-end gap-x-3 gap-y-1">
+                                <p class="text-4xl font-extrabold leading-none md:text-5xl">{{ number_format((float) $stats['total_money_collected'], 2) }}</p>
+                                <p class="pb-1 text-sm font-bold text-white/65">MAD</p>
+                            </div>
                         </div>
                     </div>
-                @endforeach
+
+                    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                        @foreach ([
+                            ['label' => 'Users', 'value' => $stats['total_users'], 'icon' => 'fa-users', 'note' => 'All accounts'],
+                            ['label' => 'Donors', 'value' => $stats['donors'], 'icon' => 'fa-hand-holding-heart', 'note' => 'Giving members'],
+                            ['label' => 'Beneficiaries', 'value' => $stats['beneficiaries'], 'icon' => 'fa-people-roof', 'note' => 'Request owners'],
+                            ['label' => 'Annonces', 'value' => $stats['total_annonces'], 'icon' => 'fa-list-ul', 'note' => 'Total requests'],
+                        ] as $card)
+                            <div class="rounded-[20px] border border-white/10 bg-white/[0.08] p-4">
+                                <div class="flex items-center justify-between gap-3">
+                                    <div>
+                                        <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-white/55">{{ $card['label'] }}</p>
+                                        <p class="mt-1 text-3xl font-extrabold leading-none">{{ $card['value'] }}</p>
+                                    </div>
+                                    <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white text-[#0f3d31]">
+                                        <i class="fa-solid {{ $card['icon'] }} text-sm"></i>
+                                    </span>
+                                </div>
+                                <p class="mt-3 text-xs font-semibold text-white/60">{{ $card['note'] }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3">
+                    @foreach ([
+                        ['label' => 'Pending', 'value' => $stats['pending_annonces'], 'tone' => 'bg-[#fff4df] text-[#8a5a00]'],
+                        ['label' => 'Accepted', 'value' => $stats['approved_annonces'], 'tone' => 'bg-[#e7f6ef] text-[#11624c]'],
+                        ['label' => 'Refused', 'value' => $stats['rejected_annonces'], 'tone' => 'bg-[#fff1ee] text-[#c75e43]'],
+                    ] as $statusCard)
+                        <div class="flex items-center justify-between rounded-[18px] bg-white px-4 py-3 {{ $statusCard['tone'] }}">
+                            <p class="text-sm font-extrabold">{{ $statusCard['label'] }}</p>
+                            <p class="text-2xl font-extrabold leading-none">{{ $statusCard['value'] }}</p>
+                        </div>
+                    @endforeach
+                </div>
             </section>
 
             <section id="pending-annonces" class="mt-8">
@@ -300,6 +319,23 @@
                                 <div class="mt-5 flex items-center gap-3 text-sm font-semibold text-[#4b4f4d]">
                                     <i class="fa-regular fa-calendar text-[#00563f]"></i>
                                     {{ $event->date_event?->format('d M Y') }}
+                                </div>
+
+                                <div class="mt-5 rounded-[20px] border border-[#ece9e2] bg-white p-4">
+                                    <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#8fa198]">Participants Details</p>
+
+                                    <div class="mt-4 space-y-3">
+                                        @forelse ($event->participants as $participant)
+                                            <div class="flex flex-col gap-1 rounded-2xl bg-[#f7f7f3] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+                                                <p class="text-sm font-bold text-[#181818]">{{ $participant->name }}</p>
+                                                <p class="text-sm text-[#727875]">{{ $participant->email }}</p>
+                                            </div>
+                                        @empty
+                                            <p class="rounded-2xl border border-dashed border-[#d3d9d4] px-4 py-5 text-center text-sm text-[#727875]">
+                                                No donors participating yet.
+                                            </p>
+                                        @endforelse
+                                    </div>
                                 </div>
                             </article>
                         @empty
