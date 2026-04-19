@@ -60,6 +60,10 @@ Route::get('/edit/{annonce}/form', [AnnonceController::class, 'edit'])
 
 Route::put('/update/{annonce}', [AnnonceController::class, 'update'])->name('annonce.update');
 
+Route::delete('/annonces/{annonce}', [AnnonceController::class, 'destroy'])
+    ->middleware(['auth', 'verified', 'role:beneficiaire'])
+    ->name('annonces.destroy');
+
 Route::post('/donor/form', [AnnonceController::class, 'store'])
     ->middleware(['auth', 'verified', 'role:beneficiaire'])
     ->name('donor.form.store');

@@ -60,30 +60,6 @@
         </div>
       </div>
 
-      <p class="text-center text-[14px] text-[#5b5b5b] mt-10">
-        Trusted by more than 5 million volunteers in 120 countries
-      </p>
-
-      <div class="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-y-8 text-[#007b67] text-[18px] font-semibold items-center">
-        <div class="flex items-center gap-2 justify-center lg:justify-start">
-          <span>o</span><span>TEAMTALK</span>
-        </div>
-        <div class="flex items-center gap-2 justify-center">
-          <span>*</span><span>ExDone</span>
-        </div>
-        <div class="flex items-center gap-2 justify-center">
-          <span>+</span><span>NEXTFLOWS</span>
-        </div>
-        <div class="flex items-center gap-2 justify-center">
-          <span>o</span><span>Globalchart</span>
-        </div>
-        <div class="flex items-center gap-2 justify-center">
-          <span>[]</span><span>MarketSavy</span>
-        </div>
-        <div class="flex items-center gap-2 justify-center lg:justify-end">
-          <span>*</span><span>EpicDev</span>
-        </div>
-      </div>
     </section>
 
     <section id="featured-request" class="px-8 md:px-14 lg:px-20 pt-24">
@@ -209,7 +185,7 @@
             </button>
             <div class="faq-answer hidden">
               <p class="text-[13px] text-[#666] leading-6 mt-5">
-                Beneficiaries create requests for help, and donors browse approved annonces to support people, families, and communities through the platform.
+                Beneficiaries create requests for help, and donors browse accepted annonces to support people, families, and communities through the platform.
               </p>
             </div>
           </div>
@@ -233,7 +209,7 @@
             </button>
             <div class="faq-answer hidden">
               <p class="text-[13px] text-[#666] leading-6 mt-5">
-                After logging in as a beneficiary, you can open your dashboard to view your annonces and track whether each request is pending, approved, or rejected.
+                After logging in as a beneficiary, you can open your dashboard to view your annonces and track whether each request is pending, accepted, or rejected.
               </p>
             </div>
           </div>

@@ -66,6 +66,7 @@
             <x-responsive-nav-link :href="route(Auth::user()->homeRouteName())" :active="request()->routeIs('dashboard') || request()->routeIs('donor.form') || request()->routeIs('beneficiary.dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+                
         </div>
 
         <!-- Responsive Settings Options -->

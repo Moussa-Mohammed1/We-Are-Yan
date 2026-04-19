@@ -68,6 +68,19 @@ class AnnonceController extends Controller
 
     }
 
+    public function destroy(Request $request, Annonce $annonce): RedirectResponse
+    {
+        abort_unless($annonce->beneficiary_id === $request->user()->id, 403);
+
+        if ($annonce->donations()->whereIn('type', ['money', 'items'])->exists()) {
+            return back()->with('status', 'annonce-has-donations');
+        }
+
+        $annonce->delete();
+
+        return back()->with('status', 'annonce-deleted');
+    }
+
     public function filterByCategory(Request $request): JsonResponse
     {
         $query = Annonce::with('beneficiary')
