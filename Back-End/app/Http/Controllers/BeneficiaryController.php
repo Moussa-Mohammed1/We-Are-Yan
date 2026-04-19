@@ -40,7 +40,8 @@ class BeneficiaryController extends Controller
     {
         abort_unless($annonce->beneficiary_id === $request->user()->id, 403);
 
-        $annonce->load(['donations.donor']);
+        $annonce->load(['donations' => fn ($query) => $query->whereIn('type', ['money', 'items'])]);
+        $annonce->donations->load('donor');
 
         $paidMoneyDonations = $annonce->donations
             ->where('type', 'money')

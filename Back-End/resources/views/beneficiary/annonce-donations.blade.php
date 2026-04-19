@@ -55,7 +55,7 @@
                     <h2 class="mt-2 text-3xl font-extrabold">Donors For This Annonce</h2>
                 </div>
                 <span class="inline-flex rounded-full bg-[#e7f6ef] px-4 py-2 text-sm font-semibold text-[#11624c]">
-                    {{ $annonce->status }}
+                    {{ $annonce->status === 'approved' ? 'accepted' : $annonce->status }}
                 </span>
             </div>
 

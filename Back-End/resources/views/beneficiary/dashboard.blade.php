@@ -110,6 +110,12 @@
                     <p class="mt-3 max-w-[760px] text-[11px] leading-7 text-[#6a6f6b]">
                         Track your requests, review their status, and keep your profile ready so support can reach you quickly.
                     </p>
+                    <div class="mt-4">
+                        <span class="inline-flex items-center gap-2 rounded-full border border-[#dce9e3] bg-[#e7f6ef] px-4 py-2 text-sm font-bold text-[#11624c]">
+                            <i class="fa-solid fa-people-roof text-xs"></i>
+                            Beneficiary
+                        </span>
+                    </div>
                 </div>
 
                 <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -130,6 +136,32 @@
                     </a>
                 </div>
             </header>
+
+            @if (in_array(session('status'), ['annonce-has-donations', 'annonce-deleted'], true))
+                @php
+                    $isDeleteBlocked = session('status') === 'annonce-has-donations';
+                @endphp
+                <div id="dashboardPopup" class="fixed inset-0 z-50 flex items-center justify-center bg-black/35 px-5">
+                    <div class="w-full max-w-md rounded-[28px] border border-[#ece9e2] bg-white p-6 text-center shadow-[0_24px_60px_rgba(0,0,0,0.18)]">
+                        <span class="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl {{ $isDeleteBlocked ? 'bg-[#fff1ee] text-[#c75e43]' : 'bg-[#e7f6ef] text-[#11624c]' }}">
+                            <i class="fa-solid {{ $isDeleteBlocked ? 'fa-triangle-exclamation' : 'fa-check' }} text-xl"></i>
+                        </span>
+
+                        <h2 class="mt-5 text-2xl font-extrabold text-[#161616]">
+                            {{ $isDeleteBlocked ? 'Cannot Delete Annonce' : 'Annonce Deleted' }}
+                        </h2>
+                        <p class="mt-3 text-sm leading-7 text-[#727875]">
+                            {{ $isDeleteBlocked ? 'You cannot delete this annonce because it has donations.' : 'Annonce deleted successfully.' }}
+                        </p>
+
+                        <button type="button"
+                            onclick="document.getElementById('dashboardPopup').remove()"
+                            class="mt-6 inline-flex items-center justify-center rounded-full bg-[#00563f] px-7 py-3 text-sm font-bold text-white transition hover:bg-[#004734]">
+                            OK
+                        </button>
+                    </div>
+                </div>
+            @endif
 
             <section class="mt-8">
                 <div class="rounded-[30px] bg-[#00563f] p-7 text-white shadow-[0_18px_40px_rgba(0,86,63,0.18)] md:p-9">
@@ -204,7 +236,6 @@
                         @forelse ($conversations as $conversation)
                             @php
                                 $lastMessage = $conversation->messages->last();
-                                $chatAnnonce = $conversation->donation?->annonce;
                             @endphp
 
                             <article class="rounded-[24px] border border-[#ece9e2] bg-[#fcfcfa] p-5">
@@ -213,7 +244,7 @@
                                         <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#8fa198]">
                                             Donor: {{ $conversation->donor?->name ?? 'Unknown donor' }}
                                         </p>
-                                        <h3 class="mt-2 text-xl font-extrabold">{{ $chatAnnonce?->title ?? 'Chat' }}</h3>
+                                        <h3 class="mt-2 text-xl font-extrabold">Chat with {{ $conversation->donor?->name ?? 'donor' }}</h3>
                                         <p class="mt-2 text-sm leading-6 text-[#727875]">
                                             @if ($lastMessage)
                                                 <span class="font-semibold text-[#111]">From : {{ $lastMessage->sender?->name ?? 'User' }}</span>
@@ -286,7 +317,7 @@
                                             {{ $annonce->category }}
                                         </span>
                                         <span class="inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase {{ $statusClasses }}">
-                                            {{ $annonce->status }}
+                                            {{ $annonce->status === 'approved' ? 'accepted' : $annonce->status }}
                                         </span>
                                     </div>
 
@@ -330,10 +361,14 @@
                                             </button>
                                         </a>
 
-                                        <button type="button"
-                                           class="inline-flex items-center justify-center rounded-full border border-[#c75e43] px-4 py-2 text-sm font-semibold text-[#c75e43] transition hover:bg-[#c75e43] hover:text-white">
-                                            Delete Annonce
-                                        </button>
+                                        <form method="POST" action="{{ route('annonces.destroy', $annonce) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                               class="inline-flex items-center justify-center rounded-full border border-[#c75e43] px-4 py-2 text-sm font-semibold text-[#c75e43] transition hover:bg-[#c75e43] hover:text-white">
+                                                Delete Annonce
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </article>
@@ -530,7 +565,7 @@
                                         <td class="py-4 pr-4">{{ $annonce->created_at?->format('d M Y') }}</td>
                                         <td class="py-4">
                                             <span class="inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase {{ $tableStatusClasses }}">
-                                                {{ $annonce->status }}
+                                                {{ $annonce->status === 'approved' ? 'accepted' : $annonce->status }}
                                             </span>
                                         </td>
                                     </tr>
