@@ -13,12 +13,12 @@
         <aside class="border-b xl:border-b-0 xl:border-r border-[#e6e4dc] bg-[#fbfbf8] px-6 py-8 xl:px-7">
             <div class="xl:sticky xl:top-6">
                 <a href="{{ url('/') }}" class="inline-flex items-center">
-                    <img src="{{ Vite::asset('resources/images/logowry.png') }}" alt="Logo" class="h-16 object-contain">
+                    <img src="{{ Vite::asset('resources/images/logowryblue.png') }}" alt="Logo" class="h-16 object-contain">
                 </a>
 
                 <nav class="mt-8 space-y-2">
                     <a href="{{ route('admin.dashboard') }}"
-                       class="flex items-center gap-3 rounded-2xl bg-[#00563f] px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(0,86,63,0.18)]">
+                       class="flex items-center gap-3 rounded-2xl bg-[#2563eb] px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(0,86,63,0.18)]">
                         <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-white/12">
                             <i class="fa-solid fa-chart-line text-sm"></i>
                         </span>
@@ -26,24 +26,24 @@
                     </a>
 
                     <a href="#pending-annonces"
-                       class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
-                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
+                       class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#475569] transition hover:bg-white hover:text-[#111]">
+                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eff6ff] text-[#2563eb]">
                             <i class="fa-solid fa-hourglass-half text-sm"></i>
                         </span>
                         Pending Annonces
                     </a>
 
                     <a href="#review-history"
-                       class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
-                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
+                       class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#475569] transition hover:bg-white hover:text-[#111]">
+                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eff6ff] text-[#2563eb]">
                             <i class="fa-solid fa-clipboard-check text-sm"></i>
                         </span>
                         Review History
                     </a>
 
                     <a href="#events"
-                       class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
-                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
+                       class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-[#475569] transition hover:bg-white hover:text-[#111]">
+                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#eff6ff] text-[#2563eb]">
                             <i class="fa-solid fa-calendar-days text-sm"></i>
                         </span>
                         Events
@@ -52,7 +52,7 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit"
-                            class="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium text-[#52605a] transition hover:bg-white hover:text-[#111]">
+                            class="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium text-[#475569] transition hover:bg-white hover:text-[#111]">
                             <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-[#fff1ee] text-[#d26c52]">
                                 <i class="fa-solid fa-right-from-bracket text-sm"></i>
                             </span>
@@ -61,10 +61,10 @@
                     </form>
                 </nav>
 
-                <div class="mt-10 rounded-[28px] border border-[#dce9e3] bg-[#e7f6ef] p-5">
-                    <p class="text-[13px] font-bold text-[#0f3d31]">Admin review</p>
-                    <p class="mt-2 text-[11px] leading-5 text-[#55736a]">
-                        Approve clear annonces and refuse requests that need corrections. Add a report for every decision.
+                <div class="mt-10 rounded-[28px] border border-[#bfdbfe] bg-[#dbeafe] p-5">
+                    <p class="text-[13px] font-bold text-[#1e3a8a]">Admin review</p>
+                    <p class="mt-2 text-[11px] leading-5 text-[#64748b]">
+                        Accept clear annonces and refuse requests that need corrections. Add a report for every decision.
                     </p>
                 </div>
             </div>
@@ -84,22 +84,37 @@
                     <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#8ca097]">Admin / Platform Control</p>
                     <h1 class="mt-3 text-3xl font-extrabold leading-tight md:text-4xl">Application Statistics</h1>
                     <p class="mt-3 max-w-[760px] text-sm leading-7 text-[#6a6f6b]">
-                        Review platform activity, approve valid annonces, and keep a report for each accepted or refused request.
+                        Review platform activity, accept valid annonces, and keep a report for each accepted or refused request.
                     </p>
+
+                    <div class="mt-5 flex flex-wrap gap-3">
+                        <span class="inline-flex items-center gap-2 rounded-full border border-[#bfdbfe] bg-[#eff6ff] px-4 py-2 text-sm font-bold text-[#1d4ed8]">
+                            <i class="fa-solid fa-hand-holding-heart text-xs"></i>
+                            Donors: {{ $stats['donors'] }}
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-[#ddd6fe] bg-[#f5f3ff] px-4 py-2 text-sm font-bold text-[#6d28d9]">
+                            <i class="fa-solid fa-people-roof text-xs"></i>
+                            Beneficiaries: {{ $stats['beneficiaries'] }}
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-[#cbd5e1] bg-white px-4 py-2 text-sm font-bold text-[#334155]">
+                            <i class="fa-solid fa-user-shield text-xs"></i>
+                            Admins: {{ $stats['admins'] }}
+                        </span>
+                    </div>
                 </div>
 
                 @if (session('status') === 'annonce-reviewed')
-                    <span class="inline-flex rounded-full bg-[#e7f6ef] px-5 py-3 text-sm font-semibold text-[#11624c]">
+                    <span class="inline-flex rounded-full bg-[#dbeafe] px-5 py-3 text-sm font-semibold text-[#1d4ed8]">
                         Annonce status updated
                     </span>
                 @elseif (session('status') === 'event-created')
-                    <span class="inline-flex rounded-full bg-[#e7f6ef] px-5 py-3 text-sm font-semibold text-[#11624c]">
+                    <span class="inline-flex rounded-full bg-[#dbeafe] px-5 py-3 text-sm font-semibold text-[#1d4ed8]">
                         Event created
                     </span>
                 @endif
             </header>
 
-            <section class="mt-8 rounded-[28px] border border-[#dce9e3] bg-[#0f3d31] p-4 text-white shadow-[0_18px_44px_rgba(0,86,63,0.16)] md:p-5">
+            <section class="mt-8 rounded-[28px] border border-[#bfdbfe] bg-[#1e3a8a] p-4 text-white shadow-[0_18px_44px_rgba(0,86,63,0.16)] md:p-5">
                 <div class="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)]">
                     <div class="rounded-[22px] border border-white/10 bg-white/10 p-5 md:p-6">
                         <p class="text-xs font-bold uppercase tracking-[0.18em] text-white/60">Platform Statistics</p>
@@ -130,7 +145,7 @@
                                         <p class="text-[11px] font-bold uppercase tracking-[0.14em] text-white/55">{{ $card['label'] }}</p>
                                         <p class="mt-1 text-3xl font-extrabold leading-none">{{ $card['value'] }}</p>
                                     </div>
-                                    <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white text-[#0f3d31]">
+                                    <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white text-[#1e3a8a]">
                                         <i class="fa-solid {{ $card['icon'] }} text-sm"></i>
                                     </span>
                                 </div>
@@ -143,7 +158,7 @@
                 <div class="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3">
                     @foreach ([
                         ['label' => 'Pending', 'value' => $stats['pending_annonces'], 'tone' => 'bg-[#fff4df] text-[#8a5a00]'],
-                        ['label' => 'Accepted', 'value' => $stats['approved_annonces'], 'tone' => 'bg-[#e7f6ef] text-[#11624c]'],
+                        ['label' => 'Accepted', 'value' => $stats['approved_annonces'], 'tone' => 'bg-[#dbeafe] text-[#1d4ed8]'],
                         ['label' => 'Refused', 'value' => $stats['rejected_annonces'], 'tone' => 'bg-[#fff1ee] text-[#c75e43]'],
                     ] as $statusCard)
                         <div class="flex items-center justify-between rounded-[18px] bg-white px-4 py-3 {{ $statusCard['tone'] }}">
@@ -158,9 +173,9 @@
                 <div class="rounded-[30px] border border-[#ece9e2] bg-white p-6 shadow-[0_10px_24px_rgba(0,0,0,0.03)] md:p-7">
                     <div>
                         <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#8fa198]">Pending Annonces</p>
-                        <h2 class="mt-2 text-3xl font-extrabold">Accept Or Refuse Requests</h2>
+                        <h2 class="mt-2 text-3xl font-extrabold">Accepted Or Refused Requests</h2>
                         <p class="mt-3 max-w-[760px] text-sm leading-7 text-[#727875]">
-                            Write the reason for your decision, then choose Accept or Refuse.
+                            Write the reason for your decision, then choose Accepted or Refused.
                         </p>
                     </div>
 
@@ -212,7 +227,7 @@
                                                 name="raport"
                                                 required
                                                 placeholder="Write why you accept or refuse this annonce..."
-                                                class="mt-2 h-28 w-full resize-none rounded-2xl border border-[#d8d8d8] bg-white px-4 py-3 text-sm outline-none transition focus:border-[#00563f]">{{ old('raport') }}</textarea>
+                                                class="mt-2 h-28 w-full resize-none rounded-2xl border border-[#d8d8d8] bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2563eb]">{{ old('raport') }}</textarea>
                                             @error('raport')
                                                 <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                                             @enderror
@@ -220,8 +235,8 @@
 
                                         <div class="flex flex-col gap-3 sm:flex-row sm:justify-end">
                                             <button type="submit" name="status" value="approved"
-                                                class="inline-flex items-center justify-center rounded-full bg-[#00563f] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#004734]">
-                                                Accept Annonce
+                                                class="inline-flex items-center justify-center rounded-full bg-[#2563eb] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1d4ed8]">
+                                                Accepted Annonce
                                             </button>
                                             <button type="submit" name="status" value="rejected"
                                                 class="inline-flex items-center justify-center rounded-full border border-[#c75e43] px-5 py-3 text-sm font-semibold text-[#c75e43] transition hover:bg-[#c75e43] hover:text-white">
@@ -263,7 +278,7 @@
                                     <tr class="border-b border-[#f0eee8] text-sm text-[#4b4f4d] last:border-b-0">
                                         <td class="py-4 pr-4 font-semibold text-[#181818]">{{ \Illuminate\Support\Str::limit($annonce->title, 34) }}</td>
                                         <td class="py-4 pr-4">
-                                            <span class="inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase {{ $annonce->status === 'approved' ? 'bg-[#e7f6ef] text-[#11624c]' : 'bg-[#fff1ee] text-[#c75e43]' }}">
+                                            <span class="inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase {{ $annonce->status === 'approved' ? 'bg-[#dbeafe] text-[#1d4ed8]' : 'bg-[#fff1ee] text-[#c75e43]' }}">
                                                 {{ $annonce->status === 'approved' ? 'accepted' : 'refused' }}
                                             </span>
                                         </td>
@@ -294,7 +309,7 @@
                             </p>
                         </div>
 
-                        <a href="{{ route('admin.events.create') }}" class="inline-flex items-center justify-center rounded-full bg-[#00563f] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#004734]">
+                        <a href="{{ route('admin.events.create') }}" class="inline-flex items-center justify-center rounded-full bg-[#2563eb] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1d4ed8]">
                             Create Event
                         </a>
                     </div>
@@ -307,7 +322,7 @@
                                         <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#8fa198]">{{ $event->city }}</p>
                                         <h3 class="mt-2 text-xl font-extrabold">{{ $event->title }}</h3>
                                     </div>
-                                    <span class="inline-flex rounded-full bg-[#e7f6ef] px-4 py-2 text-sm font-bold text-[#11624c]">
+                                    <span class="inline-flex rounded-full bg-[#dbeafe] px-4 py-2 text-sm font-bold text-[#1d4ed8]">
                                         {{ $event->participants_count }} participants
                                     </span>
                                 </div>
@@ -317,7 +332,7 @@
                                 </p>
 
                                 <div class="mt-5 flex items-center gap-3 text-sm font-semibold text-[#4b4f4d]">
-                                    <i class="fa-regular fa-calendar text-[#00563f]"></i>
+                                    <i class="fa-regular fa-calendar text-[#2563eb]"></i>
                                     {{ $event->date_event?->format('d M Y') }}
                                 </div>
 
