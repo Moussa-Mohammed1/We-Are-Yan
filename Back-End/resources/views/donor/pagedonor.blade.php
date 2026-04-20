@@ -96,6 +96,12 @@
                     <p class="mt-3 max-w-[760px] text-[13px] leading-7 text-[#6a6f6b]">
                         Explore active requests, review details, and support families and communities in need.
                     </p>
+                    <div class="mt-4">
+                        <span class="inline-flex items-center gap-2 rounded-full border border-[#dce9e3] bg-[#e7f6ef] px-4 py-2 text-sm font-bold text-[#11624c]">
+                            <i class="fa-solid fa-hand-holding-heart text-xs"></i>
+                            Donor
+                        </span>
+                    </div>
                 </div>
             </header>
 
@@ -109,6 +115,34 @@
                     </a>
                 </div>
             </div>
+
+            <section class="grid grid-cols-1 gap-5 md:grid-cols-2 mb-8">
+                <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.18em] text-gray-400 font-semibold">My Donations</p>
+                            <p class="mt-4 text-4xl font-extrabold text-gray-900">{{ $donorStats['total_donations'] }}</p>
+                            <p class="mt-3 text-sm leading-6 text-gray-500">Total money and item donations you made.</p>
+                        </div>
+                        <span class="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
+                            <i class="fa-solid fa-hand-holding-heart text-2xl"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.18em] text-gray-400 font-semibold">Money Donated</p>
+                            <p class="mt-4 text-4xl font-extrabold text-gray-900">{{ number_format((float) $donorStats['total_money_donated'], 2) }} <span class="text-2xl">MAD</span></p>
+                            <p class="mt-3 text-sm leading-6 text-gray-500">Total confirmed Stripe money donations.</p>
+                        </div>
+                        <span class="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-[#eef4f1] text-[#00563f]">
+                            <i class="fa-solid fa-money-bill-wave text-2xl"></i>
+                        </span>
+                    </div>
+                </div>
+            </section>
 
             <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
                 <div class="flex items-center justify-between gap-6 flex-wrap">

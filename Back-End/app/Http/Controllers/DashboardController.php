@@ -26,6 +26,15 @@ class DashboardController extends Controller
                 ->withExists(['participants as joined_by_user' => fn ($query) => $query->where('users.id', $user->id)])
                 ->orderBy('date_event')
                 ->get(),
+            'donorStats' => [
+                'total_donations' => Donation::where('donor_id', $user->id)
+                    ->whereIn('type', ['money', 'items'])
+                    ->count(),
+                'total_money_donated' => Donation::where('donor_id', $user->id)
+                    ->where('type', 'money')
+                    ->where('status', 'paid')
+                    ->sum('amount_or_qty'),
+            ],
         ]);
     }
 
@@ -40,6 +49,7 @@ class DashboardController extends Controller
                 'total_users' => User::count(),
                 'donors' => User::where('role', 'donateur')->count(),
                 'beneficiaries' => User::where('role', 'beneficiaire')->count(),
+                'admins' => User::where('role', 'admin')->count(),
                 'total_annonces' => $annonces->count(),
                 'pending_annonces' => $pendingAnnonces->count(),
                 'approved_annonces' => $annonces->where('status', 'approved')->count(),
