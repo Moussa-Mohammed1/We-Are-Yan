@@ -44,7 +44,7 @@ class DonationController extends Controller
         $validated = $request->validate([
             'donor_name' => ['required', 'string', 'max:255'],
             'donor_email' => ['required', 'email', 'max:255'],
-            'payment_mode' => ['nullable', 'in:cash,stripe,rib'],
+            'payment_mode' => ['nullable', 'in:stripe'],
             'donation_kind' => ['required', 'in:money,items'],
             'donation_amount' => ['nullable', 'numeric', 'min:1'],
             'donation_items' => ['nullable', 'string', 'max:1000'],
@@ -79,13 +79,13 @@ class DonationController extends Controller
                 ? $validated['donation_amount']
                 : $validated['donation_items'],
             'method' => $validated['donation_kind'] === 'money'
-                ? $validated['payment_mode']
+                ? 'stripe'
                 : null,
             'message' => $validated['message'] ?? null,
             'status' => 'pending',
         ]);
 
-        if (($validated['payment_mode'] ?? null) === 'stripe') {
+        if ($validated['donation_kind'] === 'money') {
             return $this->redirectToStripeCheckout($request, $annonce, $donation, (float) $validated['donation_amount']);
         }
 

@@ -96,20 +96,11 @@
 
                 <div id="paymentMethodSection">
                     <label class="block font-bold mb-3">Payment mode</label>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="grid grid-cols-1 gap-3">
                         <label class="flex items-center gap-3 rounded-xl border border-[#d8d8d8] bg-[#fbfbfb] px-4 py-3 cursor-pointer">
-                            <input type="radio" name="payment_mode" value="cash" {{ old('payment_mode', 'cash') === 'cash' ? 'checked' : '' }}>
-                            <span class="font-semibold">Cash</span>
-                        </label>
-
-                        <label class="flex items-center gap-3 rounded-xl border border-[#d8d8d8] bg-[#fbfbfb] px-4 py-3 cursor-pointer">
-                            <input type="radio" name="payment_mode" value="stripe" {{ old('payment_mode', 'cash') === 'stripe' ? 'checked' : '' }}>
+                            <input type="radio" name="payment_mode" value="stripe" {{ old('payment_mode', 'stripe') === 'stripe' ? 'checked' : '' }}>
+                            <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#635bff] text-lg font-extrabold text-white">S</span>
                             <span class="font-semibold">Stripe</span>
-                        </label>
-
-                        <label class="flex items-center gap-3 rounded-xl border border-[#d8d8d8] bg-[#fbfbfb] px-4 py-3 cursor-pointer">
-                            <input type="radio" name="payment_mode" value="rib" {{ old('payment_mode', 'cash') === 'rib' ? 'checked' : '' }}>
-                            <span class="font-semibold">RIB</span>
                         </label>
                     </div>
                     @error('payment_mode')
@@ -167,18 +158,16 @@
                 </div>
 
                 <div class="border-t border-[#eee] pt-5 space-y-3 text-sm text-[#666]">
-                    <p><span class="font-bold text-[#111]">Cash:</span> contact the beneficiary and give the donation directly.</p>
-                    <p><span class="font-bold text-[#111]">Stripe:</span> {{ $beneficiary?->stripe_account_email ?? 'Stripe email not added yet.' }}</p>
+                    <div class="flex items-start gap-3">
+                        <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#635bff] text-lg font-extrabold text-white">S</span>
+                        <p><span class="font-bold text-[#111]">Stripe:</span> {{ $beneficiary?->stripe_account_email ?? 'Stripe email not added yet.' }}</p>
+                    </div>
 
                     @if ($beneficiary?->stripe_payment_link)
                         <a href="{{ $beneficiary->stripe_payment_link }}" target="_blank" rel="noopener noreferrer" class="inline-flex text-[#00563f] font-bold underline">
                             Open Stripe Payment Link
                         </a>
                     @endif
-
-                    <p><span class="font-bold text-[#111]">RIB:</span> {{ $beneficiary?->rib_number ?? 'RIB not added yet.' }}</p>
-                    <p><span class="font-bold text-[#111]">Bank:</span> {{ $beneficiary?->rib_bank_name ?? 'Not added yet.' }}</p>
-                    <p><span class="font-bold text-[#111]">Account holder:</span> {{ $beneficiary?->rib_account_holder ?? 'Not added yet.' }}</p>
                 </div>
             </aside>
         </section>

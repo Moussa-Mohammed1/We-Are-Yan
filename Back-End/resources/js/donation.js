@@ -3,18 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const paymentModeCards = document.querySelectorAll('.payment-mode-card');
     const donationKindInputs = document.querySelectorAll('.donation-kind-input');
     const donationKindCards = document.querySelectorAll('.donation-kind-card');
-    const cashPaymentInfo = document.getElementById('cashPaymentInfo');
     const stripePaymentInfo = document.getElementById('stripePaymentInfo');
-    const ribPaymentInfo = document.getElementById('ribPaymentInfo');
     const moneyDonationSection = document.getElementById('moneyDonationSection');
     const itemsDonationSection = document.getElementById('itemsDonationSection');
 
     if (
         !paymentModeInputs.length ||
         !donationKindInputs.length ||
-        !cashPaymentInfo ||
         !stripePaymentInfo ||
-        !ribPaymentInfo ||
         !moneyDonationSection ||
         !itemsDonationSection
     ) {
@@ -25,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const inactiveCardClasses = ['border-[#d8d8d8]', 'bg-[#fbfbfb]'];
 
     const updatePaymentMode = () => {
-        const selected = document.querySelector('.payment-mode-input:checked')?.value || 'cash';
+        const selected = document.querySelector('.payment-mode-input:checked')?.value || 'stripe';
 
         paymentModeCards.forEach((card) => {
             const input = card.querySelector('.payment-mode-input');
@@ -35,9 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.classList.add(...(isActive ? activeCardClasses : inactiveCardClasses));
         });
 
-        cashPaymentInfo.classList.toggle('hidden', selected !== 'cash');
         stripePaymentInfo.classList.toggle('hidden', selected !== 'stripe');
-        ribPaymentInfo.classList.toggle('hidden', selected !== 'rib');
     };
 
     const updateDonationKind = () => {
