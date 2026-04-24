@@ -47,7 +47,7 @@
         </div>
       @endif
 
-      <div class="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-10 items-start">
+      <div class="max-w-[920px] mx-auto">
         <div>
           <h1 class="text-[56px] leading-[1.05] font-sec font-bold tracking-[-0.02em] text-[#007b67]">
             {{ $isEdit ? 'Edit Your Need' : 'Post Your Need' }}
@@ -275,71 +275,6 @@
             </div>
           </form>
         </div>
-
-        <aside class="xl:pt-[92px]">
-          <h2 class="text-[43px] leading-none font-sec font-bold mb-8 text-[#007b67]">Live Preview</h2>
-
-          <div class="bg-white border border-[#dfdfdf] rounded-[24px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.04)] max-w-[420px]">
-            <div
-              id="previewImageContainer"
-              class="bg-[#e6e6e6] h-[250px] relative flex items-center justify-center overflow-hidden">
-              <div class="absolute top-5 right-5 z-10">
-                <span
-                  id="previewUrgencyBadge"
-                  class="bg-red-500 text-white text-[14px] font-semibold px-5 py-2 rounded-full">
-                  Urgent
-                </span>
-              </div>
-
-              <img
-                id="previewImage"
-                src="{{ $isEdit && $annonce->image ? asset('storage/' . $annonce->image) : '' }}"
-                alt="Preview"
-                class="{{ $isEdit && $annonce->image ? '' : 'hidden ' }}w-full h-full object-cover">
-
-              <div id="previewPlaceholder" class="{{ $isEdit && $annonce->image ? 'hidden' : 'flex' }} items-center justify-center">
-                <i class="fa-regular fa-image text-[80px] text-[#1f1f1f]"></i>
-              </div>
-            </div>
-
-            <div class="p-6">
-              <div class="flex items-center gap-3 mb-5">
-                <span
-                  id="previewCategoryBadge"
-                  class="bg-[#69b6a4] text-white text-[13px] font-semibold px-4 py-1.5 rounded-[6px] uppercase tracking-wide">
-                  {{ old('category', $isEdit ? $annonce->category : 'Clothing') }}
-                </span>
-                <span class="text-[14px] text-[#777777]">- Just Now</span>
-              </div>
-
-              <h3 id="previewTitle" class="text-[22px] leading-[1.2] font-bold mb-4">
-                {{ old('title', $isEdit ? $annonce->title : 'Request Title Preview ...') }}
-              </h3>
-
-              <p id="previewDescription" class="text-[15px] text-[#787878] leading-6">
-                {{ old('description', $isEdit ? $annonce->description : 'Your detailed description will appear here. Provide as much context as possible to help donors understand your situation.') }}
-              </p>
-
-              <div class="flex items-center gap-2 mt-8 text-[#8a8a8a] text-[15px] font-medium">
-                <i class="fa-solid fa-location-dot"></i>
-                <span id="previewCity">{{ old('city', $isEdit ? $annonce->city : ($user->city ?: 'Casablanca')) }}</span>
-              </div>
-
-              <div class="mt-6 text-[14px] text-[#777]">
-                <p><span class="font-semibold text-[#111]">Status:</span> Pending</p>
-              </div>
-
-              <div class="mt-10 flex items-center gap-4">
-                <div class="w-14 h-14 rounded-full bg-[#f79a7a] text-white flex items-center justify-center">
-                  <i class="fa-solid fa-user text-[20px]"></i>
-                </div>
-                <div>
-                  <p class="text-[18px] font-bold leading-none">{{ $user->name }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
       </div>
     </main>
 

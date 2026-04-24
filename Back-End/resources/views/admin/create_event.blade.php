@@ -79,7 +79,7 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="inline-flex items-center justify-center rounded-full bg-[#00563f] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#004734]">
+                <button type="submit" class="inline-flex items-center justify-center rounded-full bg-[#2563eb] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#004734]">
                     Create Event
                 </button>
             </form>

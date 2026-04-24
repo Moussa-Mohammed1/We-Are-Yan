@@ -82,9 +82,9 @@
               {{ $featuredAnnonce?->title ?? 'Support the next request' }}
             </h2>
 
-            <p class="mt-6 text-[15px] text-[#666] leading-7 max-w-[620px]">
+            <!-- <p class="mt-6 text-[15px] text-[#666] leading-7 max-w-[620px]">
               {{ $featuredAnnonce ? \Illuminate\Support\Str::limit($featuredAnnonce->description, 220) : 'Join We Are Yan today so you are ready to support verified requests as soon as they are published.' }}
-            </p>
+            </p> -->
 
             <a href="{{ route('register') }}" class="inline-flex mt-8 bg-[#00563f] hover:bg-[#004734] text-white rounded-full px-10 py-4 text-[18px] font-semibold justify-center">
               Support Now

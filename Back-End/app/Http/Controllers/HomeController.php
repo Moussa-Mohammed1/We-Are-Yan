@@ -12,9 +12,8 @@ class HomeController extends Controller
         $featuredAnnonce = Annonce::with('beneficiary')
             ->where('status', 'approved')
             ->latest()
-            ->first()
-            ?? Annonce::with('beneficiary')->latest()->first();
-
+            ->first();
+            
         return view('welcome', [
             'featuredAnnonce' => $featuredAnnonce,
         ]);

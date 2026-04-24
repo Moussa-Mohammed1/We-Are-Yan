@@ -192,31 +192,6 @@
                     </p>
                 </div>
 
-                <div class="relative z-10 space-y-4">
-                    <div class="bg-white/10 backdrop-blur-sm rounded-[24px] p-5 border border-white/10 flex items-center justify-between">
-                        <div>
-                            <p class="text-white/70 text-sm">Community support</p>
-                            <h3 class="mt-1 text-2xl font-extrabold">Food & Clothing</h3>
-                        </div>
-                        <span class="px-4 py-2 rounded-full bg-white text-[#00563f] font-bold text-sm">Live</span>
-                    </div>
-
-                    <div class="bg-white/10 backdrop-blur-sm rounded-[24px] p-5 border border-white/10 flex items-center justify-between">
-                        <div>
-                            <p class="text-white/70 text-sm">Education access</p>
-                            <h3 class="mt-1 text-2xl font-extrabold">School Kits</h3>
-                        </div>
-                        <span class="px-4 py-2 rounded-full bg-white text-[#00563f] font-bold text-sm">Active</span>
-                    </div>
-
-                    <div class="bg-white/10 backdrop-blur-sm rounded-[24px] p-5 border border-white/10 flex items-center justify-between">
-                        <div>
-                            <p class="text-white/70 text-sm">Medical support</p>
-                            <h3 class="mt-1 text-2xl font-extrabold">Urgent Cases</h3>
-                        </div>
-                        <span class="px-4 py-2 rounded-full bg-white text-[#00563f] font-bold text-sm">Priority</span>
-                    </div>
-                </div>
             </div>
         </div>
     </section>

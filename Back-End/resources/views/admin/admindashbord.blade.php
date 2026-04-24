@@ -86,21 +86,6 @@
                     <p class="mt-3 max-w-[760px] text-sm leading-7 text-[#6a6f6b]">
                         Review platform activity, accept valid annonces, and keep a report for each accepted or refused request.
                     </p>
-
-                    <div class="mt-5 flex flex-wrap gap-3">
-                        <span class="inline-flex items-center gap-2 rounded-full border border-[#bfdbfe] bg-[#eff6ff] px-4 py-2 text-sm font-bold text-[#1d4ed8]">
-                            <i class="fa-solid fa-hand-holding-heart text-xs"></i>
-                            Donors: {{ $stats['donors'] }}
-                        </span>
-                        <span class="inline-flex items-center gap-2 rounded-full border border-[#ddd6fe] bg-[#f5f3ff] px-4 py-2 text-sm font-bold text-[#6d28d9]">
-                            <i class="fa-solid fa-people-roof text-xs"></i>
-                            Beneficiaries: {{ $stats['beneficiaries'] }}
-                        </span>
-                        <span class="inline-flex items-center gap-2 rounded-full border border-[#cbd5e1] bg-white px-4 py-2 text-sm font-bold text-[#334155]">
-                            <i class="fa-solid fa-user-shield text-xs"></i>
-                            Admins: {{ $stats['admins'] }}
-                        </span>
-                    </div>
                 </div>
 
                 @if (session('status') === 'annonce-reviewed')
@@ -155,18 +140,6 @@
                     </div>
                 </div>
 
-                <div class="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3">
-                    @foreach ([
-                        ['label' => 'Pending', 'value' => $stats['pending_annonces'], 'tone' => 'bg-[#fff4df] text-[#8a5a00]'],
-                        ['label' => 'Accepted', 'value' => $stats['approved_annonces'], 'tone' => 'bg-[#dbeafe] text-[#1d4ed8]'],
-                        ['label' => 'Refused', 'value' => $stats['rejected_annonces'], 'tone' => 'bg-[#fff1ee] text-[#c75e43]'],
-                    ] as $statusCard)
-                        <div class="flex items-center justify-between rounded-[18px] bg-white px-4 py-3 {{ $statusCard['tone'] }}">
-                            <p class="text-sm font-extrabold">{{ $statusCard['label'] }}</p>
-                            <p class="text-2xl font-extrabold leading-none">{{ $statusCard['value'] }}</p>
-                        </div>
-                    @endforeach
-                </div>
             </section>
 
             <section id="pending-annonces" class="mt-8">
