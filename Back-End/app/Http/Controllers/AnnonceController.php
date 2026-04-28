@@ -7,6 +7,7 @@ use App\Models\Annonce;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class AnnonceController extends Controller
@@ -52,20 +53,25 @@ class AnnonceController extends Controller
             ->with('status', 'annonce-created');
     }
 
-    public function update(Request $request, $id){
-        $annonce = Annonce::findOrFail($id);
+    public function update(StoreAnnonceRequest $request, Annonce $annonce): RedirectResponse
+    {
+        abort_unless($annonce->beneficiary_id === $request->user()->id, 403);
 
-        $annonce->title = $request->title;
-        $annonce->category = $request->category;
-        $annonce->quantity = $request->quantity;
-        $annonce->city = $request->city;
-        $annonce->urgency = $request->urgency;
+        $validated = $request->validated();
 
+        if ($request->hasFile('image')) {
+            if ($annonce->image) {
+                Storage::disk('public')->delete($annonce->image);
+            }
 
-        $annonce->save();
+            $validated['image'] = $request->file('image')->store('annonces', 'public');
+        }
 
-        return redirect()->route('beneficiary.dashboard')->with('success','Annonce Update');
+        $annonce->update($validated);
 
+        return redirect()
+            ->route('beneficiary.dashboard')
+            ->with('status', 'annonce-updated');
     }
 
     public function destroy(Request $request, Annonce $annonce): RedirectResponse
